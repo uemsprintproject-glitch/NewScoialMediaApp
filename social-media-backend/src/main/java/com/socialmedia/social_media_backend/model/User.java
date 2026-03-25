@@ -24,10 +24,11 @@ public class User {
     private String email;
     private String password;
 
+    @Column(nullable = true)
     private String profilePicture;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Post> posts;
 

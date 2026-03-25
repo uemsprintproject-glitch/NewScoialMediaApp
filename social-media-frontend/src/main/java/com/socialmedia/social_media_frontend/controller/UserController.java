@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/member/users")
 public class UserController {
@@ -32,8 +30,8 @@ public class UserController {
 
     @GetMapping("/by-id")
     public String getUserById(@RequestParam int id, Model model) {
-        model.addAttribute("data", List.of(service.getUserById(id)));
-        return "users/result";
+        model.addAttribute("user", service.getUserById(id));
+        return "users/user-by-id";
     }
 
     @PostMapping("/create")
@@ -59,4 +57,5 @@ public class UserController {
         model.addAttribute("posts", service.getPostsByUser(id));
         return "users/posts";
     }
+    
 }
