@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Likes API</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            margin: 5px;
+            padding: 8px;
+            width: 80%;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Likes Module</h1>
+
+    <a th:href="@{/}">Back to Home</a>
+
+    <div class="box">
+        <h2>GET</h2>
+
+        <a th:href="@{/member/likes/all}">
+            <button>Get All Likes</button>
+        </a>
+
+        <form th:action="@{/member/likes/by-id}" method="get">
+            <input name="id" placeholder="Enter Like ID">
+            <button type="submit">Get Like By ID</button>
+        </form>
+
+        <form th:action="@{/member/likes/by-user}" method="get">
+            <input name="userID" placeholder="Enter User ID">
+            <button type="submit">Get Likes By User</button>
+        </form>
+
+        <form th:action="@{/member/likes/by-post}" method="get">
+            <input name="postID" placeholder="Enter Post ID">
+            <button type="submit">Get Likes By Post</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>CREATE LIKE</h2>
+
+        <form th:action="@{/member/likes/create}" method="post">
+            <input name="likeID" placeholder="Like ID"><br>
+            <input name="userID" placeholder="User ID"><br>
+            <input name="postID" placeholder="Post ID"><br>
+
+            <button type="submit">Create Like</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>UPDATE LIKE</h2>
+
+        <form th:action="@{/member/likes/update}" method="post">
+            <input name="likeID" placeholder="Like ID"><br>
+            <input name="userID" placeholder="User ID"><br>
+            <input name="postID" placeholder="Post ID"><br>
+
+            <button type="submit">Update Like</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>DELETE LIKE</h2>
+
+        <form th:action="@{/member/likes/delete}" method="post">
+            <input name="id" placeholder="Like ID">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

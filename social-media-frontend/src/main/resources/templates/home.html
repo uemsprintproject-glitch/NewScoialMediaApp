@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Social Media Platform</title>
@@ -28,13 +29,34 @@
             padding: 20px;
             margin: 15px;
             width: 180px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: 0.3s;
         }
 
         .card:hover {
             transform: scale(1.05);
             cursor: pointer;
+        }
+
+        .module-links {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .module-links a {
+            display: block;
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 6px;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+        }
+
+        .module-links a:hover {
+            background: #e4e4e4;
         }
 
         img {
@@ -52,56 +74,63 @@
 
 <body>
 
-<h1>🚀 Social Media Platform</h1>
-<h3>Select a Team Member</h3>
+    <h1>🚀 Social Media Platform</h1>
+    <h3>Select a Team Member</h3>
 
-<div class="container">
+    <div class="container">
 
-    <a href="/member/users">
+        <a href="/member/users">
+            <div class="card">
+                <img src="https://via.placeholder.com/100">
+                <h3>Anishka Das</h3>
+                <p>Users Module</p>
+            </div>
+        </a>
+
+        <a href="/member/posts">
+            <div class="card">
+                <img src="https://via.placeholder.com/100">
+                <h3>Poulami Sinha</h3>
+                <p>Posts Module</p>
+            </div>
+        </a>
+
         <div class="card">
             <img src="https://via.placeholder.com/100">
-            <h3>Anishka Das</h3>
-            <p>Users Module</p>
+            <h3>Soumyajit Sen Gupta</h3>
+            <p>Modules</p>
+            <div class="module-links">
+                <a href="/member/likes">Likes Module</a>
+                <a href="/member/notifications">Notifications Module</a>
+            </div>
         </div>
-    </a>
 
-    <a href="/posts">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Poulami Sinha</h3>
-            <p>Posts Module</p>
-        </div>
-    </a>
+        <a href="/posts">
+            <div class="card">
+                <img src="https://via.placeholder.com/100">
+                <h3>Sagnik Dutta</h3>
+                <p>Posts Module</p>
+            </div>
+        </a>
 
-    <div class="card">
-        <img src="https://via.placeholder.com/100">
-        <h3>Soumyajit Sen Gupta</h3>
-        <p>Comments</p>
+        <a href="/messages">
+            <div class="card">
+                <img src="https://via.placeholder.com/100">
+                <h3>Ashmit Dutta</h3>
+                <p>Messages</p>
+            </div>
+        </a>
+
+        <a href="/member/notifications">
+            <div class="card">
+                <img src="https://via.placeholder.com/100">
+                <h3>Anshi Prajapati</h3>
+                <p>Notifications Module</p>
+            </div>
+        </a>
+
     </div>
-
-    <a href="/posts">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Sagnik Dutta</h3>
-            <p>Posts Module</p>
-        </div>
-    </a>
-
-    <a href="/messages">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Ashmit Dutta</h3>
-            <p>Messages</p>
-        </div>
-    </a>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/100">
-        <h3>Anshi Prajapati</h3>
-        <p>Messages</p>
-    </div>
-
-</div>
 
 </body>
+
 </html>

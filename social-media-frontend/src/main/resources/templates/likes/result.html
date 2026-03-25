@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Like Results</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Like Data</h2>
+
+    <a href="/member/likes">Back</a>
+
+    <table>
+        <tr>
+            <th>Like ID</th>
+            <th>User ID</th>
+            <th>Post ID</th>
+            <th>Timestamp</th>
+        </tr>
+
+        <tr th:each="like : ${data}">
+            <td th:text="${like.likeID}"></td>
+            <td th:text="${like.user != null ? like.user.userID : '-'}"></td>
+            <td th:text="${like.post != null ? like.post.postID : '-'}"></td>
+            <td th:text="${like.timestamp}"></td>
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Notification Results</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Notification Data</h2>
+
+    <a href="/member/notifications">Back</a>
+
+    <table>
+        <tr>
+            <th>Notification ID</th>
+            <th>User ID</th>
+            <th>Content</th>
+            <th>Timestamp</th>
+        </tr>
+
+        <tr th:each="notification : ${data}">
+            <td th:text="${notification.notificationID}"></td>
+            <td th:text="${notification.user != null ? notification.user.userID : '-'}"></td>
+            <td th:text="${notification.content}"></td>
+            <td th:text="${notification.timestamp}"></td>
+        </tr>
+
+    </table>
+
+</body>
+
+</html>
