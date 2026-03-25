@@ -1,7 +1,9 @@
 package com.socialmedia.social_media_backend.service;
 
+import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +17,18 @@ public class UserService {
         this.repo = repo;
     }
 
-    // ✅ GET ALL
     public List<User> getAllUsers() {
         return repo.findAll();
     }
 
-    // ✅ GET BY ID
     public User getUserById(int id) {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    // ✅ CREATE
     public User createUser(User user) {
         return repo.save(user);
     }
 
-    // ✅ UPDATE
     public User updateUser(User updatedUser) {
         User existingUser = repo.findById(updatedUser.getUserID())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -40,11 +38,15 @@ public class UserService {
         existingUser.setPassword(updatedUser.getPassword());
         existingUser.setProfilePicture(updatedUser.getProfilePicture());
 
-        return repo.save(existingUser); // ✅ FIXED
+        return repo.save(existingUser);
     }
 
-    // ✅ DELETE
     public void deleteUser(int id) {
         repo.deleteById(id);
+    }
+
+    public List<Post> getPostsByUser(int userId) {
+        User user = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getPosts();
     }
 }
