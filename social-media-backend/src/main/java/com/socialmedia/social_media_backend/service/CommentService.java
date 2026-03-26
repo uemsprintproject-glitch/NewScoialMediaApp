@@ -1,0 +1,63 @@
+package com.socialmedia.social_media_backend.service;
+
+import com.socialmedia.social_media_backend.model.Comment;
+import com.socialmedia.social_media_backend.model.Post;
+import com.socialmedia.social_media_backend.model.User;
+import com.socialmedia.social_media_backend.repository.CommentRepository;
+import com.socialmedia.social_media_backend.repository.PostRepository;
+import com.socialmedia.social_media_backend.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CommentService {
+
+    private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+
+    public Comment createComment(Integer userId, Integer postId, String content) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        Comment comment = Comment.builder()
+                .comment_text(content)   // ✅ matches your entity
+                .timestamp(new Timestamp(System.currentTimeMillis()))
+                .user(user)
+                .post(post)
+                .build();
+
+        return commentRepository.save(comment);
+    }
+
+    public List<Comment> getAllComments() {
+        return commentRepository.findAll();
+    }
+
+    public Comment getCommentById(Integer id) {
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+    }
+
+    public List<Comment> getCommentsByPost(Integer postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        return commentRepository.findByPost(post);
+    }
+
+    public void deleteComment(Integer commentId) {
+        if (!commentRepository.existsById(commentId)) {
+            throw new RuntimeException("Comment not found");
+        }
+        commentRepository.deleteById(commentId);
+    }
+}
