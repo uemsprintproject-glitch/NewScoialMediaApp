@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Comments Results</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0c10;
+            --surface: #111318;
+            --surface-alt: #0e1016;
+            --border: rgba(255,255,255,0.07);
+            --accent: #4f8ef7;
+            --accent-soft: rgba(79, 142, 247, 0.12);
+            --text-primary: #f0f2f8;
+            --text-secondary: #7a8099;
+            --text-muted: #454b62;
+            --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        h2 {
+            font-family: 'Syne';
+            font-size: 28px;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .table-wrap {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .table-card {
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--surface-alt);
+            padding: 14px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        td {
+            padding: 14px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(79,142,247,0.05);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="/member/comments" class="back-link">← Back</a>
+    <h2>Comments Data</h2>
+</header>
+
+<div class="table-wrap">
+    <div class="table-card">
+        <table>
+
+            <thead>
+            <tr>
+                <th>Comment ID</th>
+                <th>User ID</th>
+                <th>Post ID</th>
+                <th>Content</th>
+                <th>Timestamp</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="comment : ${data}">
+                <td th:text="${comment.commentID}"></td>
+                <td th:text="${comment.user != null ? comment.user.userID : '-'}"></td>
+                <td th:text="${comment.post != null ? comment.post.postID : '-'}"></td>
+                <td th:text="${comment.comment_text}"></td>
+                <td th:text="${comment.timestamp}"></td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(data)}">
+                <td colspan="5" class="empty">No comments found</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

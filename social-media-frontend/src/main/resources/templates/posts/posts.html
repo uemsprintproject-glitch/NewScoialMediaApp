@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Posts API</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+    <style>
+        /* COPY SAME CSS FROM comments.html (NO CHANGE) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0a0c10;
+            --surface: #111318;
+            --surface-input: #0e1016;
+            --border: rgba(255,255,255,0.07);
+            --border-input: rgba(255,255,255,0.1);
+            --accent: #4f8ef7;
+            --success: #4fca8e;
+            --danger: #f7584f;
+            --warning: #f7a84f;
+            --text-primary: #f0f2f8;
+            --text-secondary: #7a8099;
+            --gradient-hero: linear-gradient(135deg,#4f8ef7,#a78bfa);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .badge {
+            background: rgba(79,142,247,0.12);
+            padding: 5px 12px;
+            border-radius: 50px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .box {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        form { display: flex; flex-direction: column; gap: 10px; }
+
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-input);
+            background: var(--surface-input);
+            color: white;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-get { background: rgba(79,202,142,0.1); color: var(--success); }
+        .btn-post { background: rgba(79,142,247,0.1); color: var(--accent); }
+        .btn-delete { background: rgba(247,88,79,0.1); color: var(--danger); }
+        .btn-put { background: rgba(247,168,79,0.1); color: var(--warning); }
+
+        @media(max-width:600px){
+            .container{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a th:href="@{/}" style="color:gray;">← Back</a>
+    <div class="badge">Posts Module</div>
+    <h1>Posts API</h1>
+</header>
+
+<div class="container">
+
+    <!-- GET -->
+    <div class="box">
+        <h2>Fetch Posts</h2>
+
+        <a th:href="@{/member/posts/all}">
+            <button class="btn-get">Get All Posts</button>
+        </a>
+
+        <form th:action="@{/member/posts/by-id}" method="get">
+            <input name="id" placeholder="Post ID" required>
+            <button class="btn-get">Get Post By ID</button>
+        </form>
+
+        <form th:action="@{/member/posts/by-user}" method="get">
+            <input name="id" placeholder="User ID" required>
+            <button class="btn-get">Posts By User</button>
+        </form>
+    </div>
+
+    <!-- CREATE -->
+    <div class="box">
+        <h2>Create Post</h2>
+
+        <form th:action="@{/member/posts/create}" method="post">
+            <input name="userId" placeholder="User ID" required>
+            <input name="content" placeholder="Post Content" required>
+            <button class="btn-post">Create Post</button>
+        </form>
+    </div>
+
+    <!-- UPDATE -->
+    <div class="box">
+        <h2>Update Post</h2>
+
+        <form th:action="@{/member/posts/update}" method="post">
+            <input name="id" placeholder="Post ID" required>
+            <input name="content" placeholder="Updated Content" required>
+            <button class="btn-put">Update Post</button>
+        </form>
+    </div>
+
+    <!-- DELETE -->
+    <div class="box">
+        <h2>Delete Post</h2>
+
+        <form th:action="@{/member/posts/delete}" method="post">
+            <input name="id" placeholder="Post ID" required>
+            <button class="btn-delete">Delete Post</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
