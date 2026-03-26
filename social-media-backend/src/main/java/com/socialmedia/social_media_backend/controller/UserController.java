@@ -1,5 +1,6 @@
 package com.socialmedia.social_media_backend.controller;
 
+import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.service.UserService;
 
@@ -42,4 +43,9 @@ public class UserController {
     public void deleteUser(@RequestParam int id) {
         service.deleteUser(id);
     }
+
+    @GetMapping("/posts")
+        public List<Post> getPostsByUser(@RequestParam int id) {
+        return service.getPostsByUser(id);
+    }   
 }
