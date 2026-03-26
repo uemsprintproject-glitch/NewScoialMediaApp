@@ -34,7 +34,7 @@ public class Post {
     // @JsonIgnore
     // private List<Comment> comments;
 
-    // @OneToMany(mappedBy = "post")
-    // @JsonIgnore
-    // private List<Like> likes;
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private List<Like> likes;
 }
