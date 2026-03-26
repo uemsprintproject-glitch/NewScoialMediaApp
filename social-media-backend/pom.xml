@@ -81,7 +81,13 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.7.3</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.socialmedia</groupId>
+            <artifactId>social-media-frontend</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

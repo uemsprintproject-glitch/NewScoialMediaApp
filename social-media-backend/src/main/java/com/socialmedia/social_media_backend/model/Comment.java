@@ -1,7 +1,8 @@
 package com.socialmedia.social_media_backend.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.socialmedia.social_media_backend.model.Post;
+import com.socialmedia.social_media_backend.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,17 +15,20 @@ import lombok.*;
 public class Comment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentID;
 
+    @Column(nullable = false)
     private String comment_text;
 
     private java.sql.Timestamp timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "postID")
+    @JoinColumn(name = "postID", nullable = false)
+    @JsonIgnore
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "userID", nullable = false)
     private User user;
 }
