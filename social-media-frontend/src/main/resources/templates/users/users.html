@@ -41,18 +41,18 @@
 
 <h1>👩‍💻 Anishka Das - Users Module</h1>
 
-<!-- ✅ FIXED -->
+
 <a th:href="@{/}">⬅ Back to Home</a>
 
 <div class="box">
     <h2>GET</h2>
 
-    <!-- ✅ FIXED -->
+   
     <a th:href="@{/member/users/all}">
         <button>Get All Users</button>
     </a>
 
-    <!-- ✅ FIXED -->
+   
     <form th:action="@{/member/users/by-id}" method="get">
         <input name="id" placeholder="Enter User ID">
         <button type="submit">Get User By ID</button>
@@ -62,7 +62,6 @@
 <div class="box">
     <h2>CREATE USER</h2>
 
-    <!-- ✅ FIXED -->
     <form th:action="@{/member/users/create}" method="post">
         <input name="username" placeholder="Username"><br>
         <input name="email" placeholder="Email"><br>
@@ -75,7 +74,6 @@
 <div class="box">
     <h2>UPDATE USER</h2>
 
-    <!-- ✅ FIXED -->
     <form th:action="@{/member/users/update}" method="post">
         <input name="userID" placeholder="User ID"><br>
         <input name="username" placeholder="Username"><br>
@@ -89,7 +87,6 @@
 <div class="box">
     <h2>DELETE USER</h2>
 
-    <!-- ✅ FIXED -->
     <form th:action="@{/member/users/delete}" method="post">
         <input name="id" placeholder="User ID">
         <button type="submit">Delete</button>
@@ -99,7 +96,6 @@
 <div class="box">
     <h2>GET USER POSTS</h2>
 
-    <!-- ✅ FIXED -->
     <form th:action="@{/member/users/posts}" method="get">
         <input name="id" placeholder="User ID"><br>
         <button type="submit">Get Posts</button>
