@@ -1,107 +1,502 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Social Media Platform</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
 
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0c10;
+            --surface: #111318;
+            --surface-hover: #181c24;
+            --border: rgba(255, 255, 255, 0.07);
+            --accent: #4f8ef7;
+            --accent-soft: rgba(79, 142, 247, 0.12);
+            --accent-glow: rgba(79, 142, 247, 0.25);
+            --text-primary: #f0f2f8;
+            --text-secondary: #7a8099;
+            --text-muted: #454b62;
+            --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
+        }
+
         body {
-            font-family: Arial;
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Noise overlay for depth ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* ── Background ambient blobs ── */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, rgba(79, 142, 247, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Header ── */
+        header {
+            position: relative;
+            z-index: 1;
+            padding: 64px 24px 0;
             text-align: center;
-            background-color: #f5f5f5;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(79, 142, 247, 0.25);
+            border-radius: 100px;
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
         }
 
         h1 {
-            margin-top: 30px;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
         }
 
-        .container {
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            position: relative;
+            z-index: 1;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 30px;
+            align-items: center;
+            gap: 16px;
+            max-width: 600px;
+            margin: 48px auto 0;
+            padding: 0 24px;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ── Grid ── */
+        .container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 40px auto 80px;
+            padding: 0 32px;
+        }
+
+        /* ── Card ── */
+        a {
+            text-decoration: none;
+            color: inherit;
+            display: contents;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 15px;
-            width: 180px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 28px 36px;
+            text-align: center;
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.28s ease,
+                border-color 0.28s ease,
+                background 0.28s ease;
+            overflow: hidden;
+            animation: fadeUp 0.5s ease both;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 260px;
         }
 
-        .card:hover {
-            transform: scale(1.05);
-            cursor: pointer;
+        /* staggered entrance */
+        .card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.19s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.26s;
+        }
+
+        .card:nth-child(5) {
+            animation-delay: 0.33s;
+        }
+
+        .card:nth-child(6) {
+            animation-delay: 0.40s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* subtle top-edge accent line */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gradient-hero);
+            border-radius: 0 0 4px 4px;
+            transition: width 0.35s ease;
+        }
+
+        /* glow blob behind card on hover */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 65%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        a .card:hover,
+        a:hover .card {
+            transform: translateY(-6px);
+            border-color: rgba(79, 142, 247, 0.3);
+            background: var(--surface-hover);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(79, 142, 247, 0.1);
+        }
+
+        a .card:hover::before,
+        a:hover .card::before {
+            width: 60%;
+        }
+
+        a .card:hover::after,
+        a:hover .card::after {
+            opacity: 1;
+        }
+
+        /* non-linked cards: dimmer, no pointer */
+        .card:not(a .card):not(a + .card) {
+            opacity: 0.55;
+            cursor: default;
+        }
+
+        /* ── Avatar ── */
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--gradient-hero);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        a:hover .avatar-wrap::before {
+            opacity: 1;
         }
 
         img {
-            width: 100px;
-            height: 100px;
+            display: block;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
+            position: relative;
+            z-index: 1;
+            border: 3px solid var(--bg);
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
         }
 
-        a {
+        a:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* ── Card text ── */
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 12px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(79, 142, 247, 0.2);
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        .module-links {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .module-links a {
+            display: block;
+            background: var(--accent-soft);
+            border: 1px solid rgba(79, 142, 247, 0.2);
+            border-radius: 10px;
+            padding: 8px 10px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
             text-decoration: none;
-            color: black;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .module-links a:hover {
+            background: rgba(79, 142, 247, 0.2);
+            border-color: rgba(79, 142, 247, 0.4);
+        }
+
+        /* ── Footer ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding-bottom: 40px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+                padding: 0 16px;
+            }
+
+            header {
+                padding-top: 48px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<h1>🚀 Social Media Platform</h1>
-<h3>Select a Team Member</h3>
+    <header>
+        <div class="badge">Team Overview</div>
+        <h1>Social Media Platform</h1>
+        <p class="subtitle">Select a team member to explore their module</p>
+    </header>
 
-<div class="container">
-
-    <a href="/member/users">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Anishka Das</h3>
-            <p>Users Module</p>
-        </div>
-    </a>
-
-    <a href="/posts">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Poulami Sinha</h3>
-            <p>Posts Module</p>
-        </div>
-    </a>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/100">
-        <h3>Soumyajit Sen Gupta</h3>
-        <p>Comments</p>
+    <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-label">Team</span>
+        <div class="divider-line"></div>
     </div>
 
-    <a href="/posts">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Sagnik Dutta</h3>
-            <p>Posts Module</p>
-        </div>
-    </a>
+    <div class="container">
 
-    <a href="/messages">
-        <div class="card">
-            <img src="https://via.placeholder.com/100">
-            <h3>Ashmit Dutta</h3>
-            <p>Messages</p>
-        </div>
-    </a>
+        <a href="/member/users">
+            <div class="card">
+                <div class="avatar-wrap">
+                    <img src="https://via.placeholder.com/100" alt="Anishka Das">
+                </div>
+                <h3>Anishka Das</h3>
+                <p>Users Module</p>
+                <span class="tag">Users</span>
+            </div>
+        </a>
 
-    <div class="card">
-        <img src="https://via.placeholder.com/100">
-        <h3>Anshi Prajapati</h3>
-        <p>Messages</p>
+        <a href="/posts">
+            <div class="card">
+                <div class="avatar-wrap">
+                    <img src="https://via.placeholder.com/100" alt="Poulami Sinha">
+                </div>
+                <h3>Poulami Sinha</h3>
+                <p>Posts Module</p>
+                <span class="tag">Posts</span>
+            </div>
+        </a>
+
+        <div class="card">
+            <div class="avatar-wrap">
+                <img src="https://via.placeholder.com/100" alt="Soumyajit Sen Gupta">
+            </div>
+            <h3>Soumyajit Sen Gupta</h3>
+            <p>Likes & Notifications</p>
+            <div class="module-links">
+                <a href="/member/likes">Likes Module</a>
+                <a href="/member/notifications">Notifications Module</a>
+            </div>
+        </div>
+
+        <a href="/posts">
+            <div class="card">
+                <div class="avatar-wrap">
+                    <img src="https://via.placeholder.com/100" alt="Sagnik Dutta">
+                </div>
+                <h3>Sagnik Dutta</h3>
+                <p>Posts Module</p>
+                <span class="tag">Posts</span>
+            </div>
+        </a>
+
+        <a href="/messages">
+            <div class="card">
+                <div class="avatar-wrap">
+                    <img src="https://via.placeholder.com/100" alt="Ashmit Dutta">
+                </div>
+                <h3>Ashmit Dutta</h3>
+                <p>Messages Module</p>
+                <span class="tag">Messages</span>
+            </div>
+        </a>
+
+        <div class="card">
+            <div class="avatar-wrap">
+                <img src="https://via.placeholder.com/100" alt="Anshi Prajapati">
+            </div>
+            <h3>Anshi Prajapati</h3>
+            <p>Messages Module</p>
+            <span class="tag">Messages</span>
+        </div>
+
     </div>
-
-</div>
 
 </body>
+
 </html>

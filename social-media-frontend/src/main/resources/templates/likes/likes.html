@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Users API</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <title>Likes API</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -17,19 +22,16 @@
             --surface: #111318;
             --surface-hover: #181c24;
             --surface-input: #0e1016;
-            --border: rgba(255,255,255,0.07);
-            --border-input: rgba(255,255,255,0.1);
+            --border: rgba(255, 255, 255, 0.07);
+            --border-input: rgba(255, 255, 255, 0.1);
             --accent: #4f8ef7;
             --accent-soft: rgba(79, 142, 247, 0.12);
-            --accent-glow: rgba(79, 142, 247, 0.2);
             --danger: #f7584f;
             --danger-soft: rgba(247, 88, 79, 0.12);
             --success: #4fca8e;
             --success-soft: rgba(79, 202, 142, 0.12);
             --warning: #f7a84f;
             --warning-soft: rgba(247, 168, 79, 0.12);
-            --purple: #a78bfa;
-            --purple-soft: rgba(167, 139, 250, 0.12);
             --text-primary: #f0f2f8;
             --text-secondary: #7a8099;
             --text-muted: #454b62;
@@ -62,12 +64,11 @@
             transform: translateX(-50%);
             width: 700px;
             height: 400px;
-            background: radial-gradient(ellipse at center, rgba(79,142,247,0.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(79, 142, 247, 0.08) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* ── Header ── */
         header {
             position: relative;
             z-index: 1;
@@ -88,10 +89,12 @@
             margin-bottom: 28px;
         }
 
-        .back-link:hover { color: var(--accent); }
+        .back-link:hover {
+            color: var(--accent);
+        }
 
         .back-link::before {
-            content: '←';
+            content: '<-';
             font-size: 15px;
         }
 
@@ -100,7 +103,7 @@
             align-items: center;
             gap: 7px;
             background: var(--accent-soft);
-            border: 1px solid rgba(79,142,247,0.25);
+            border: 1px solid rgba(79, 142, 247, 0.25);
             border-radius: 100px;
             padding: 5px 14px;
             font-size: 12px;
@@ -122,8 +125,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.8); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
         }
 
         h1 {
@@ -145,7 +157,6 @@
             font-weight: 300;
         }
 
-        /* ── Divider ── */
         .divider {
             position: relative;
             z-index: 1;
@@ -173,7 +184,6 @@
             white-space: nowrap;
         }
 
-        /* ── Grid ── */
         .container {
             position: relative;
             z-index: 1;
@@ -185,15 +195,6 @@
             padding: 0 32px;
         }
 
-        /* GET USER POSTS spans full width */
-        .box:last-child {
-            grid-column: 1 / -1;
-            max-width: 360px;
-            justify-self: center;
-            width: 100%;
-        }
-
-        /* ── Box / Card ── */
         .box {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -205,23 +206,39 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .box:nth-child(1) { animation-delay: 0.05s; }
-        .box:nth-child(2) { animation-delay: 0.12s; }
-        .box:nth-child(3) { animation-delay: 0.19s; }
-        .box:nth-child(4) { animation-delay: 0.26s; }
-        .box:nth-child(5) { animation-delay: 0.33s; }
+        .box:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .box:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .box:nth-child(3) {
+            animation-delay: 0.19s;
+        }
+
+        .box:nth-child(4) {
+            animation-delay: 0.26s;
+        }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .box:hover {
-            border-color: rgba(79,142,247,0.2);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+            border-color: rgba(79, 142, 247, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
         }
 
-        /* ── Box header row ── */
         .box-header {
             display: flex;
             align-items: center;
@@ -242,25 +259,25 @@
         .method-get {
             background: var(--success-soft);
             color: var(--success);
-            border: 1px solid rgba(79,202,142,0.2);
+            border: 1px solid rgba(79, 202, 142, 0.2);
         }
 
         .method-post {
             background: var(--accent-soft);
             color: var(--accent);
-            border: 1px solid rgba(79,142,247,0.2);
+            border: 1px solid rgba(79, 142, 247, 0.2);
         }
 
         .method-delete {
             background: var(--danger-soft);
             color: var(--danger);
-            border: 1px solid rgba(247,88,79,0.2);
+            border: 1px solid rgba(247, 88, 79, 0.2);
         }
 
         .method-put {
             background: var(--warning-soft);
             color: var(--warning);
-            border: 1px solid rgba(247,168,79,0.2);
+            border: 1px solid rgba(247, 168, 79, 0.2);
         }
 
         .box h2 {
@@ -271,14 +288,12 @@
             letter-spacing: 0.02em;
         }
 
-        /* ── Separator inside box ── */
         .box-sep {
             height: 1px;
             background: var(--border);
             margin: 0 0 20px;
         }
 
-        /* ── Form elements ── */
         form {
             display: flex;
             flex-direction: column;
@@ -298,15 +313,17 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        input::placeholder { color: var(--text-muted); }
+        input::placeholder {
+            color: var(--text-muted);
+        }
 
         input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-soft);
         }
 
-        /* ── Buttons ── */
-        button, .btn {
+        button,
+        .btn {
             font-family: 'DM Sans', sans-serif;
             font-size: 13px;
             font-weight: 500;
@@ -319,34 +336,39 @@
             width: 100%;
         }
 
-        button:hover { opacity: 0.88; transform: translateY(-1px); }
-        button:active { transform: translateY(0); }
+        button:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
 
         .btn-get {
             background: var(--success-soft);
             color: var(--success);
-            border: 1px solid rgba(79,202,142,0.25);
+            border: 1px solid rgba(79, 202, 142, 0.25);
         }
 
         .btn-post {
             background: var(--accent-soft);
             color: var(--accent);
-            border: 1px solid rgba(79,142,247,0.25);
+            border: 1px solid rgba(79, 142, 247, 0.25);
         }
 
         .btn-delete {
             background: var(--danger-soft);
             color: var(--danger);
-            border: 1px solid rgba(247,88,79,0.25);
+            border: 1px solid rgba(247, 88, 79, 0.25);
         }
 
         .btn-put {
             background: var(--warning-soft);
             color: var(--warning);
-            border: 1px solid rgba(247,168,79,0.25);
+            border: 1px solid rgba(247, 168, 79, 0.25);
         }
 
-        /* inline get-all link styled as button */
         .btn-link {
             display: block;
             text-decoration: none;
@@ -357,7 +379,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin: 4px 0;
+            margin: 10px 0;
         }
 
         .or-divider span {
@@ -366,134 +388,115 @@
             white-space: nowrap;
         }
 
-        .or-divider::before, .or-divider::after {
+        .or-divider::before,
+        .or-divider::after {
             content: '';
             flex: 1;
             height: 1px;
             background: var(--border);
         }
 
-        /* ── Footer ── */
-        footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding-bottom: 40px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ── Responsive ── */
         @media (max-width: 620px) {
             .container {
                 grid-template-columns: 1fr;
                 padding: 0 16px;
             }
-            .box:last-child { grid-column: auto; max-width: 100%; }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <a th:href="@{/}" class="back-link">Back to Home</a>
-    <br>
-    <div class="badge">Users Module</div>
-    <h1>Users API</h1>
-    <p class="header-sub">Anishka Das &mdash; Manage platform users</p>
-</header>
+    <header>
+        <a th:href="@{/}" class="back-link">Back to Home</a>
+        <br>
+        <div class="badge">Likes Module</div>
+        <h1>Likes API</h1>
+        <p class="header-sub">Soumyajit Sen Gupta &mdash; Manage post likes</p>
+    </header>
 
-<div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-label">Operations</span>
-    <div class="divider-line"></div>
-</div>
-
-<div class="container">
-
-    <!-- GET -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-get">GET</span>
-            <h2>Fetch Users</h2>
-        </div>
-        <div class="box-sep"></div>
-
-        <a th:href="@{/member/users/all}" class="btn-link">
-            <button class="btn-get">Get All Users</button>
-        </a>
-
-        <div class="or-divider"><span>or search by ID</span></div>
-
-        <form th:action="@{/member/users/by-id}" method="get">
-            <input name="id" placeholder="Enter User ID" required>
-            <button type="submit" class="btn-get">Get User By ID</button>
-        </form>
+    <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-label">Operations</span>
+        <div class="divider-line"></div>
     </div>
 
-    <!-- CREATE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-post">POST</span>
-            <h2>Create User</h2>
+    <div class="container">
+
+        <div class="box">
+            <div class="box-header">
+                <span class="method-badge method-get">GET</span>
+                <h2>Fetch Likes</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <a th:href="@{/member/likes/all}" class="btn-link">
+                <button class="btn-get">Get All Likes</button>
+            </a>
+
+            <div class="or-divider"><span>or filter records</span></div>
+
+            <form th:action="@{/member/likes/by-id}" method="get">
+                <input name="id" placeholder="Enter Like ID" required>
+                <button type="submit" class="btn-get">Get Like By ID</button>
+            </form>
+
+            <form th:action="@{/member/likes/by-user}" method="get">
+                <input name="userID" placeholder="Enter User ID" required>
+                <button type="submit" class="btn-get">Get Likes By User</button>
+            </form>
+
+            <form th:action="@{/member/likes/by-post}" method="get">
+                <input name="postID" placeholder="Enter Post ID" required>
+                <button type="submit" class="btn-get">Get Likes By Post</button>
+            </form>
         </div>
-        <div class="box-sep"></div>
 
-        <form th:action="@{/member/users/create}" method="post">
-            <input name="username" placeholder="Username" required>
-            <input name="email" placeholder="Email" required>
-            <input name="password" placeholder="Password" type="password" required>
-            <button type="submit" class="btn-post">Create User</button>
-        </form>
-    </div>
+        <div class="box">
+            <div class="box-header">
+                <span class="method-badge method-post">POST</span>
+                <h2>Create Like</h2>
+            </div>
+            <div class="box-sep"></div>
 
-    <!-- UPDATE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-put">PUT</span>
-            <h2>Update User</h2>
+            <form th:action="@{/member/likes/create}" method="post">
+                <input name="likeID" placeholder="Like ID" required>
+                <input name="userID" placeholder="User ID" required>
+                <input name="postID" placeholder="Post ID" required>
+                <button type="submit" class="btn-post">Create Like</button>
+            </form>
         </div>
-        <div class="box-sep"></div>
 
-        <form th:action="@{/member/users/update}" method="post">
-            <input name="userID" placeholder="User ID" required>
-            <input name="username" placeholder="New Username">
-            <input name="email" placeholder="New Email">
-            <input name="password" placeholder="New Password" type="password">
-            <button type="submit" class="btn-put">Update User</button>
-        </form>
-    </div>
+        <div class="box">
+            <div class="box-header">
+                <span class="method-badge method-put">PUT</span>
+                <h2>Update Like</h2>
+            </div>
+            <div class="box-sep"></div>
 
-    <!-- DELETE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-delete">DELETE</span>
-            <h2>Delete User</h2>
+            <form th:action="@{/member/likes/update}" method="post">
+                <input name="likeID" placeholder="Like ID" required>
+                <input name="userID" placeholder="User ID" required>
+                <input name="postID" placeholder="Post ID" required>
+                <button type="submit" class="btn-put">Update Like</button>
+            </form>
         </div>
-        <div class="box-sep"></div>
 
-        <form th:action="@{/member/users/delete}" method="post">
-            <input name="id" placeholder="User ID" required>
-            <button type="submit" class="btn-delete">Delete User</button>
-        </form>
-    </div>
+        <div class="box">
+            <div class="box-header">
+                <span class="method-badge method-delete">DELETE</span>
+                <h2>Delete Like</h2>
+            </div>
+            <div class="box-sep"></div>
 
-    <!-- GET POSTS -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-get">GET</span>
-            <h2>User Posts</h2>
+            <form th:action="@{/member/likes/delete}" method="post">
+                <input name="id" placeholder="Like ID" required>
+                <button type="submit" class="btn-delete">Delete Like</button>
+            </form>
         </div>
-        <div class="box-sep"></div>
 
-        <form th:action="@{/member/users/posts}" method="get">
-            <input name="id" placeholder="User ID" required>
-            <button type="submit" class="btn-get">Get Posts</button>
-        </form>
     </div>
-
-</div>
 
 </body>
+
 </html>
