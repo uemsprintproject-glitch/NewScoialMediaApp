@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Message Results</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        table { margin: 20px auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; }
+        th { background-color: #eee; }
+    </style>
+</head>
+<body>
+
+<h2 th:text="${title}">Message Data</h2>
+<a href="/messages">⬅ Back</a>
+
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+<table>
+    <tr>
+        <th>Message ID</th>
+        <th>Sender ID</th>
+        <th>Receiver ID</th>
+        <th>Message</th>
+        <th>Timestamp</th>
+    </tr>
+    <tr th:each="msg : ${data}">
+        <td th:text="${msg.messageID}"></td>
+        <td th:text="${msg.sender != null ? msg.sender.userID : '-'}"></td>
+        <td th:text="${msg.receiver != null ? msg.receiver.userID : '-'}"></td>
+        <td th:text="${msg.message_text}"></td>
+        <td th:text="${msg.timestamp}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

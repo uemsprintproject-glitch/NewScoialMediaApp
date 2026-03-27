@@ -39,10 +39,16 @@ public class UserClientService {
     }
 
     public List<Post> getPostsByUser(int userId) {
-        Post[] posts = restTemplate.getForObject(
-                BASE_URL + "/posts?id=" + userId,
-                Post[].class
-        );
+        Post[] posts = restTemplate.getForObject(BASE_URL + "/posts?id=" + userId,Post[].class);
         return Arrays.asList(posts);
+    }
+
+    public List<User> getUserByUsername(String username){
+        User[] user = restTemplate.getForObject(BASE_URL + "/username?username="+username, User[].class);
+        return Arrays.asList(user);
+    }
+
+    public User getUserByEmail(String email){
+        return restTemplate.getForObject(BASE_URL + "/email?email="+email, User.class);
     }
 }

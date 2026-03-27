@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Users API</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         *, *::before, *::after {
@@ -13,285 +13,286 @@
         }
 
         :root {
-            --bg: #0a0c10;
-            --surface: #111318;
-            --surface-hover: #181c24;
-            --surface-input: #0e1016;
-            --border: rgba(255,255,255,0.07);
-            --border-input: rgba(255,255,255,0.1);
-            --accent: #4f8ef7;
-            --accent-soft: rgba(79, 142, 247, 0.12);
-            --accent-glow: rgba(79, 142, 247, 0.2);
-            --danger: #f7584f;
-            --danger-soft: rgba(247, 88, 79, 0.12);
-            --success: #4fca8e;
-            --success-soft: rgba(79, 202, 142, 0.12);
-            --warning: #f7a84f;
-            --warning-soft: rgba(247, 168, 79, 0.12);
-            --purple: #a78bfa;
-            --purple-soft: rgba(167, 139, 250, 0.12);
-            --text-primary: #f0f2f8;
-            --text-secondary: #7a8099;
-            --text-muted: #454b62;
-            --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-alt: #f8f9fc;
+            --surface-input: #f4f6fa;
+            --border: #e4e8f0;
+            --border-input: #d8dde8;
+            --border-light: #eef1f7;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.18);
+            --success: #059669;
+            --success-soft: rgba(5, 150, 105, 0.08);
+            --success-mid: rgba(5, 150, 105, 0.18);
+            --danger: #dc2626;
+            --danger-soft: rgba(220, 38, 38, 0.08);
+            --danger-mid: rgba(220, 38, 38, 0.18);
+            --warning: #d97706;
+            --warning-soft: rgba(217, 119, 6, 0.08);
+            --warning-mid: rgba(217, 119, 6, 0.18);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.6;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 700px;
-            height: 400px;
-            background: radial-gradient(ellipse at center, rgba(79,142,247,0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ── Header ── */
-        header {
-            position: relative;
-            z-index: 1;
-            padding: 52px 24px 0;
-            text-align: center;
-        }
-
-        .back-link {
-            display: inline-flex;
+        /* ── Top nav ── */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
             align-items: center;
-            gap: 7px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
-            margin-bottom: 28px;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .back-link:hover { color: var(--accent); }
-
-        .back-link::before {
-            content: '←';
+        .topbar-logo {
             font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
         }
 
-        .badge {
+        .topbar-logo-mark {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar-right {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ── Page ── */
+        .page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
+        }
+
+        /* ── Breadcrumb ── */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 32px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb-sep { color: var(--border); font-size: 13px; }
+        .breadcrumb-current { color: var(--text-secondary); }
+
+        /* ── Page title ── */
+        .page-title-wrap { margin-bottom: 36px; }
+
+        .page-label {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             background: var(--accent-soft);
-            border: 1px solid rgba(79,142,247,0.25);
-            border-radius: 100px;
-            padding: 5px 14px;
-            font-size: 12px;
-            font-weight: 500;
             color: var(--accent);
-            letter-spacing: 0.06em;
+            border: 1px solid var(--accent-mid);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
-        .badge::before {
+        .page-label::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent);
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.8); }
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.35; }
         }
 
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        .page-title {
+            font-size: 26px;
             font-weight: 800;
+            color: var(--text-primary);
             letter-spacing: -0.03em;
-            line-height: 1.1;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
-        .header-sub {
+        .page-subtitle {
             font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 300;
+            color: var(--text-muted);
+            font-weight: 400;
         }
 
-        /* ── Divider ── */
-        .divider {
-            position: relative;
-            z-index: 1;
+        /* ── Section divider ── */
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            max-width: 780px;
-            margin: 40px auto 0;
-            padding: 0 32px;
+            gap: 14px;
+            margin-bottom: 24px;
         }
 
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
+        .section-line { flex: 1; height: 1px; background: var(--border); }
 
-        .divider-label {
-            font-family: 'Syne', sans-serif;
+        .section-label {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 0.12em;
             text-transform: uppercase;
             white-space: nowrap;
         }
 
-        /* ── Grid ── */
-        .container {
-            position: relative;
-            z-index: 1;
+        /* ── Grid: 2x2 ── */
+        .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
-            max-width: 780px;
-            margin: 36px auto 80px;
-            padding: 0 32px;
+            align-items: stretch;
         }
 
-        /* GET USER POSTS spans full width */
-        .box:last-child {
-            grid-column: 1 / -1;
-            max-width: 360px;
-            justify-self: center;
-            width: 100%;
-        }
-
-        /* ── Box / Card ── */
+        /* ── Box card ── */
         .box {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 30px 28px;
-            position: relative;
-            overflow: hidden;
-            animation: fadeUp 0.5s ease both;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 14px;
+            padding: 26px 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+            animation: fadeUp 0.4s ease both;
         }
 
-        .box:nth-child(1) { animation-delay: 0.05s; }
-        .box:nth-child(2) { animation-delay: 0.12s; }
-        .box:nth-child(3) { animation-delay: 0.19s; }
-        .box:nth-child(4) { animation-delay: 0.26s; }
-        .box:nth-child(5) { animation-delay: 0.33s; }
+        .box:nth-child(1) { animation-delay: 0.04s; }
+        .box:nth-child(2) { animation-delay: 0.10s; }
+        .box:nth-child(3) { animation-delay: 0.16s; }
+        .box:nth-child(4) { animation-delay: 0.22s; }
+        .box:nth-child(5) { animation-delay: 0.28s; }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
         .box:hover {
-            border-color: rgba(79,142,247,0.2);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+            box-shadow: var(--shadow-md);
+            border-color: #d0d7e8;
         }
 
-        /* ── Box header row ── */
+        /* top accent bar */
+        .box-accent {
+            height: 3px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .accent-get     { background: linear-gradient(90deg, #059669, #34d399); }
+        .accent-post    { background: linear-gradient(90deg, #2563eb, #7c3aed); }
+        .accent-put     { background: linear-gradient(90deg, #d97706, #f59e0b); }
+        .accent-delete  { background: linear-gradient(90deg, #dc2626, #f87171); }
+
+        /* ── Box header ── */
         .box-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
         }
 
         .method-badge {
-            font-family: 'Syne', sans-serif;
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.1em;
             padding: 3px 9px;
-            border-radius: 6px;
+            border-radius: 5px;
             text-transform: uppercase;
         }
 
-        .method-get {
-            background: var(--success-soft);
-            color: var(--success);
-            border: 1px solid rgba(79,202,142,0.2);
-        }
-
-        .method-post {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid rgba(79,142,247,0.2);
-        }
-
-        .method-delete {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border: 1px solid rgba(247,88,79,0.2);
-        }
-
-        .method-put {
-            background: var(--warning-soft);
-            color: var(--warning);
-            border: 1px solid rgba(247,168,79,0.2);
-        }
+        .method-get    { background: var(--success-soft); color: var(--success); border: 1px solid var(--success-mid); }
+        .method-post   { background: var(--accent-soft);  color: var(--accent);  border: 1px solid var(--accent-mid); }
+        .method-delete { background: var(--danger-soft);  color: var(--danger);  border: 1px solid var(--danger-mid); }
+        .method-put    { background: var(--warning-soft); color: var(--warning); border: 1px solid var(--warning-mid); }
 
         .box h2 {
-            font-family: 'Syne', sans-serif;
             font-size: 14px;
             font-weight: 700;
             color: var(--text-primary);
-            letter-spacing: 0.02em;
+            letter-spacing: -0.01em;
         }
 
-        /* ── Separator inside box ── */
+        /* ── Separator ── */
         .box-sep {
             height: 1px;
-            background: var(--border);
-            margin: 0 0 20px;
+            background: var(--border-light);
+            margin: 0 0 18px;
         }
 
-        /* ── Form elements ── */
+        /* ── Forms ── */
         form {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            flex: 1;
         }
 
         input {
             width: 100%;
             background: var(--surface-input);
             border: 1px solid var(--border-input);
-            border-radius: 10px;
-            padding: 11px 14px;
-            font-family: 'DM Sans', sans-serif;
+            border-radius: 8px;
+            padding: 10px 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px;
             color: var(--text-primary);
             outline: none;
@@ -303,196 +304,219 @@
         input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-soft);
+            background: var(--surface);
         }
 
         /* ── Buttons ── */
-        button, .btn {
-            font-family: 'DM Sans', sans-serif;
+        button {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px;
-            font-weight: 500;
-            padding: 11px 18px;
-            border-radius: 10px;
-            border: none;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid transparent;
             cursor: pointer;
-            transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.02em;
             width: 100%;
+            transition: opacity 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+            letter-spacing: 0.01em;
         }
 
-        button:hover { opacity: 0.88; transform: translateY(-1px); }
-        button:active { transform: translateY(0); }
+        button:hover  { opacity: 0.88; transform: translateY(-1px); }
+        button:active { transform: translateY(0); opacity: 1; }
 
-        .btn-get {
-            background: var(--success-soft);
-            color: var(--success);
-            border: 1px solid rgba(79,202,142,0.25);
-        }
+        .btn-get    { background: var(--success-soft); color: var(--success); border-color: var(--success-mid); }
+        .btn-post   { background: var(--accent-soft);  color: var(--accent);  border-color: var(--accent-mid); }
+        .btn-delete { background: var(--danger-soft);  color: var(--danger);  border-color: var(--danger-mid); }
+        .btn-put    { background: var(--warning-soft); color: var(--warning); border-color: var(--warning-mid); }
 
-        .btn-post {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid rgba(79,142,247,0.25);
-        }
-
-        .btn-delete {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border: 1px solid rgba(247,88,79,0.25);
-        }
-
-        .btn-put {
-            background: var(--warning-soft);
-            color: var(--warning);
-            border: 1px solid rgba(247,168,79,0.25);
-        }
-
-        /* inline get-all link styled as button */
         .btn-link {
             display: block;
             text-decoration: none;
-            text-align: center;
         }
 
+        /* ── OR divider ── */
         .or-divider {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin: 4px 0;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-light);
         }
 
         .or-divider span {
             font-size: 11px;
+            font-weight: 500;
             color: var(--text-muted);
             white-space: nowrap;
         }
 
-        .or-divider::before, .or-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
         /* ── Footer ── */
         footer {
-            position: relative;
-            z-index: 1;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
             text-align: center;
-            padding-bottom: 40px;
             font-size: 12px;
             color: var(--text-muted);
         }
 
         /* ── Responsive ── */
         @media (max-width: 620px) {
-            .container {
-                grid-template-columns: 1fr;
-                padding: 0 16px;
-            }
+            .grid { grid-template-columns: 1fr; }
             .box:last-child { grid-column: auto; max-width: 100%; }
+            .page { padding: 32px 16px 60px; }
+            .topbar { padding: 0 20px; }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <a th:href="@{/}" class="back-link">Back to Home</a>
-    <br>
-    <div class="badge">Users Module</div>
-    <h1>Users API</h1>
-    <p class="header-sub">Anishka Das &mdash; Manage platform users</p>
-</header>
-
-<div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-label">Operations</span>
-    <div class="divider-line"></div>
-</div>
-
-<div class="container">
-
-    <!-- GET -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-get">GET</span>
-            <h2>Fetch Users</h2>
+<!-- Top nav -->
+<nav class="topbar">
+    <a th:href="@{/}" class="topbar-logo">
+        <div class="topbar-logo-mark">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
-        <div class="box-sep"></div>
+        SocialPlatform
+    </a>
+    <div class="topbar-right">Users Module</div>
+</nav>
 
-        <a th:href="@{/member/users/all}" class="btn-link">
-            <button class="btn-get">Get All Users</button>
-        </a>
+<div class="page">
 
-        <div class="or-divider"><span>or search by ID</span></div>
-
-        <form th:action="@{/member/users/by-id}" method="get">
-            <input name="id" placeholder="Enter User ID" required>
-            <button type="submit" class="btn-get">Get User By ID</button>
-        </form>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a th:href="@{/}">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Users API</span>
     </div>
 
-    <!-- CREATE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-post">POST</span>
-            <h2>Create User</h2>
-        </div>
-        <div class="box-sep"></div>
-
-        <form th:action="@{/member/users/create}" method="post">
-            <input name="username" placeholder="Username" required>
-            <input name="email" placeholder="Email" required>
-            <input name="password" placeholder="Password" type="password" required>
-            <button type="submit" class="btn-post">Create User</button>
-        </form>
+    <!-- Title -->
+    <div class="page-title-wrap">
+        <div class="page-label">Users Module</div>
+        <div class="page-title">Users API</div>
+        <div class="page-subtitle">Anishka Das — Manage platform users</div>
     </div>
 
-    <!-- UPDATE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-put">PUT</span>
-            <h2>Update User</h2>
-        </div>
-        <div class="box-sep"></div>
-
-        <form th:action="@{/member/users/update}" method="post">
-            <input name="userID" placeholder="User ID" required>
-            <input name="username" placeholder="New Username">
-            <input name="email" placeholder="New Email">
-            <input name="password" placeholder="New Password" type="password">
-            <button type="submit" class="btn-put">Update User</button>
-        </form>
+    <!-- Section divider -->
+    <div class="section-header">
+        <div class="section-line"></div>
+        <span class="section-label">Operations</span>
+        <div class="section-line"></div>
     </div>
 
-    <!-- DELETE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-delete">DELETE</span>
-            <h2>Delete User</h2>
+    <!-- Grid -->
+    <div class="grid">
+
+        <!-- GET -->
+        <div class="box">
+            <div class="box-accent accent-get"></div>
+            <div class="box-header">
+                <span class="method-badge method-get">GET</span>
+                <h2>Fetch Users</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <a th:href="@{/member/users/all}" class="btn-link">
+                <button class="btn-get">Get All Users</button>
+            </a>
+
+            <div class="or-divider"><span>or search by ID</span></div>
+
+            <form th:action="@{/member/users/by-id}" method="get">
+                <input name="id" placeholder="Enter User ID" required>
+                <button type="submit" class="btn-get">Get User By ID</button>
+            </form>
         </div>
-        <div class="box-sep"></div>
 
-        <form th:action="@{/member/users/delete}" method="post">
-            <input name="id" placeholder="User ID" required>
-            <button type="submit" class="btn-delete">Delete User</button>
-        </form>
-    </div>
+        <!-- CREATE -->
+        <div class="box">
+            <div class="box-accent accent-post"></div>
+            <div class="box-header">
+                <span class="method-badge method-post">POST</span>
+                <h2>Create User</h2>
+            </div>
+            <div class="box-sep"></div>
 
-    <!-- GET POSTS -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-get">GET</span>
-            <h2>User Posts</h2>
+            <form th:action="@{/member/users/create}" method="post">
+                <input name="username" placeholder="Username" required>
+                <input name="email" placeholder="Email" required>
+                <input name="password" placeholder="Password" type="password" required>
+                <button type="submit" class="btn-post">Create User</button>
+            </form>
         </div>
-        <div class="box-sep"></div>
 
-        <form th:action="@{/member/users/posts}" method="get">
-            <input name="id" placeholder="User ID" required>
-            <button type="submit" class="btn-get">Get Posts</button>
-        </form>
+        <!-- UPDATE -->
+        <div class="box">
+            <div class="box-accent accent-put"></div>
+            <div class="box-header">
+                <span class="method-badge method-put">PUT</span>
+                <h2>Update User</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <form th:action="@{/member/users/update}" method="post">
+                <input name="userID" placeholder="User ID" required>
+                <input name="username" placeholder="New Username">
+                <input name="email" placeholder="New Email">
+                <input name="password" placeholder="New Password" type="password">
+                <button type="submit" class="btn-put">Update User</button>
+            </form>
+        </div>
+
+        <!-- DELETE -->
+        <div class="box">
+            <div class="box-accent accent-delete"></div>
+            <div class="box-header">
+                <span class="method-badge method-delete">DELETE</span>
+                <h2>Delete User</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <form th:action="@{/member/users/delete}" method="post">
+                <input name="id" placeholder="User ID" required>
+                <button type="submit" class="btn-delete">Delete User</button>
+            </form>
+        </div>
+
+        <!--Get User by Username-->
+        <div class="box">
+            <div class="box-accent accent-get"></div>
+            <div class="box-header">
+                <span class="method-badge method-get">GET</span>
+                <h2>Get User By Username</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <form th:action="@{/member/users/username}" method="get">
+                <input name="username" placeholder="Enter Username" required>
+                <button type="submit" class="btn-get">Fetch User</button>
+            </form>
+        </div>
+
+        <!--Get User by Email-->
+        <div class="box">
+            <div class="box-accent accent-get"></div>
+            <div class="box-header">
+                <span class="method-badge method-get">GET</span>
+                <h2>Get User By Email</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <form th:action="@{/member/users/email}" method="get">
+                <input name="email" placeholder="Enter Email" required>
+                <button type="submit" class="btn-get">Fetch User</button>
+            </form>
+        </div>
+
     </div>
-
 </div>
 
 </body>

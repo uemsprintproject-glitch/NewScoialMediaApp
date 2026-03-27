@@ -30,11 +30,11 @@ public class Post {
     @JoinColumn(name = "userID")
     private User user;
 
-    // @OneToMany(mappedBy = "post")
-    // @JsonIgnore
-    // private List<Comment> comments;
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private List<Comment> comments;
 
-    // @OneToMany(mappedBy = "post")
-    // @JsonIgnore
-    // private List<Like> likes;
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private List<Like> likes;
 }

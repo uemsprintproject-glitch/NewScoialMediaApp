@@ -1,13 +1,10 @@
 package com.socialmedia.social_media_frontend.controller;
 
-import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.service.PostClientService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/member/posts")
