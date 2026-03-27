@@ -1,5 +1,6 @@
 package com.socialmedia.social_media_frontend.controller;
 
+import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.service.PostClientService;
 
 import org.springframework.stereotype.Controller;
