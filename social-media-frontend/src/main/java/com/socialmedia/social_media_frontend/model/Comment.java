@@ -1,8 +1,6 @@
 package com.socialmedia.social_media_frontend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.socialmedia.social_media_frontend.model.Post;
-import com.socialmedia.social_media_frontend.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
