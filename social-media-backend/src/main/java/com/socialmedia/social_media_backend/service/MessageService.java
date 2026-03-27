@@ -29,6 +29,31 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
+    public Message updateMessage(Message updatedMessage) {
+
+        Optional<Message> optionalMessage = messageRepository.findById(updatedMessage.getMessageID());
+
+        if (optionalMessage.isPresent()) {
+            Message existingMessage = optionalMessage.get();
+
+            if (updatedMessage.getMessage_text() != null) {
+                existingMessage.setMessage_text(updatedMessage.getMessage_text());
+            }
+
+            if (updatedMessage.getSender() != null) {
+                existingMessage.setSender(updatedMessage.getSender());
+            }
+
+            if (updatedMessage.getReceiver() != null) {
+                existingMessage.setReceiver(updatedMessage.getReceiver());
+            }
+
+            return messageRepository.save(existingMessage);
+        }
+
+        throw new RuntimeException("Message not found with ID: " + updatedMessage.getMessageID());
+    }
+
     public boolean deleteMessageSafe(Integer id) {
         Optional<Message> optionalMessage = messageRepository.findById(id);
 
@@ -36,8 +61,11 @@ public class MessageService {
             messageRepository.deleteById(id);
             return true;
         }
+
         return false;
     }
+
+    // GET messages
 
     public List<Message> getMessagesBySender(User sender) {
         return messageRepository.findBySender(sender);

@@ -57,4 +57,12 @@ public class UserService {
     public User getUserByEmail(String email){
         return repo.findByEmail(email);
     }
+
+    public User getUserByPostId(int id){
+        return repo.findByPostsPostID(id);
+    }
+
+    public User getUserByComment(Integer id){
+        return repo.findByCommentsCommentID(id);
+    }
 }

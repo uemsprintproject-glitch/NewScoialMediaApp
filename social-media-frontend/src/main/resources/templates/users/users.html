@@ -516,6 +516,21 @@
             </form>
         </div>
 
+        <!--Get User by Post-->
+        <div class="box">
+            <div class="box-accent accent-get"></div>
+            <div class="box-header">
+                <span class="method-badge method-get">GET</span>
+                <h2>Get User By Post</h2>
+            </div>
+            <div class="box-sep"></div>
+
+            <form th:action="@{/member/users/posts}" method="get">
+                <input name="id" placeholder="Enter Post ID" required>
+                <button type="submit" class="btn-get">Fetch User</button>
+            </form>
+        </div>
+
     </div>
 </div>
 

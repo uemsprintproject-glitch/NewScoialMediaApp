@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/member/posts")
-@CrossOrigin(origins = "http://localhost:8080")
 public class PostController {
     private final PostService service;
 
