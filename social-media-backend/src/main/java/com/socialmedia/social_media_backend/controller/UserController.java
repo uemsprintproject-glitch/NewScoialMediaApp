@@ -1,6 +1,4 @@
 package com.socialmedia.social_media_backend.controller;
-
-import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.service.UserService;
 
