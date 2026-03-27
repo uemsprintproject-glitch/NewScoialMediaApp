@@ -1,159 +1,173 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Social Media Platform</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         :root {
-            --bg: #0a0c10;
-            --surface: #111318;
-            --surface-hover: #181c24;
-            --border: rgba(255, 255, 255, 0.07);
-            --accent: #4f8ef7;
-            --accent-soft: rgba(79, 142, 247, 0.12);
-            --accent-glow: rgba(79, 142, 247, 0.25);
-            --text-primary: #f0f2f8;
-            --text-secondary: #7a8099;
-            --text-muted: #454b62;
-            --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-hover: #fafbff;
+            --border: #e4e8f0;
+            --border-light: #eef1f7;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.18);
+            --accent-glow: rgba(37, 99, 235, 0.1);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
+            --shadow-hover: 0 12px 36px rgba(37,99,235,0.13), 0 4px 12px rgba(15,23,42,0.06);
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* ── Noise overlay for depth ── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.6;
+        /* ── Top nav ── */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        /* ── Background ambient blobs ── */
-        body::after {
-            content: '';
-            position: fixed;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 700px;
-            height: 400px;
-            background: radial-gradient(ellipse at center, rgba(79, 142, 247, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+        .topbar-logo {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
         }
 
-        /* ── Header ── */
-        header {
-            position: relative;
-            z-index: 1;
-            padding: 64px 24px 0;
+        .topbar-logo-mark {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar-right {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ── Page ── */
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 56px 32px 80px;
+        }
+
+        /* ── Hero ── */
+        .hero {
             text-align: center;
+            margin-bottom: 48px;
         }
 
-        .badge {
+        .page-label {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             background: var(--accent-soft);
-            border: 1px solid rgba(79, 142, 247, 0.25);
-            border-radius: 100px;
-            padding: 5px 14px;
-            font-size: 12px;
-            font-weight: 500;
             color: var(--accent);
-            letter-spacing: 0.06em;
+            border: 1px solid var(--accent-mid);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
         }
 
-        .badge::before {
+        .page-label::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent);
             animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.5;
-                transform: scale(0.8);
-            }
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.35; }
         }
 
         h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.04em;
             line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        h1 span {
             background: var(--gradient-hero);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 12px;
         }
 
         .subtitle {
             font-size: 15px;
-            color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 0.01em;
+            color: var(--text-muted);
+            font-weight: 400;
         }
 
-        /* ── Divider ── */
-        .divider {
-            position: relative;
-            z-index: 1;
+        /* ── Section divider ── */
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            max-width: 600px;
-            margin: 48px auto 0;
-            padding: 0 24px;
+            gap: 14px;
+            margin-bottom: 24px;
         }
 
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
+        .section-line { flex: 1; height: 1px; background: var(--border); }
 
-        .divider-label {
-            font-family: 'Syne', sans-serif;
+        .section-label {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -161,15 +175,10 @@
         }
 
         /* ── Grid ── */
-        .container {
-            position: relative;
-            z-index: 1;
+        .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 900px;
-            margin: 40px auto 80px;
-            padding: 0 32px;
+            gap: 20px;
         }
 
         /* ── Card ── */
@@ -180,184 +189,143 @@
         }
 
         .card {
-            position: relative;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px 28px 36px;
+            border-radius: 16px;
+            padding: 32px 22px 28px;
             text-align: center;
-            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.28s ease,
-                border-color 0.28s ease,
-                background 0.28s ease;
-            overflow: hidden;
-            animation: fadeUp 0.5s ease both;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 260px;
+            justify-content: flex-start;
+            min-height: 280px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1),
+                        box-shadow 0.25s ease,
+                        border-color 0.25s ease;
+            animation: fadeUp 0.5s ease both;
         }
 
-        /* staggered entrance */
-        .card:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-
-        .card:nth-child(2) {
-            animation-delay: 0.12s;
-        }
-
-        .card:nth-child(3) {
-            animation-delay: 0.19s;
-        }
-
-        .card:nth-child(4) {
-            animation-delay: 0.26s;
-        }
-
-        .card:nth-child(5) {
-            animation-delay: 0.33s;
-        }
-
-        .card:nth-child(6) {
-            animation-delay: 0.40s;
-        }
+        .card:nth-child(1) { animation-delay: 0.04s; }
+        .card:nth-child(2) { animation-delay: 0.10s; }
+        .card:nth-child(3) { animation-delay: 0.16s; }
+        .card:nth-child(4) { animation-delay: 0.22s; }
+        .card:nth-child(5) { animation-delay: 0.28s; }
+        .card:nth-child(6) { animation-delay: 0.34s; }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* subtle top-edge accent line */
+        /* gradient top accent bar on hover */
         .card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
+            top: 0; left: 50%;
             transform: translateX(-50%);
             width: 0;
-            height: 2px;
+            height: 3px;
             background: var(--gradient-hero);
             border-radius: 0 0 4px 4px;
-            transition: width 0.35s ease;
-        }
-
-        /* glow blob behind card on hover */
-        .card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            background: radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 65%);
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            pointer-events: none;
+            transition: width 0.3s ease;
         }
 
         a .card:hover,
         a:hover .card {
-            transform: translateY(-6px);
-            border-color: rgba(79, 142, 247, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(37,99,235,0.25);
+            box-shadow: var(--shadow-hover);
             background: var(--surface-hover);
-            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(79, 142, 247, 0.1);
         }
 
         a .card:hover::before,
         a:hover .card::before {
-            width: 60%;
+            width: 56%;
         }
 
-        a .card:hover::after,
-        a:hover .card::after {
-            opacity: 1;
-        }
-
-        /* non-linked cards: dimmer, no pointer */
-        .card:not(a .card):not(a + .card) {
-            opacity: 0.55;
+        /* inactive cards */
+        .card:not(a .card) {
+            opacity: 0.72;
             cursor: default;
+        }
+
+        /* cards with module links are always full opacity */
+        .card.has-links {
+            opacity: 1;
         }
 
         /* ── Avatar ── */
         .avatar-wrap {
             position: relative;
             display: inline-block;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
-        .avatar-wrap::before {
+        .avatar-wrap::after {
             content: '';
             position: absolute;
             inset: -3px;
             border-radius: 50%;
             background: var(--gradient-hero);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
             z-index: 0;
         }
 
-        a:hover .avatar-wrap::before {
-            opacity: 1;
-        }
+        a:hover .avatar-wrap::after { opacity: 1; }
 
         img {
             display: block;
-            width: 150px;
-            height: 150px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
             position: relative;
             z-index: 1;
             border: 3px solid var(--bg);
             object-fit: cover;
-            filter: grayscale(20%);
-            transition: filter 0.3s ease;
+            filter: grayscale(15%);
+            transition: filter 0.25s ease;
         }
 
-        a:hover img {
-            filter: grayscale(0%);
-        }
+        a:hover img { filter: grayscale(0%); }
 
         /* ── Card text ── */
         .card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: -0.01em;
             color: var(--text-primary);
-            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
         }
 
-        .card p {
+        .card > p {
             font-size: 13px;
+            color: var(--text-muted);
             font-weight: 400;
-            color: var(--text-secondary);
-            letter-spacing: 0.03em;
+            margin-bottom: 2px;
         }
 
+        /* ── Simple tag ── */
         .tag {
             display: inline-block;
             margin-top: 12px;
             background: var(--accent-soft);
-            border: 1px solid rgba(79, 142, 247, 0.2);
+            border: 1px solid var(--accent-mid);
             color: var(--accent);
             font-size: 10px;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
             padding: 3px 10px;
             border-radius: 100px;
         }
 
+        /* ── Module link buttons ── */
         .module-links {
-            margin-top: 12px;
+            margin-top: 14px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -367,68 +335,76 @@
         .module-links a {
             display: block;
             background: var(--accent-soft);
-            border: 1px solid rgba(79, 142, 247, 0.2);
-            border-radius: 10px;
-            padding: 8px 10px;
-            color: var(--text-primary);
+            border: 1px solid var(--accent-mid);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--accent);
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
             text-decoration: none;
-            transition: background 0.2s ease, border-color 0.2s ease;
+            transition: background 0.18s ease, box-shadow 0.18s ease;
         }
 
         .module-links a:hover {
-            background: rgba(79, 142, 247, 0.2);
-            border-color: rgba(79, 142, 247, 0.4);
+            background: rgba(37,99,235,0.14);
+            box-shadow: 0 2px 8px rgba(37,99,235,0.1);
         }
 
         /* ── Footer ── */
         footer {
-            position: relative;
-            z-index: 1;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
             text-align: center;
-            padding-bottom: 40px;
             font-size: 12px;
             color: var(--text-muted);
         }
 
         /* ── Responsive ── */
-        @media (max-width: 700px) {
-            .container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 14px;
-                padding: 0 16px;
-            }
-
-            header {
-                padding-top: 48px;
-            }
+        @media (max-width: 780px) {
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .page { padding: 36px 16px 60px; }
+            .topbar { padding: 0 20px; }
         }
 
-        @media (max-width: 420px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <div class="badge">Team Overview</div>
-        <h1>Social Media Platform</h1>
-        <p class="subtitle">Select a team member to explore their module</p>
-    </header>
+<!-- Top nav -->
+<nav class="topbar">
+    <a href="/" class="topbar-logo">
+        <div class="topbar-logo-mark">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        SocialPlatform
+    </a>
+    <div class="topbar-right">Internal Dashboard</div>
+</nav>
 
-    <div class="divider">
-        <div class="divider-line"></div>
-        <span class="divider-label">Team</span>
-        <div class="divider-line"></div>
+<div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="page-label">Team Overview</div>
+        <h1>Social Media <span>Platform</span></h1>
+        <p class="subtitle">Select a team member to explore their module</p>
     </div>
 
-    <div class="container">
+    <!-- Section header -->
+    <div class="section-header">
+        <div class="section-line"></div>
+        <span class="section-label">Team Members</span>
+        <div class="section-line"></div>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid">
 
         <a href="/member/users">
             <div class="card">
@@ -452,28 +428,29 @@
             </div>
         </a>
 
-        <div class="card">
+        <div class="card has-links">
             <div class="avatar-wrap">
                 <img src="https://via.placeholder.com/100" alt="Soumyajit Sen Gupta">
             </div>
             <h3>Soumyajit Sen Gupta</h3>
-            <p>Likes & Notifications</p>
+            <p>Likes &amp; Notifications</p>
             <div class="module-links">
                 <a href="/member/likes">Likes Module</a>
                 <a href="/member/notifications">Notifications Module</a>
             </div>
         </div>
 
-        <a href="/posts">
-            <div class="card">
-                <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Sagnik Dutta">
-                </div>
-                <h3>Sagnik Dutta</h3>
-                <p>Posts Module</p>
-                <span class="tag">Posts</span>
+        <div class="card has-links">
+            <div class="avatar-wrap">
+                <img src="https://via.placeholder.com/100" alt="Sagnik Dutta">
             </div>
-        </a>
+            <h3>Sagnik Dutta</h3>
+            <p>Comments &amp; Posts</p>
+            <div class="module-links">
+                <a href="/member/comments">Comments Module</a>
+                <a href="/member/posts">Posts Module</a>
+            </div>
+        </div>
 
         <a href="/messages">
             <div class="card">
@@ -496,7 +473,7 @@
         </div>
 
     </div>
+</div>
 
 </body>
-
 </html>

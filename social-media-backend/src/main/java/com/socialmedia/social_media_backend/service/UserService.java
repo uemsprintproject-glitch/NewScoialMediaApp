@@ -49,4 +49,12 @@ public class UserService {
         User user = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         return user.getPosts();
     }
+
+    public List<User> getUserByUsername(String username){
+        return repo.findByUsername(username);
+    }
+
+    public User getUserByEmail(String email){
+        return repo.findByEmail(email);
+    }
 }

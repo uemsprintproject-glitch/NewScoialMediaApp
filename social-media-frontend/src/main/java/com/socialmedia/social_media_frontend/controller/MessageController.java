@@ -40,6 +40,12 @@ public class MessageController {
         return "redirect:/member/messages";
     }
 
+    @PostMapping("/update")
+    public String updateMessage(@ModelAttribute Message message) {
+        service.updateMessage(message);
+        return "redirect:/member/messages";
+    }
+
     @PostMapping("/delete")
     public String deleteMessage(@RequestParam int id) {
         service.deleteMessage(id);

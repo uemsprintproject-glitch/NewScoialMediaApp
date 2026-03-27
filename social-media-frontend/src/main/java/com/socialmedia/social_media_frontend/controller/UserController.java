@@ -58,4 +58,15 @@ public class UserController {
         return "users/posts";
     }
     
+    @GetMapping("/username")
+    public String getUserByUsername(@RequestParam String username, Model model){
+        model.addAttribute("users", service.getUserByUsername(username));
+        return "users/get-by-username";
+    }
+
+    @GetMapping("/email")
+    public String getUserByEmail(@RequestParam String email, Model model){
+        model.addAttribute("user", service.getUserByEmail(email));
+        return "/users/get-by-email";
+    }
 }

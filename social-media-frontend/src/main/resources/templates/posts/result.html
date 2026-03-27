@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Message Results</title>
-
+    <title>Post Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
-    
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -286,45 +285,36 @@
 <body>
 
 <header>
-    <a href="/member/messages" class="back-link">Back to Messages</a>
-    <br>
-    <div class="badge">Messages API</div>
-    <h2>Message Data</h2>
-    <p class="header-sub">Displaying all retrieved message records</p>
+    <a href="/member/posts" style="color:gray;">← Back</a>
+    <h2>Post Data</h2>
 </header>
-
-<div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-label">Results</span>
-    <div class="divider-line"></div>
-</div>
 
 <div class="table-wrap">
     <div class="table-card">
         <table>
+
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Message</th>
-                    <th>Sender</th>
-                    <th>Receiver</th>
-                    <th>Timestamp</th>
-                </tr>
+            <tr>
+                <th>Post ID</th>
+                <th>User ID</th>
+                <th>Content</th>
+                <th>Timestamp</th>
+            </tr>
             </thead>
 
             <tbody>
-                <tr th:each="msg : ${data}">
-                    <td><span th:text="${msg.messageID}"></span></td>
-                    <td th:text="${msg.message_text}"></td>
-                    <td th:text="${msg.sender != null ? msg.sender.username : 'N/A'}"></td>
-                    <td th:text="${msg.receiver != null ? msg.receiver.username : 'N/A'}"></td>
-                    <td th:text="${#temporals.format(msg.timestamp, 'dd-MM-yyyy HH:mm')}"></td>
-                </tr>
+            <tr th:each="post : ${data}">
+                <td th:text="${post.postID}"></td>
+                <td th:text="${post.user != null ? post.user.userID : '-'}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${post.timestamp}"></td>
+            </tr>
 
-                <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                    <td colspan="5">No messages found.</td>
-                </tr>
+            <tr th:if="${#lists.isEmpty(data)}">
+                <td colspan="4">No posts found</td>
+            </tr>
             </tbody>
+
         </table>
     </div>
 </div>
