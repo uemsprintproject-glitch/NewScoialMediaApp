@@ -189,12 +189,12 @@
         }
 
         /* GET USER POSTS spans full width */
-        .box:last-child {
+        /* .box:last-child {
             grid-column: 1 / -1;
             max-width: 360px;
             justify-self: center;
             width: 100%;
-        }
+        } */
 
         /* ── Box / Card ── */
         .box {
@@ -400,7 +400,7 @@
 <body>
 
 <header>
-    <a th:href="@{/}" class="back-link">Back to Home</a>
+    <a th:href="@{/}" class="back-link" style="cursor: pointer;">Back to Home</a>
     <br>
     <div class="badge">Messages Module</div>
     <h1>Messages API</h1>
@@ -451,19 +451,7 @@
         </form>
     </div>
 
-    <!-- DELETE -->
-    <div class="box">
-        <div class="box-header">
-            <span class="method-badge method-delete">DELETE</span>
-            <h2>Delete Message</h2>
-        </div>
-        <div class="box-sep"></div>
-
-        <form th:action="@{/member/messages/delete}" method="post">
-            <input name="id" placeholder="Message ID" required>
-            <button type="submit" class="btn-delete">Delete Message</button>
-        </form>
-    </div>
+    
 
     <!-- BY SENDER -->
     <div class="box">
@@ -475,6 +463,21 @@
 
         <form th:action="@{/member/messages/sender}" method="get">
             <input name="senderId" placeholder="Sender ID" required>
+            <button type="submit" class="btn-get">Get Messages</button>
+        </form>
+    </div>
+
+
+        <!-- BY RECEIVER -->
+    <div class="box">
+        <div class="box-header">
+            <span class="method-badge method-get">GET</span>
+            <h2>Messages by Receiver</h2>
+        </div>
+        <div class="box-sep"></div>
+
+        <form th:action="@{/member/messages/receiver}" method="get">
+            <input name="receiverId" placeholder="Receiver ID" required>
             <button type="submit" class="btn-get">Get Messages</button>
         </form>
     </div>
@@ -493,6 +496,35 @@
             <button type="submit" class="btn-get">Get Conversation</button>
         </form>
     </div>
+        <!-- UPDATE MESSAGE -->
+    <div class="box">
+        <div class="box-header">
+            <span class="method-badge method-put">PUT</span>
+            <h2>Update Message</h2>
+        </div>
+        <div class="box-sep"></div>
+
+        <form th:action="@{/member/messages/update}" method="post">
+            <input name="messageID" placeholder="Message ID" required>
+            <input name="message_text" placeholder="Updated Message Content">
+            <button type="submit" class="btn-put">Update Message</button>
+        </form>
+    </div>
+
+
+    <!-- DELETE -->
+    <!-- <div class="box">
+        <div class="box-header">
+            <span class="method-badge method-delete">DELETE</span>
+            <h2>Delete Message</h2>
+        </div>
+        <div class="box-sep"></div>
+
+        <form th:action="@{/member/messages/delete}" method="post">
+            <input name="id" placeholder="Message ID" required>
+            <button type="submit" class="btn-delete">Delete Message</button>
+        </form>
+    </div> -->
 
 </div>
 

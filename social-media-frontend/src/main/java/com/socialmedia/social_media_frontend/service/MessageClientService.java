@@ -28,6 +28,10 @@ public class MessageClientService {
         restTemplate.postForObject(BASE_URL, message, Message.class);
     }
 
+    public void updateMessage(Message message) {
+        restTemplate.postForObject(BASE_URL + "/update", message, Message.class);
+    }
+
     public void deleteMessage(Integer id) {
         restTemplate.delete(BASE_URL + "/" + id);
     }

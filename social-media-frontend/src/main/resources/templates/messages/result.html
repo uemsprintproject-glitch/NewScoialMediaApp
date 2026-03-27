@@ -316,9 +316,9 @@
                 <tr th:each="msg : ${data}">
                     <td><span th:text="${msg.messageID}"></span></td>
                     <td th:text="${msg.message_text}"></td>
-                    <td th:text="${msg.sender.username}"></td>
-                    <td th:text="${msg.receiver.username}"></td>
-                    <td th:text="${msg.timestamp}"></td>
+                    <td th:text="${msg.sender != null ? msg.sender.username : 'N/A'}"></td>
+                    <td th:text="${msg.receiver != null ? msg.receiver.username : 'N/A'}"></td>
+                    <td th:text="${#temporals.format(msg.timestamp, 'dd-MM-yyyy HH:mm')}"></td>
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
