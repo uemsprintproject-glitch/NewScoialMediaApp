@@ -270,13 +270,33 @@
             box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(79, 142, 247, 0.1);
         }
 
+        .card.card-link {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .card.card-link:hover {
+            transform: translateY(-6px);
+            border-color: rgba(79, 142, 247, 0.3);
+            background: var(--surface-hover);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(79, 142, 247, 0.1);
+        }
+
         a .card:hover::before,
         a:hover .card::before {
             width: 60%;
         }
 
+        .card.card-link:hover::before {
+            width: 60%;
+        }
+
         a .card:hover::after,
         a:hover .card::after {
+            opacity: 1;
+        }
+
+        .card.card-link:hover::after {
             opacity: 1;
         }
 
@@ -308,6 +328,10 @@
             opacity: 1;
         }
 
+        .card.card-link:hover .avatar-wrap::before {
+            opacity: 1;
+        }
+
         img {
             display: block;
             width: 150px;
@@ -322,6 +346,10 @@
         }
 
         a:hover img {
+            filter: grayscale(0%);
+        }
+
+        .card.card-link:hover img {
             filter: grayscale(0%);
         }
 
@@ -441,16 +469,17 @@
             </div>
         </a>
 
-        <a href="/posts">
-            <div class="card">
-                <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Poulami Sinha">
-                </div>
-                <h3>Poulami Sinha</h3>
-                <p>Posts Module</p>
-                <span class="tag">Posts</span>
+        <div class="card card-link" role="link" tabindex="0" onclick="window.location.href='/member/friends'"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='/member/friends';}">
+            <div class="avatar-wrap">
+                <img src="https://via.placeholder.com/100" alt="Poulami Sinha">
             </div>
-        </a>
+            <h3>Poulami Sinha</h3>
+            <p>Friends Module</p>
+            <div class="module-links">
+                <a href="/member/friends">Friends Module</a>
+            </div>
+        </div>
 
         <div class="card">
             <div class="avatar-wrap">
