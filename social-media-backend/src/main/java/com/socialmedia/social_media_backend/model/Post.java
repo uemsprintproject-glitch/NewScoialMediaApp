@@ -1,6 +1,7 @@
 package com.socialmedia.social_media_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,7 +32,7 @@ public class Post {
     private User user;
 
     @OneToMany(mappedBy = "post")
-    @JsonIgnore
+    @JsonManagedReference
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "post")
