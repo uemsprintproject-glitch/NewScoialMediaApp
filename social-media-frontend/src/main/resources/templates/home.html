@@ -279,8 +279,8 @@
 
         img {
             display: block;
-            width: 88px;
-            height: 88px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             position: relative;
             z-index: 1;
@@ -409,7 +409,7 @@
         <a href="/member/users">
             <div class="card">
                 <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Anishka Das">
+                    <img th:src="@{/images/anishka.png}" alt="Anishka Das">
                 </div>
                 <h3>Anishka Das</h3>
                 <p>Users Module</p>
@@ -420,19 +420,19 @@
         <a href="/posts">
             <div class="card">
                 <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Poulami Sinha">
+                    <img th:src="@{/images/poulami.png}" alt="Poulami Sinha">
                 </div>
                 <h3>Poulami Sinha</h3>
-                <p>Posts Module</p>
-                <span class="tag">Posts</span>
+                <p>Friends Module</p>
+                <span class="tag">Friends</span>
             </div>
         </a>
 
         <div class="card has-links">
             <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Soumyajit Sen Gupta">
+                <img th:src="@{/images/soumyojit.png}" alt="Soumyajit Sen Gupta">
             </div>
-            <h3>Soumyajit Sen Gupta</h3>
+            <h3>Soumyojit Sen Gupta</h3>
             <p>Likes &amp; Notifications</p>
             <div class="module-links">
                 <a href="/member/likes">Likes Module</a>
@@ -442,7 +442,7 @@
 
         <div class="card has-links">
             <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Sagnik Dutta">
+                <img th:src="@{/images/sagnik.png}" alt="Sagnik Dutta">
             </div>
             <h3>Sagnik Dutta</h3>
             <p>Comments &amp; Posts</p>
@@ -452,10 +452,10 @@
             </div>
         </div>
 
-        <a href="/messages">
+        <a href="/member/messages">
             <div class="card">
                 <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Ashmit Dutta">
+                    <img th:src="@{/images/ashmit.png}" alt="Ashmit Dutta">
                 </div>
                 <h3>Ashmit Dutta</h3>
                 <p>Messages Module</p>
@@ -465,11 +465,11 @@
 
         <div class="card">
             <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Anshi Prajapati">
+                <img th:src="@{/images/anshi.png}" alt="Anshi Prajapati">
             </div>
             <h3>Anshi Prajapati</h3>
-            <p>Messages Module</p>
-            <span class="tag">Messages</span>
+            <p>Groups Module</p>
+            <span class="tag">Groups</span>
         </div>
 
     </div>

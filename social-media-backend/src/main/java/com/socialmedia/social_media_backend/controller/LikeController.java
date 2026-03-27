@@ -8,7 +8,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/member/likes")
-@CrossOrigin(origins = "http://localhost:8080")
 public class LikeController {
 
     private final LikeService service;

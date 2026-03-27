@@ -1,6 +1,4 @@
 package com.socialmedia.social_media_backend.controller;
-
-import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.service.UserService;
 
@@ -44,10 +42,10 @@ public class UserController {
         service.deleteUser(id);
     }
 
-    @GetMapping("/posts")
-    public List<Post> getPostsByUser(@RequestParam int id) {
-        return service.getPostsByUser(id);
-    }
+    // @GetMapping("/posts")
+    // public List<Post> getPostsByUser(@RequestParam int id) {
+    //     return service.getPostsByUser(id);
+    // }
     
     @GetMapping("/username")
     public List<User> getUserByUsername(@RequestParam String username){
@@ -57,5 +55,15 @@ public class UserController {
     @GetMapping("/email")
     public User getUserByEmail(@RequestParam String email){
         return service.getUserByEmail(email);
+    }
+
+    @GetMapping("/posts")
+    public User getUserByPost(@RequestParam int id){
+        return service.getUserByPostId(id);
+    }
+
+    @GetMapping("/comment")
+    public User getUserByComment(@RequestParam int id){
+        return service.getUserByComment(id);
     }
 }
