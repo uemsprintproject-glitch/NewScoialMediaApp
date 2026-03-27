@@ -7,6 +7,7 @@ import com.socialmedia.social_media_backend.repository.CommentRepository;
 import com.socialmedia.social_media_backend.repository.PostRepository;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -29,7 +30,7 @@ public class CommentService {
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
         Comment comment = Comment.builder()
-                .comment_text(content)   // ✅ matches your entity
+                .comment_text(content)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .user(user)
                 .post(post)
@@ -59,5 +60,19 @@ public class CommentService {
             throw new RuntimeException("Comment not found");
         }
         commentRepository.deleteById(commentId);
+    }
+
+    public List<Comment> getCommentByUser(Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return commentRepository.findByUser(user);
+    }
+
+    public Comment updateComment(Comment updatedComment) {
+        Comment existingComment = commentRepository.findById(updatedComment.getCommentID())
+                .orElseThrow();
+
+        existingComment.setComment_text(updatedComment.getComment_text());
+
+        return  commentRepository.save(existingComment);
     }
 }

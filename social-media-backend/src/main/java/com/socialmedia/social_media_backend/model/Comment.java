@@ -1,6 +1,6 @@
 package com.socialmedia.social_media_backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // ✅ prevents JSON errors
 public class Comment {
 
     @Id
@@ -21,12 +22,11 @@ public class Comment {
 
     private java.sql.Timestamp timestamp;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "postID", nullable = false)
-    @JsonIgnore
     private Post post;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userID", nullable = false)
     private User user;
 }

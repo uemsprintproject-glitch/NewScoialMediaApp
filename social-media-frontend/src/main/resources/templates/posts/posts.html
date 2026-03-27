@@ -1,164 +1,268 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Posts API</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* COPY SAME CSS FROM comments.html (NO CHANGE) */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
-            --bg: #0a0c10;
-            --surface: #111318;
-            --surface-input: #0e1016;
-            --border: rgba(255,255,255,0.07);
-            --border-input: rgba(255,255,255,0.1);
-            --accent: #4f8ef7;
-            --success: #4fca8e;
-            --danger: #f7584f;
-            --warning: #f7a84f;
-            --text-primary: #f0f2f8;
-            --text-secondary: #7a8099;
-            --gradient-hero: linear-gradient(135deg,#4f8ef7,#a78bfa);
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --border: #e4e8f0;
+            --border-light: #eef1f7;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.18);
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --text-primary: #0f172a;
+            --text-muted: #94a3b8;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
-            color: var(--text-primary);
         }
 
-        header {
-            text-align: center;
-            padding: 50px 20px;
+        /* ── Topbar ── */
+        .topbar {
+            background: var(--surface);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
         }
 
-        .badge {
-            background: rgba(79,142,247,0.12);
-            padding: 5px 12px;
-            border-radius: 50px;
-            color: var(--accent);
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 2.5rem;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 20px;
-            max-width: 800px;
+        /* ── Page ── */
+        .page {
+            max-width: 860px;
             margin: auto;
-            padding: 20px;
+            padding: 48px 32px;
         }
 
+        /* ── Breadcrumb ── */
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--text-muted);
+        }
+
+        /* ── Title ── */
+        .page-label {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        /* ── Section Header ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ── Grid ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* ── Box ── */
         .box {
             background: var(--surface);
-            padding: 25px;
-            border-radius: 15px;
             border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s;
         }
 
-        form { display: flex; flex-direction: column; gap: 10px; }
+        .box:hover {
+            box-shadow: var(--shadow-md);
+        }
 
+        /* ── Header ── */
+        .box-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .method {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        .get { background: rgba(5,150,105,0.1); color: var(--success); }
+        .post { background: var(--accent-soft); color: var(--accent); }
+        .put { background: rgba(217,119,6,0.1); color: var(--warning); }
+        .delete { background: rgba(220,38,38,0.1); color: var(--danger); }
+
+        /* ── Inputs ── */
         input {
+            width: 100%;
             padding: 10px;
+            border: 1px solid var(--border);
             border-radius: 8px;
-            border: 1px solid var(--border-input);
-            background: var(--surface-input);
-            color: white;
+            margin-bottom: 10px;
         }
 
+        /* ── Buttons ── */
         button {
+            width: 100%;
             padding: 10px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
+            background: var(--accent-soft);
+            color: var(--accent);
         }
 
-        .btn-get { background: rgba(79,202,142,0.1); color: var(--success); }
-        .btn-post { background: rgba(79,142,247,0.1); color: var(--accent); }
-        .btn-delete { background: rgba(247,88,79,0.1); color: var(--danger); }
-        .btn-put { background: rgba(247,168,79,0.1); color: var(--warning); }
-
-        @media(max-width:600px){
-            .container{grid-template-columns:1fr;}
+        button:hover {
+            opacity: 0.85;
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <a th:href="@{/}" style="color:gray;">← Back</a>
-    <div class="badge">Posts Module</div>
-    <h1>Posts API</h1>
-</header>
+<nav class="topbar">
+    <b>SocialPlatform</b>
+    <span>Posts Module</span>
+</nav>
 
-<div class="container">
+<div class="page">
 
-    <!-- GET -->
-    <div class="box">
-        <h2>Fetch Posts</h2>
-
-        <a th:href="@{/member/posts/all}">
-            <button class="btn-get">Get All Posts</button>
-        </a>
-
-        <form th:action="@{/member/posts/by-id}" method="get">
-            <input name="id" placeholder="Post ID" required>
-            <button class="btn-get">Get Post By ID</button>
-        </form>
-
-        <form th:action="@{/member/posts/by-user}" method="get">
-            <input name="id" placeholder="User ID" required>
-            <button class="btn-get">Posts By User</button>
-        </form>
+    <div class="breadcrumb">
+        <a href="/">Home</a> › Posts API
     </div>
 
-    <!-- CREATE -->
-    <div class="box">
-        <h2>Create Post</h2>
+    <div class="page-label">Posts Module</div>
+    <div class="page-title">Posts API</div>
+    <div class="page-subtitle">Manage platform posts</div>
 
-        <form th:action="@{/member/posts/create}" method="post">
-            <input name="userId" placeholder="User ID" required>
-            <input name="content" placeholder="Post Content" required>
-            <button class="btn-post">Create Post</button>
-        </form>
+    <div class="section-header">
+        <div class="section-line"></div>
+        <span class="section-label">Operations</span>
+        <div class="section-line"></div>
     </div>
 
-    <!-- UPDATE -->
-    <div class="box">
-        <h2>Update Post</h2>
+    <div class="grid">
 
-        <form th:action="@{/member/posts/update}" method="post">
-            <input name="id" placeholder="Post ID" required>
-            <input name="content" placeholder="Updated Content" required>
-            <button class="btn-put">Update Post</button>
-        </form>
+        <!-- GET -->
+        <div class="box">
+            <div class="box-header">
+                <span class="method get">GET</span>
+                <h3>Fetch Posts</h3>
+            </div>
+
+            <a th:href="@{/member/posts/all}">
+                <button>Get All Posts</button>
+            </a>
+
+            <form th:action="@{/member/posts/by-id}" method="get">
+                <input name="postId" placeholder="Post ID" required>
+                <button>Get Post</button>
+            </form>
+
+            <form th:action="@{/member/posts/by-user}" method="get">
+                <input name="userId" placeholder="User ID" required>
+                <button>Get User Posts</button>
+            </form>
+        </div>
+
+        <!-- CREATE -->
+        <div class="box">
+            <div class="box-header">
+                <span class="method post">POST</span>
+                <h3>Create Post</h3>
+            </div>
+
+            <form th:action="@{/member/posts/create}" method="post">
+                <input name="userId" placeholder="User ID" required>
+                <input name="content" placeholder="Content" required>
+                <button>Create</button>
+            </form>
+        </div>
+
+        <!-- UPDATE -->
+        <div class="box">
+            <div class="box-header">
+                <span class="method put">PUT</span>
+                <h3>Update Post</h3>
+            </div>
+
+            <form th:action="@{/member/posts/update}" method="post">
+                <input name="postID" placeholder="Post ID" required>
+                <input name="content" placeholder="Content">
+                <button>Update</button>
+            </form>
+        </div>
+
+        <!-- DELETE -->
+        <div class="box">
+            <div class="box-header">
+                <span class="method delete">DELETE</span>
+                <h3>Delete Post</h3>
+            </div>
+
+            <form th:action="@{/member/posts/delete}" method="post">
+                <input name="postId" placeholder="Post ID" required>
+                <button>Delete</button>
+            </form>
+        </div>
+
     </div>
-
-    <!-- DELETE -->
-    <div class="box">
-        <h2>Delete Post</h2>
-
-        <form th:action="@{/member/posts/delete}" method="post">
-            <input name="id" placeholder="Post ID" required>
-            <button class="btn-delete">Delete Post</button>
-        </form>
-    </div>
-
 </div>
 
 </body>
