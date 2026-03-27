@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <title>Comments Results</title>
+    <title>Post Details</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -33,7 +32,7 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
+            background-color: var(--bg);
             color: var(--text-primary);
         }
 
@@ -49,9 +48,15 @@
             box-shadow: var(--shadow-sm);
         }
 
+        .topbar-logo {
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
         /* ── Page ── */
         .page {
-            max-width: 900px;
+            max-width: 860px;
             margin: auto;
             padding: 48px 32px;
         }
@@ -126,7 +131,7 @@
             border-collapse: collapse;
         }
 
-        /* ── Table head ── */
+        /* head */
         thead tr {
             border-bottom: 1px solid var(--border);
         }
@@ -140,10 +145,10 @@
             background: var(--surface-alt);
         }
 
-        /* ── Table body ── */
+        /* body */
         tbody tr {
             border-bottom: 1px solid var(--border-light);
-            transition: background 0.15s ease;
+            transition: background 0.15s;
         }
 
         tbody tr:hover {
@@ -157,16 +162,15 @@
 
         /* ID pill */
         td:first-child span {
-            display: inline-block;
             background: var(--accent-soft);
             color: var(--accent);
-            border-radius: 6px;
             padding: 3px 10px;
+            border-radius: 6px;
             font-size: 12px;
         }
 
         /* empty */
-        .empty {
+        .empty-row td {
             text-align: center;
             padding: 40px;
             color: var(--text-muted);
@@ -178,8 +182,8 @@
 
 <!-- Topbar -->
 <nav class="topbar">
-    <div><b>SocialPlatform</b></div>
-    <div>Comments Module</div>
+    <a href="/" class="topbar-logo">SocialPlatform</a>
+    <div>Posts Module</div>
 </nav>
 
 <div class="page">
@@ -187,50 +191,46 @@
     <!-- Breadcrumb -->
     <div class="breadcrumb">
         <a href="/">Home</a> ›
-        <a href="/member/comments">Comments</a> ›
-        Results
+        <a href="/member/posts">Posts</a> ›
+        Post Details
     </div>
 
     <!-- Title -->
-    <div class="page-label">Records</div>
-    <div class="page-title">Comments Data</div>
-    <div class="page-subtitle">Displaying retrieved comments</div>
+    <div class="page-label">Record</div>
+    <div class="page-title">Post Data</div>
+    <div class="page-subtitle">Displaying retrieved post</div>
 
     <!-- Section -->
     <div class="section-header">
         <div class="section-line"></div>
-        <span class="section-label">Results</span>
+        <span class="section-label">Details</span>
         <div class="section-line"></div>
     </div>
 
     <!-- Table -->
     <div class="table-card">
         <table>
-
             <thead>
             <tr>
-                <th>Comment ID</th>
-                <th>User ID</th>
                 <th>Post ID</th>
+                <th>User ID</th>
                 <th>Content</th>
                 <th>Timestamp</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr th:each="comment : ${data}">
-                <td><span th:text="${comment.commentID}"></span></td>
-                <td th:text="${comment.user != null ? comment.user.userID : '-'}"></td>
-                <td th:text="${comment.post != null ? comment.post.postID : '-'}"></td>
-                <td th:text="${comment.comment_text}"></td>
-                <td th:text="${comment.timestamp}"></td>
+            <tr th:if="${post != null}">
+                <td><span th:text="${post.postID}"></span></td>
+                <td th:text="${post.user != null ? post.user.userID : '-'}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${post.timestamp}"></td>
             </tr>
 
-            <tr th:if="${#lists.isEmpty(data)}">
-                <td colspan="5" class="empty">No comments found</td>
+            <tr class="empty-row" th:if="${post == null}">
+                <td colspan="4">No post found</td>
             </tr>
             </tbody>
-
         </table>
     </div>
 

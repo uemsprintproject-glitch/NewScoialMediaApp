@@ -16,9 +16,15 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
+    public Post getPostById(Integer postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+    }
+
     public Post createPost(Integer userId, String content) {
 
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Post post = Post.builder()
                 .content(content)
@@ -34,11 +40,22 @@ public class PostService {
     }
 
     public List<Post> getPostsByUser(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        return postRepository.findByUser(user);
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getPosts();
     }
 
     public void deletePost(Integer postId) {
         postRepository.deleteById(postId);
     }
+
+    public Post updatePost(Post updatedPost) {
+        Post existingPost = postRepository.findById(updatedPost.getPostID())
+                .orElseThrow(()-> new RuntimeException("User not found"));
+
+        existingPost.setContent(updatedPost.getContent());
+        existingPost.setPostID(updatedPost.getPostID());
+
+        return  postRepository.save(existingPost);
+    }
+
 }
