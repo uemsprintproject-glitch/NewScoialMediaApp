@@ -27,13 +27,23 @@ public class CommentController {
         return service.getCommentById(id);
     }
 
+    @GetMapping("/by-user")
+    public List<Comment> getCommentsByUser(@RequestParam Integer userId){
+        return service.getCommentByUser(userId);
+    }
+
     @PostMapping("/create")
-    public Comment createComment(
-            @RequestParam int userId,
-            @RequestParam int postId,
-            @RequestParam String content
-    ) {
-        return service.createComment(userId, postId, content);
+    public Comment createComment(@RequestBody Comment comment) {
+        return service.createComment(
+                comment.getUser().getUserID(),
+                comment.getPost().getPostID(),
+                comment.getComment_text()
+        );
+    }
+
+    @PostMapping("/update")
+    public Comment updateComment(@RequestBody Comment comment){
+        return service.updateComment(comment);
     }
 
     @PostMapping("/delete")

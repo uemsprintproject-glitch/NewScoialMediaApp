@@ -1,6 +1,5 @@
 package com.socialmedia.social_media_backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import jakarta.persistence.*;
@@ -25,7 +24,6 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "postID", nullable = false)
-    @JsonIgnore
     private Post post;
 
     @ManyToOne

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/member/comments")
 public class CommentController {
@@ -28,12 +30,6 @@ public class CommentController {
         return "comments/result";
     }
 
-    @GetMapping("/by-id")
-    public String getCommentById(@RequestParam int id, Model model) {
-        model.addAttribute("comment", service.getCommentById(id));
-        return "comments/comment-by-id";
-    }
-
     @PostMapping("/create")
     public String createComment(@ModelAttribute Comment comment) {
         service.createComment(comment);
@@ -52,15 +48,22 @@ public class CommentController {
         return "redirect:/member/comments";
     }
 
-    @GetMapping("/post")
-    public String getCommentsByPost(@RequestParam int id, Model model) {
-        model.addAttribute("comments", service.getCommentsByPost(id));
-        return "comments/comments-by-post";
+    @GetMapping("/by-id")
+    public String getCommentById(@RequestParam int id, Model model) {
+        Comment comment = service.getCommentById(id);
+        model.addAttribute("data", List.of(comment)); // ✅ important
+        return "comments/result";
     }
 
-    @GetMapping("/user")
-    public String getCommentsByUser(@RequestParam int id, Model model) {
-        model.addAttribute("comments", service.getCommentsByUser(id));
-        return "comments/comments-by-user";
+    @GetMapping("/by-post")
+    public String getCommentsByPost(@RequestParam int postId, Model model) {
+        model.addAttribute("data", service.getCommentsByPost(postId));
+        return "comments/result";
+    }
+
+    @GetMapping("/by-user")
+    public String getCommentsByUser(@RequestParam int userId, Model model) {
+        model.addAttribute("data", service.getCommentsByUser(userId));
+        return "comments/result";
     }
 }

@@ -437,6 +437,11 @@
             <input name="postId" placeholder="Enter Post ID" required>
             <button type="submit" class="btn-get">Get Comments By Post</button>
         </form>
+
+        <form th:action="@{/member/comments/by-user}" method="get">
+            <input name="userId" placeholder="Enter User ID" required>
+            <button type="submit" class="btn-get">Get Comments By User</button>
+        </form>
     </div>
 
     <!-- CREATE -->
@@ -447,9 +452,9 @@
         </div>
 
         <form th:action="@{/member/comments/create}" method="post">
-            <input name="userId" placeholder="User ID" required>
-            <input name="postId" placeholder="Post ID" required>
-            <input name="content" placeholder="Comment Content" required>
+            <input name="user.userID" placeholder="User ID" required>
+            <input name="post.postID" placeholder="Post ID" required>
+            <input name="comment_text" placeholder="Comment Content" required>
             <button type="submit" class="btn-post">Create Comment</button>
         </form>
     </div>
@@ -464,8 +469,8 @@
         <div class="box-sep"></div>
 
         <form th:action="@{/member/comments/update}" method="post">
-            <input name="id" placeholder="Comment ID" required>
-            <input name="content" placeholder="Updated Content" required>
+            <input name="commentID" placeholder="Comment ID" required> <!-- ✅ -->
+            <input name="comment_text" placeholder="Updated Content" required> <!-- ✅ -->
             <button type="submit" class="btn-put">Update Comment</button>
         </form>
     </div>
