@@ -51,4 +51,12 @@ public class UserClientService {
     public User getUserByEmail(String email){
         return restTemplate.getForObject(BASE_URL + "/email?email="+email, User.class);
     }
+
+    public User getUserByPost(int id){
+        return restTemplate.getForObject(BASE_URL+"/posts?id="+id, User.class);
+    }
+
+    public User getUserByComment(Integer id){
+        return restTemplate.getForObject(BASE_URL+"/comment?id="+id, User.class);
+    }
 }
