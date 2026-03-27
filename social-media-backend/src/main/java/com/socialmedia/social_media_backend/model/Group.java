@@ -4,21 +4,19 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "Groups")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Message {
+public class Group {
 
     @Id
-    private Integer messageID;
+    private Integer groupID;
 
-    private String message_text;
-
-
-    @ManyToOne
-    private User sender;
+    private String groupName;
 
     @ManyToOne
-    private User receiver;
+    @JoinColumn(name = "adminID")
+    private User admin;
 }
