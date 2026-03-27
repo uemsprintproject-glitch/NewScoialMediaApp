@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/member/comments")
+@CrossOrigin(origins = "http://localhost:8080")
 public class CommentController {
 
     private final CommentService service;
@@ -32,12 +33,11 @@ public class CommentController {
     }
 
     @PostMapping("/create")
-    public Comment createComment(@RequestBody Comment comment) {
-        return service.createComment(
-                comment.getUser().getUserID(),
-                comment.getPost().getPostID(),
-                comment.getComment_text()
-        );
+    public Comment createComment(@RequestParam int userId,
+                                 @RequestParam int postId,
+                                 @RequestParam String content) {
+
+        return service.createComment(userId, postId, content);
     }
 
     @PostMapping("/update")

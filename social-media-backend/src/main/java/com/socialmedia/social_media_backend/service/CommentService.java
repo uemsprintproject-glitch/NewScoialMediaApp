@@ -30,7 +30,7 @@ public class CommentService {
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
         Comment comment = Comment.builder()
-                .comment_text(content)   // ✅ matches your entity
+                .comment_text(content)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .user(user)
                 .post(post)

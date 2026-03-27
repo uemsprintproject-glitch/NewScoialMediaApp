@@ -1,6 +1,8 @@
 package com.socialmedia.social_media_frontend.controller;
 
 import com.socialmedia.social_media_frontend.model.Comment;
+import com.socialmedia.social_media_frontend.model.Post;
+import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.CommentClientService;
 
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,24 @@ public class CommentController {
     }
 
     @PostMapping("/create")
-    public String createComment(@ModelAttribute Comment comment) {
+    public String createComment(@RequestParam int userId,
+                                @RequestParam int postId,
+                                @RequestParam String comment_text) {
+
+        Comment comment = new Comment();
+        comment.setComment_text(comment_text);
+
+        User user = new User();
+        user.setUserID(userId);
+
+        Post post = new Post();
+        post.setPostID(postId);
+
+        comment.setUser(user);
+        comment.setPost(post);
+
         service.createComment(comment);
+
         return "redirect:/member/comments";
     }
 
