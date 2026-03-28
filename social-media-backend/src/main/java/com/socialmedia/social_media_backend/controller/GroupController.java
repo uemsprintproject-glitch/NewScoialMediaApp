@@ -34,7 +34,8 @@ public class GroupController {
 	@Autowired
 	UserService userService;
     
-
+	
+	
     @GetMapping("/all")
     public List<Group> getAllGroups() {
         return service.getAllGroups();

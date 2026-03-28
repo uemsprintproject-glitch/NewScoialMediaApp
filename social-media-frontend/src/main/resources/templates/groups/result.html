@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Group Results</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        h2 { margin-top: 20px; }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+        }
+        th {
+            background-color: #eee;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📊 Group Data</h2>
+<a th:href="@{/member/groups}">⬅ Back to Groups</a>
+
+<table>
+    <tr>
+        <th>Group ID</th>
+        <th>Group Name</th>
+        <th>Admin User ID</th>
+    </tr>
+    <!-- Loop through all groups passed in "data" -->
+    <tr th:each="group : ${data}">
+        <td th:text="${group.groupID}"></td>
+        <td th:text="${group.groupName}"></td>
+        <td th:text="${group.admin.userID}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Groups API</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        h1 { margin-top: 20px; }
+
+        .box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        input {
+            margin: 5px;
+            padding: 8px;
+            width: 80%;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        a { text-decoration: none; }
+    </style>
+</head>
+
+<body>
+
+<h1>👩‍💻 Anshi Prajapati - Groups Module</h1>
+
+<a th:href="@{/}">⬅ Back to Home</a>
+
+<div class="box">
+    <h2>GET</h2>
+
+    <a th:href="@{/member/groups/all}">
+        <button>Get All Groups</button>
+    </a>
+
+</div>
+
+<div class="box">
+    <h2>GET GROUPS BY ID</h2>
+
+    <form th:action="@{/member/groups/by-id}" method="get">
+        <input name="id" placeholder="Enter Group ID"><br>
+        <button type="submit">Get Groups</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>GET GROUPS BY GROUP NAME</h2>
+
+    <form th:action="@{/member/groups/by-name}" method="get">
+        <input name="name" placeholder="Enter Group Name"><br>
+        <button type="submit">Get Groups</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>GET GROUPS BY ADMIN</h2>
+
+    <form th:action="@{/member/groups/by-admin}" method="get">
+        <input name="adminId" placeholder="Enter Admin User ID"><br>
+        <button type="submit">Get Groups</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>CREATE GROUP</h2>
+
+    <form th:action="@{/member/groups/create}" method="post">
+        <input name="groupName" placeholder="Group Name"><br>
+        <input name="admin.userID" placeholder="Admin User ID"><br>
+
+        <button type="submit">Create New Group</button>
+    </form>
+</div>
+
+<div class="box">
+    <h2>UPDATE GROUP</h2>
+
+    <form th:action="@{/member/groups/update}" method="post">
+        <input name="groupID" placeholder="Group ID"><br>
+        <input name="groupName" placeholder="Group Name"><br>
+        <input name="admin.userID" placeholder="Admin User ID"><br>
+
+        <button type="submit">Update Group</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>
