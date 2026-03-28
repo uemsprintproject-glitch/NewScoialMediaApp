@@ -87,11 +87,13 @@ public class FriendService {
     }
 
     public void unsendFriendRequest(Integer friendshipId) {
+        System.out.println(friendshipId);
         friendRepository.deleteById(friendshipId);
     }
 
-    public void removeFriend(Integer friendshipId) {
+    public String removeFriend(Integer friendshipId) {
         friendRepository.deleteById(friendshipId);
+        return "Friend Removed";
     }
 
     public Boolean areFriends(Integer userId1, Integer userId2) {
