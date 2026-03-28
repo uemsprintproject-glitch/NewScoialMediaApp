@@ -6,8 +6,6 @@ import com.socialmedia.social_media_backend.service.FriendService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 @RequestMapping("/member/friends")
@@ -28,17 +26,6 @@ public class FriendController {
     public Friend getFriendById(@RequestParam Integer friendshipId) {
         System.out.println();
         return service.getFriendById(friendshipId);
-    }
-
-    @GetMapping("/user/by-id")
-    public User getUserById(@RequestParam Integer userId) {
-        System.out.println(userId);
-        return service.getUserById(userId);
-    }
-
-    @GetMapping("/by-user")
-    public List<User> getFriendsByUser(@RequestParam Integer userId) {
-        return service.getFriendsByUser(userId);
     }
 
     @GetMapping("/requests/pending")
@@ -68,9 +55,8 @@ public class FriendController {
     }
 
     @PostMapping("/unsend")
-    public String unsendFriendRequest(@RequestParam Integer friendshipId) {
+    public void unsendFriendRequest(@RequestParam Integer friendshipId) {
         service.unsendFriendRequest(friendshipId);
-        return "Unsent";
     }
 
     @PostMapping("/remove")
