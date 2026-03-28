@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Comments Results</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         *, *::before, *::after {
@@ -15,59 +15,110 @@
         }
 
         :root {
-            --bg: #0a0c10;
-            --surface: #111318;
-            --surface-alt: #0e1016;
-            --border: rgba(255,255,255,0.07);
-            --accent: #4f8ef7;
-            --accent-soft: rgba(79, 142, 247, 0.12);
-            --text-primary: #f0f2f8;
-            --text-secondary: #7a8099;
-            --text-muted: #454b62;
-            --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-alt: #f8f9fc;
+            --border: #e4e8f0;
+            --border-light: #eef1f7;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.15);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06);
+            --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
             color: var(--text-primary);
         }
 
-        header {
-            text-align: center;
-            padding: 50px 20px;
+        /* ── Topbar ── */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
         }
 
-        .back-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        .back-link:hover {
-            color: var(--accent);
-        }
-
-        h2 {
-            font-family: 'Syne';
-            font-size: 28px;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .table-wrap {
+        /* ── Page ── */
+        .page {
             max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: auto;
+            padding: 48px 32px;
         }
 
+        /* ── Breadcrumb ── */
+        .breadcrumb {
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--text-muted);
+        }
+
+        /* ── Header ── */
+        .page-label {
+            display: inline-block;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            color: var(--accent);
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ── Section Header ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0 20px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* ── Table Card ── */
         .table-card {
             background: var(--surface);
-            border-radius: 12px;
-            overflow: hidden;
             border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
         }
 
         table {
@@ -75,27 +126,49 @@
             border-collapse: collapse;
         }
 
+        /* ── Table head ── */
+        thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
         th {
-            background: var(--surface-alt);
-            padding: 14px;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
             color: var(--text-muted);
+            padding: 16px 24px;
+            background: var(--surface-alt);
+        }
+
+        /* ── Table body ── */
+        tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--surface-alt);
         }
 
         td {
-            padding: 14px;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
+            padding: 16px 24px;
+            font-size: 14px;
         }
 
-        tr:hover {
-            background: rgba(79,142,247,0.05);
+        /* ID pill */
+        td:first-child span {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 12px;
         }
 
+        /* empty */
         .empty {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             color: var(--text-muted);
         }
     </style>
@@ -103,12 +176,34 @@
 
 <body>
 
-<header>
-    <a href="/member/comments" class="back-link">← Back</a>
-    <h2>Comments Data</h2>
-</header>
+<!-- Topbar -->
+<nav class="topbar">
+    <div><b>SocialPlatform</b></div>
+    <div>Comments Module</div>
+</nav>
 
-<div class="table-wrap">
+<div class="page">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/">Home</a> ›
+        <a href="/member/comments">Comments</a> ›
+        Results
+    </div>
+
+    <!-- Title -->
+    <div class="page-label">Records</div>
+    <div class="page-title">Comments Data</div>
+    <div class="page-subtitle">Displaying retrieved comments</div>
+
+    <!-- Section -->
+    <div class="section-header">
+        <div class="section-line"></div>
+        <span class="section-label">Results</span>
+        <div class="section-line"></div>
+    </div>
+
+    <!-- Table -->
     <div class="table-card">
         <table>
 
@@ -124,7 +219,7 @@
 
             <tbody>
             <tr th:each="comment : ${data}">
-                <td th:text="${comment.commentID}"></td>
+                <td><span th:text="${comment.commentID}"></span></td>
                 <td th:text="${comment.user != null ? comment.user.userID : '-'}"></td>
                 <td th:text="${comment.post != null ? comment.post.postID : '-'}"></td>
                 <td th:text="${comment.comment_text}"></td>
@@ -138,6 +233,7 @@
 
         </table>
     </div>
+
 </div>
 
 </body>

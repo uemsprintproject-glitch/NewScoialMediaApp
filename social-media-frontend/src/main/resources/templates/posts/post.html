@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Details</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-alt: #f8f9fc;
+            --border: #e4e8f0;
+            --border-light: #eef1f7;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.15);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06);
+            --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+        }
+
+        /* ── Topbar ── */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .topbar-logo {
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        /* ── Page ── */
+        .page {
+            max-width: 860px;
+            margin: auto;
+            padding: 48px 32px;
+        }
+
+        /* ── Breadcrumb ── */
+        .breadcrumb {
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--text-muted);
+        }
+
+        /* ── Header ── */
+        .page-label {
+            display: inline-block;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            color: var(--accent);
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ── Section Header ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0 20px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* ── Table Card ── */
+        .table-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* head */
+        thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 16px 24px;
+            background: var(--surface-alt);
+        }
+
+        /* body */
+        tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: var(--surface-alt);
+        }
+
+        td {
+            padding: 16px 24px;
+            font-size: 14px;
+        }
+
+        /* ID pill */
+        td:first-child span {
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        /* empty */
+        .empty-row td {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Topbar -->
+<nav class="topbar">
+    <a href="/" class="topbar-logo">SocialPlatform</a>
+    <div>Posts Module</div>
+</nav>
+
+<div class="page">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/">Home</a> ›
+        <a href="/member/posts">Posts</a> ›
+        Post Details
+    </div>
+
+    <!-- Title -->
+    <div class="page-label">Record</div>
+    <div class="page-title">Post Data</div>
+    <div class="page-subtitle">Displaying retrieved post</div>
+
+    <!-- Section -->
+    <div class="section-header">
+        <div class="section-line"></div>
+        <span class="section-label">Details</span>
+        <div class="section-line"></div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+        <table>
+            <thead>
+            <tr>
+                <th>Post ID</th>
+                <th>User ID</th>
+                <th>Content</th>
+                <th>Timestamp</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:if="${post != null}">
+                <td><span th:text="${post.postID}"></span></td>
+                <td th:text="${post.user != null ? post.user.userID : '-'}"></td>
+                <td th:text="${post.content}"></td>
+                <td th:text="${post.timestamp}"></td>
+            </tr>
+
+            <tr class="empty-row" th:if="${post == null}">
+                <td colspan="4">No post found</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

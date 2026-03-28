@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Social Media Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -21,14 +25,13 @@
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
             --accent-mid: rgba(37, 99, 235, 0.18);
-            --accent-glow: rgba(37, 99, 235, 0.1);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
-            --shadow-hover: 0 12px 36px rgba(37,99,235,0.13), 0 4px 12px rgba(15,23,42,0.06);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+            --shadow-hover: 0 12px 36px rgba(37, 99, 235, 0.13), 0 4px 12px rgba(15, 23, 42, 0.06);
         }
 
         body {
@@ -97,7 +100,6 @@
             padding: 56px 32px 80px;
         }
 
-        /* ── Hero ── */
         .hero {
             text-align: center;
             margin-bottom: 48px;
@@ -129,8 +131,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.35; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
         }
 
         h1 {
@@ -155,7 +164,6 @@
             font-weight: 400;
         }
 
-        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -163,7 +171,11 @@
             margin-bottom: 24px;
         }
 
-        .section-line { flex: 1; height: 1px; background: var(--border); }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
 
         .section-label {
             font-size: 11px;
@@ -174,18 +186,17 @@
             white-space: nowrap;
         }
 
-        /* ── Grid ── */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
+            align-items: stretch;
         }
 
-        /* ── Card ── */
-        a {
+        a.card-link-wrap {
             text-decoration: none;
             color: inherit;
-            display: contents;
+            display: block;
         }
 
         .card {
@@ -198,33 +209,59 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            height: 100%;
             min-height: 280px;
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1),
-                        box-shadow 0.25s ease,
-                        border-color 0.25s ease;
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
             animation: fadeUp 0.5s ease both;
+            cursor: default;
         }
 
-        .card:nth-child(1) { animation-delay: 0.04s; }
-        .card:nth-child(2) { animation-delay: 0.10s; }
-        .card:nth-child(3) { animation-delay: 0.16s; }
-        .card:nth-child(4) { animation-delay: 0.22s; }
-        .card:nth-child(5) { animation-delay: 0.28s; }
-        .card:nth-child(6) { animation-delay: 0.34s; }
+        .card:nth-child(1) {
+            animation-delay: 0.04s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.16s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.22s;
+        }
+
+        .card:nth-child(5) {
+            animation-delay: 0.28s;
+        }
+
+        .card:nth-child(6) {
+            animation-delay: 0.34s;
+        }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* gradient top accent bar on hover */
         .card::before {
             content: '';
             position: absolute;
-            top: 0; left: 50%;
+            top: 0;
+            left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 3px;
@@ -233,26 +270,17 @@
             transition: width 0.3s ease;
         }
 
-        a .card:hover,
-        a:hover .card {
+        .card:hover {
             transform: translateY(-5px);
-            border-color: rgba(37,99,235,0.25);
+            border-color: rgba(37, 99, 235, 0.25);
             box-shadow: var(--shadow-hover);
             background: var(--surface-hover);
         }
 
-        a .card:hover::before,
-        a:hover .card::before {
+        .card:hover::before {
             width: 56%;
         }
 
-        /* inactive cards */
-        .card:not(a .card) {
-            opacity: 0.72;
-            cursor: default;
-        }
-
-        /* cards with module links are always full opacity */
         .card.has-links {
             opacity: 1;
         }
@@ -275,7 +303,9 @@
             z-index: 0;
         }
 
-        a:hover .avatar-wrap::after { opacity: 1; }
+        .card:hover .avatar-wrap::after {
+            opacity: 1;
+        }
 
         img {
             display: block;
@@ -290,7 +320,9 @@
             transition: filter 0.25s ease;
         }
 
-        a:hover img { filter: grayscale(0%); }
+        .card:hover img {
+            filter: grayscale(0%);
+        }
 
         /* ── Card text ── */
         .card h3 {
@@ -301,14 +333,13 @@
             margin-bottom: 4px;
         }
 
-        .card > p {
+        .card>p {
             font-size: 13px;
             color: var(--text-muted);
             font-weight: 400;
-            margin-bottom: 2px;
         }
 
-        /* ── Simple tag ── */
+        /* ── Single tag ── */
         .tag {
             display: inline-block;
             margin-top: 12px;
@@ -341,14 +372,13 @@
             color: var(--accent);
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 0.01em;
             text-decoration: none;
             transition: background 0.18s ease, box-shadow 0.18s ease;
         }
 
         .module-links a:hover {
-            background: rgba(37,99,235,0.14);
-            box-shadow: 0 2px 8px rgba(37,99,235,0.1);
+            background: rgba(37, 99, 235, 0.14);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
         }
 
         /* ── Footer ── */
@@ -363,117 +393,133 @@
 
         /* ── Responsive ── */
         @media (max-width: 780px) {
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-            .page { padding: 36px 16px 60px; }
-            .topbar { padding: 0 20px; }
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .page {
+                padding: 36px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
         }
 
         @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; }
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- Top nav -->
-<nav class="topbar">
-    <a href="/" class="topbar-logo">
-        <div class="topbar-logo-mark">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        SocialPlatform
-    </a>
-    <div class="topbar-right">Internal Dashboard</div>
-</nav>
-
-<div class="page">
-
-    <!-- Hero -->
-    <div class="hero">
-        <div class="page-label">Team Overview</div>
-        <h1>Social Media <span>Platform</span></h1>
-        <p class="subtitle">Select a team member to explore their module</p>
-    </div>
-
-    <!-- Section header -->
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Team Members</span>
-        <div class="section-line"></div>
-    </div>
-
-    <!-- Grid -->
-    <div class="grid">
-
-        <a href="/member/users">
-            <div class="card">
-                <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Anishka Das">
-                </div>
-                <h3>Anishka Das</h3>
-                <p>Users Module</p>
-                <span class="tag">Users</span>
+    <!-- Top nav -->
+    <nav class="topbar">
+        <a href="/" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
             </div>
+            SocialPlatform
         </a>
+        <div class="topbar-right">Internal Dashboard</div>
+    </nav>
 
-        <a href="/posts">
-            <div class="card">
-                <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Poulami Sinha">
+    <div class="page">
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="page-label">Team Overview</div>
+            <h1>Social Media <span>Platform</span></h1>
+            <p class="subtitle">Select a team member to explore their module</p>
+        </div>
+
+        <!-- Section header -->
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Team Members</span>
+            <div class="section-line"></div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid">
+
+            <a href="/member/users">
+                <div class="card">
+                    <div class="avatar-wrap">
+                        <img th:src="@{/images/anishka.png}" alt="Anishka Das">
+                    </div>
+                    <h3>Anishka Das</h3>
+                    <p>Users Module</p>
+                    <span class="tag">Users</span>
                 </div>
-                <h3>Poulami Sinha</h3>
-                <p>Posts Module</p>
-                <span class="tag">Posts</span>
-            </div>
-        </a>
+            </a>
 
-        <div class="card has-links">
-            <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Soumyajit Sen Gupta">
-            </div>
-            <h3>Soumyajit Sen Gupta</h3>
-            <p>Likes &amp; Notifications</p>
-            <div class="module-links">
-                <a href="/member/likes">Likes Module</a>
-                <a href="/member/notifications">Notifications Module</a>
-            </div>
-        </div>
-
-        <div class="card has-links">
-            <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Sagnik Dutta">
-            </div>
-            <h3>Sagnik Dutta</h3>
-            <p>Comments &amp; Posts</p>
-            <div class="module-links">
-                <a href="/member/comments">Comments Module</a>
-                <a href="/member/posts">Posts Module</a>
-            </div>
-        </div>
-
-        <a href="/member/messages">
-            <div class="card">
-                <div class="avatar-wrap">
-                    <img src="https://via.placeholder.com/100" alt="Ashmit Dutta">
+            <a href="/member/friends">
+                <div class="card">
+                    <div class="avatar-wrap">
+                        <img th:src="@{/images/poulami.png}" alt="Poulami Sinha">
+                    </div>
+                    <h3>Poulami Sinha</h3>
+                    <p>Friends Module</p>
+                    <span class="tag">Friends</span>
                 </div>
-                <h3>Ashmit Dutta</h3>
-                <p>Messages Module</p>
-                <span class="tag">Messages</span>
-            </div>
-        </a>
+            </a>
 
-        <div class="card">
-            <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Anshi Prajapati">
+            <div class="card has-links">
+                <div class="avatar-wrap">
+                    <img th:src="@{/images/soumyojit.png}" alt="Soumyajit Sen Gupta">
+                </div>
+                <h3>Soumyojit Sen Gupta</h3>
+                <p>Likes &amp; Notifications</p>
+                <div class="module-links">
+                    <a href="/member/likes">Likes Module</a>
+                    <a href="/member/notifications">Notifications Module</a>
+                </div>
             </div>
-            <h3>Anshi Prajapati</h3>
-            <p>Messages Module</p>
-            <span class="tag">Groups</span>
+
+            <div class="card has-links">
+                <div class="avatar-wrap">
+                    <img th:src="@{/images/sagnik.png}" alt="Sagnik Dutta">
+                </div>
+                <h3>Sagnik Dutta</h3>
+                <p>Comments &amp; Posts</p>
+                <div class="module-links">
+                    <a href="/member/comments">Comments Module</a>
+                    <a href="/member/posts">Posts Module</a>
+                </div>
+            </div>
+
+            <a href="/member/messages">
+                <div class="card">
+                    <div class="avatar-wrap">
+                        <img th:src="@{/images/ashmit.png}" alt="Ashmit Dutta">
+                    </div>
+                    <h3>Ashmit Dutta</h3>
+                    <p>Messages Module</p>
+                    <span class="tag">Messages</span>
+                </div>
+            </a>
+
+            <a href="/member/groups">
+                <div class="card">
+                    <div class="avatar-wrap">
+                        <img th:src="@{/images/anshi.png}" alt="Anshi Prajapati">
+                    </div>
+                    <h3>Anshi Prajapati</h3>
+                    <p>Groups Module</p>
+                    <span class="tag">Groups</span>
+                </div>
+            </a>
+
         </div>
-
     </div>
-</div>
 
 </body>
+
 </html>

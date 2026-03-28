@@ -30,6 +30,7 @@ public class NotificationService {
     }
 
     public Notification createNotification(Notification notification) {
+        notification.setNotificationID(null);
         notification.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         return notificationRepository.save(notification);
     }
