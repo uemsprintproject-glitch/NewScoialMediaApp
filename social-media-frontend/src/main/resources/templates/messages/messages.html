@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Messages API</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
 
     <style>
-       *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -38,8 +42,8 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
         }
 
         body {
@@ -62,7 +66,6 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            cursor: pointer;
         }
 
         .topbar-logo {
@@ -118,7 +121,6 @@
             font-size: 13px;
             color: var(--text-muted);
             font-weight: 500;
-            cursor: pointer;
         }
 
         .breadcrumb a {
@@ -127,12 +129,23 @@
             transition: color 0.2s;
         }
 
-        .breadcrumb a:hover { color: var(--accent); }
-        .breadcrumb-sep { color: var(--border); font-size: 13px; }
-        .breadcrumb-current { color: var(--text-secondary); }
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb-sep {
+            color: var(--border);
+            font-size: 13px;
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
 
         /* ── Page title ── */
-        .page-title-wrap { margin-bottom: 36px; }
+        .page-title-wrap {
+            margin-bottom: 36px;
+        }
 
         .page-label {
             display: inline-flex;
@@ -160,8 +173,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.35; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
         }
 
         .page-title {
@@ -186,7 +206,11 @@
             margin-bottom: 24px;
         }
 
-        .section-line { flex: 1; height: 1px; background: var(--border); }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
 
         .section-label {
             font-size: 11px;
@@ -218,15 +242,36 @@
             animation: fadeUp 0.4s ease both;
         }
 
-        .box:nth-child(1) { animation-delay: 0.04s; }
-        .box:nth-child(2) { animation-delay: 0.10s; }
-        .box:nth-child(3) { animation-delay: 0.16s; }
-        .box:nth-child(4) { animation-delay: 0.22s; }
-        .box:nth-child(5) { animation-delay: 0.28s; }
+        .box:nth-child(1) {
+            animation-delay: 0.04s;
+        }
+
+        .box:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+
+        .box:nth-child(3) {
+            animation-delay: 0.16s;
+        }
+
+        .box:nth-child(4) {
+            animation-delay: 0.22s;
+        }
+
+        .box:nth-child(5) {
+            animation-delay: 0.28s;
+        }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .box:hover {
@@ -241,10 +286,21 @@
             margin-bottom: 20px;
         }
 
-        .accent-get     { background: linear-gradient(90deg, #059669, #34d399); }
-        .accent-post    { background: linear-gradient(90deg, #2563eb, #7c3aed); }
-        .accent-put     { background: linear-gradient(90deg, #d97706, #f59e0b); }
-        .accent-delete  { background: linear-gradient(90deg, #dc2626, #f87171); }
+        .accent-get {
+            background: linear-gradient(90deg, #059669, #34d399);
+        }
+
+        .accent-post {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+        }
+
+        .accent-put {
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+        }
+
+        .accent-delete {
+            background: linear-gradient(90deg, #dc2626, #f87171);
+        }
 
         /* ── Box header ── */
         .box-header {
@@ -263,10 +319,29 @@
             text-transform: uppercase;
         }
 
-        .method-get    { background: var(--success-soft); color: var(--success); border: 1px solid var(--success-mid); }
-        .method-post   { background: var(--accent-soft);  color: var(--accent);  border: 1px solid var(--accent-mid); }
-        .method-delete { background: var(--danger-soft);  color: var(--danger);  border: 1px solid var(--danger-mid); }
-        .method-put    { background: var(--warning-soft); color: var(--warning); border: 1px solid var(--warning-mid); }
+        .method-get {
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
+        }
+
+        .method-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .method-delete {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border: 1px solid var(--danger-mid);
+        }
+
+        .method-put {
+            background: var(--warning-soft);
+            color: var(--warning);
+            border: 1px solid var(--warning-mid);
+        }
 
         .box h2 {
             font-size: 14px;
@@ -303,7 +378,9 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        input::placeholder { color: var(--text-muted); }
+        input::placeholder {
+            color: var(--text-muted);
+        }
 
         input:focus {
             border-color: var(--accent);
@@ -325,13 +402,39 @@
             letter-spacing: 0.01em;
         }
 
-        button:hover  { opacity: 0.88; transform: translateY(-1px); }
-        button:active { transform: translateY(0); opacity: 1; }
+        button:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
 
-        .btn-get    { background: var(--success-soft); color: var(--success); border-color: var(--success-mid); }
-        .btn-post   { background: var(--accent-soft);  color: var(--accent);  border-color: var(--accent-mid); }
-        .btn-delete { background: var(--danger-soft);  color: var(--danger);  border-color: var(--danger-mid); }
-        .btn-put    { background: var(--warning-soft); color: var(--warning); border-color: var(--warning-mid); }
+        button:active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .btn-get {
+            background: var(--success-soft);
+            color: var(--success);
+            border-color: var(--success-mid);
+        }
+
+        .btn-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent-mid);
+        }
+
+        .btn-delete {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border-color: var(--danger-mid);
+        }
+
+        .btn-put {
+            background: var(--warning-soft);
+            color: var(--warning);
+            border-color: var(--warning-mid);
+        }
 
         .btn-link {
             display: block;
@@ -372,157 +475,171 @@
 
         /* ── Responsive ── */
         @media (max-width: 620px) {
-            .grid { grid-template-columns: 1fr; }
-            .box:last-child { grid-column: auto; max-width: 100%; }
-            .page { padding: 32px 16px 60px; }
-            .topbar { padding: 0 20px; }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .box:last-child {
+                grid-column: auto;
+                max-width: 100%;
+            }
+
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- Top nav -->
-<nav class="topbar">
-    <a th:href="@{/}" class="topbar-logo">
-        <div class="topbar-logo-mark">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        SocialPlatform
-    </a>
-    <div class="topbar-right">Messages Module</div>
-</nav>
-
-<div class="page">
-
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a th:href="@{/}">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Messages API</span>
-    </div>
-
-    <!-- Title -->
-    <div class="page-title-wrap">
-        <div class="page-label">Messages Module</div>
-        <div class="page-title">Messages API</div>
-        <div class="page-subtitle">Manage user messages</div>
-    </div>
-
-    <!-- Section -->
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Operations</span>
-        <div class="section-line"></div>
-    </div>
-
-    <!-- Grid -->
-    <div class="grid">
-
-        <!-- GET ALL -->
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Fetch Messages</h2>
+    <!-- Top nav -->
+    <nav class="topbar">
+        <a th:href="@{/}" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
             </div>
-            <div class="box-sep"></div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Messages Module</div>
+    </nav>
 
-            <a th:href="@{/member/messages/all}" class="btn-link">
-                <button class="btn-get">Get All Messages</button>
-            </a>
+    <div class="page">
 
-            <div class="or-divider"  style="padding: 10px;"><span>or search by ID</span></div>
-
-            <form th:action="@{/member/messages/by-id}" method="get">
-                <input name="id" placeholder="Enter Message ID" required>
-                <button type="submit" class="btn-get">Get Message By ID</button>
-            </form>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a th:href="@{/}">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">Messages API</span>
         </div>
 
-        <!-- SEND -->
-        <div class="box">
-            <div class="box-accent accent-post"></div>
-            <div class="box-header">
-                <span class="method-badge method-post">POST</span>
-                <h2>Send Message</h2>
+        <!-- Title -->
+        <div class="page-title-wrap">
+            <div class="page-label">Messages Module</div>
+            <div class="page-title">Messages API</div>
+            <div class="page-subtitle">Manage user messages</div>
+        </div>
+
+        <!-- Section -->
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Operations</span>
+            <div class="section-line"></div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid">
+
+            <!-- GET ALL -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Fetch Messages</h2>
+                </div>
+                <div class="box-sep"></div>
+
+                <a th:href="@{/member/messages/all}" class="btn-link">
+                    <button class="btn-get">Get All Messages</button>
+                </a>
+
+                <div class="or-divider"><span>or search by ID</span></div>
+
+                <form th:action="@{/member/messages/by-id}" method="get">
+                    <input name="id" placeholder="Enter Message ID" required>
+                    <button type="submit" class="btn-get">Get Message By ID</button>
+                </form>
             </div>
-            <div class="box-sep"></div>
 
-            <form th:action="@{/member/messages/send}" method="post">
-                <input name="sender.userID" placeholder="Sender ID" required>
-                <input name="receiver.userID" placeholder="Receiver ID" required>
-                <input name="message_text" placeholder="Message Content" required>
-                <button type="submit" class="btn-post">Send Message</button>
-            </form>
-        </div>
+            <!-- SEND -->
+            <div class="box">
+                <div class="box-accent accent-post"></div>
+                <div class="box-header">
+                    <span class="method-badge method-post">POST</span>
+                    <h2>Send Message</h2>
+                </div>
+                <div class="box-sep"></div>
 
-        <!-- UPDATE -->
-        <div class="box">
-            <div class="box-accent accent-put"></div>
-            <div class="box-header">
-                <span class="method-badge method-put">PUT</span>
-                <h2>Update Message</h2>
+                <form th:action="@{/member/messages/send}" method="post">
+                    <input name="sender.userID" placeholder="Sender ID" required>
+                    <input name="receiver.userID" placeholder="Receiver ID" required>
+                    <input name="message_text" placeholder="Message Content" required>
+                    <button type="submit" class="btn-post">Send Message</button>
+                </form>
             </div>
-            <div class="box-sep"></div>
 
-            <form th:action="@{/member/messages/update}" method="post">
-                <input name="messageID" placeholder="Message ID" required>
-                <input name="message_text" placeholder="Updated Message">
-                <button type="submit" class="btn-put">Update Message</button>
-            </form>
-        </div>
+            <!-- UPDATE -->
+            <div class="box">
+                <div class="box-accent accent-put"></div>
+                <div class="box-header">
+                    <span class="method-badge method-put">PUT</span>
+                    <h2>Update Message</h2>
+                </div>
+                <div class="box-sep"></div>
 
-         <!-- CONVERSATION -->
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Conversation</h2>
+                <form th:action="@{/member/messages/update}" method="post">
+                    <input name="messageID" placeholder="Message ID" required>
+                    <input name="message_text" placeholder="Updated Message">
+                    <button type="submit" class="btn-put">Update Message</button>
+                </form>
             </div>
-            <div class="box-sep"></div>
 
-            <form th:action="@{/member/messages/conversation}" method="get">
-                <input name="user1" placeholder="User 1 ID" required>
-                <input name="user2" placeholder="User 2 ID" required>
-                <button type="submit" class="btn-get">Get Conversation</button>
-            </form>
-        </div>
+            <!-- CONVERSATION -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Conversation</h2>
+                </div>
+                <div class="box-sep"></div>
 
-        <!-- BY SENDER -->
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Messages by Sender</h2>
+                <form th:action="@{/member/messages/conversation}" method="get">
+                    <input name="user1" placeholder="User 1 ID" required>
+                    <input name="user2" placeholder="User 2 ID" required>
+                    <button type="submit" class="btn-get">Get Conversation</button>
+                </form>
             </div>
-            <div class="box-sep"></div>
 
-            <form th:action="@{/member/messages/sender}" method="get">
-                <input name="senderId" placeholder="Sender ID" required>
-                <button type="submit" class="btn-get">Fetch Messages</button>
-            </form>
-        </div>
+            <!-- BY SENDER -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Messages by Sender</h2>
+                </div>
+                <div class="box-sep"></div>
 
-        <!-- BY RECEIVER -->
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Messages by Receiver</h2>
+                <form th:action="@{/member/messages/sender}" method="get">
+                    <input name="senderId" placeholder="Sender ID" required>
+                    <button type="submit" class="btn-get">Fetch Messages</button>
+                </form>
             </div>
-            <div class="box-sep"></div>
 
-            <form th:action="@{/member/messages/receiver}" method="get">
-                <input name="receiverId" placeholder="Receiver ID" required>
-                <button type="submit" class="btn-get">Fetch Messages</button>
-            </form>
-        </div>
+            <!-- BY RECEIVER -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Messages by Receiver</h2>
+                </div>
+                <div class="box-sep"></div>
 
-       
+                <form th:action="@{/member/messages/receiver}" method="get">
+                    <input name="receiverId" placeholder="Receiver ID" required>
+                    <button type="submit" class="btn-get">Fetch Messages</button>
+                </form>
+            </div>
 
-        <!-- DELETE -->
-        <!-- <div class="box">
+
+
+            <!-- DELETE -->
+            <!-- <div class="box">
             <div class="box-accent accent-delete"></div>
             <div class="box-header">
                 <span class="method-badge method-delete">DELETE</span>
@@ -536,8 +653,9 @@
             </form>
         </div> -->
 
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>
