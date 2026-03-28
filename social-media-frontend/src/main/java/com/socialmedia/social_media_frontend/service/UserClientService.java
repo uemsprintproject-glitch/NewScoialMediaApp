@@ -1,14 +1,14 @@
 package com.socialmedia.social_media_frontend.service;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.model.User;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class UserClientService {
