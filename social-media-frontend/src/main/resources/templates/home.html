@@ -21,7 +21,6 @@
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
             --accent-mid: rgba(37, 99, 235, 0.18);
-            --accent-glow: rgba(37, 99, 235, 0.1);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
@@ -179,15 +178,18 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
+            align-items: stretch;
+        }
+
+        /* ── Universal card reset ── */
+        /* Strip display:contents from all <a> so grid sizing is consistent */
+        a.card-link-wrap {
+            text-decoration: none;
+            color: inherit;
+            display: block; /* participate in grid as a cell */
         }
 
         /* ── Card ── */
-        a {
-            text-decoration: none;
-            color: inherit;
-            display: contents;
-        }
-
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -198,29 +200,33 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            height: 100%;           /* fill the grid cell */
             min-height: 280px;
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1),
                         box-shadow 0.25s ease,
-                        border-color 0.25s ease;
+                        border-color 0.25s ease,
+                        background 0.25s ease;
             animation: fadeUp 0.5s ease both;
+            cursor: default;
         }
 
-        .card:nth-child(1) { animation-delay: 0.04s; }
-        .card:nth-child(2) { animation-delay: 0.10s; }
-        .card:nth-child(3) { animation-delay: 0.16s; }
-        .card:nth-child(4) { animation-delay: 0.22s; }
-        .card:nth-child(5) { animation-delay: 0.28s; }
-        .card:nth-child(6) { animation-delay: 0.34s; }
+        /* staggered entrance — applied on the grid cell wrapper */
+        .grid > *:nth-child(1) .card { animation-delay: 0.04s; }
+        .grid > *:nth-child(2) .card { animation-delay: 0.10s; }
+        .grid > *:nth-child(3) .card { animation-delay: 0.16s; }
+        .grid > *:nth-child(4) .card { animation-delay: 0.22s; }
+        .grid > *:nth-child(5) .card { animation-delay: 0.28s; }
+        .grid > *:nth-child(6) .card { animation-delay: 0.34s; }
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* gradient top accent bar on hover */
+        /* gradient top accent bar */
         .card::before {
             content: '';
             position: absolute;
@@ -233,59 +239,25 @@
             transition: width 0.3s ease;
         }
 
-        a .card:hover,
-        a:hover .card {
+        /* ── Hover: linked cards only ── */
+        .card.is-linked {
+            cursor: pointer;
+        }
+
+        .card.is-linked:hover {
             transform: translateY(-5px);
             border-color: rgba(37,99,235,0.25);
             box-shadow: var(--shadow-hover);
             background: var(--surface-hover);
         }
 
-        .card.card-link {
-            opacity: 1;
-            cursor: pointer;
-        }
-
-        .card.card-link:hover {
-            transform: translateY(-6px);
-            border-color: rgba(79, 142, 247, 0.3);
-            background: var(--surface-hover);
-        }
-
-        .card.card-link {
-            opacity: 1;
-            cursor: pointer;
-        }
-
-        .card.card-link:hover {
-            transform: translateY(-6px);
-            border-color: rgba(79, 142, 247, 0.3);
-            background: var(--surface-hover);
-            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(79, 142, 247, 0.1);
-        }
-
-        a .card:hover::before,
-        a:hover .card::before {
+        .card.is-linked:hover::before {
             width: 56%;
         }
 
-        .card.card-link:hover::after {
-            opacity: 1;
-        }
-
-        .card.card-link:hover::after {
-            opacity: 1;
-        }
-
-        /* inactive cards */
-        .card:not(a .card) {
-            opacity: 0.72;
-            cursor: default;
-        }
-
-        /* cards with module links are always full opacity */
-        .card.has-links {
-            opacity: 1;
+        /* ── Inactive cards: dimmed ── */
+        .card.is-inactive {
+            opacity: 0.6;
         }
 
         /* ── Avatar ── */
@@ -295,6 +267,7 @@
             margin-bottom: 16px;
         }
 
+        /* gradient ring — only on linked cards */
         .avatar-wrap::after {
             content: '';
             position: absolute;
@@ -306,18 +279,14 @@
             z-index: 0;
         }
 
-        a:hover .avatar-wrap::before {
-            opacity: 1;
-        }
-
-        .card.card-link:hover .avatar-wrap::before {
+        .card.is-linked:hover .avatar-wrap::after {
             opacity: 1;
         }
 
         img {
             display: block;
-            width: 150px;
-            height: 150px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
             position: relative;
             z-index: 1;
@@ -327,11 +296,7 @@
             transition: filter 0.25s ease;
         }
 
-        a:hover img {
-            filter: grayscale(0%);
-        }
-
-        .card.card-link:hover img {
+        .card.is-linked:hover img {
             filter: grayscale(0%);
         }
 
@@ -348,10 +313,9 @@
             font-size: 13px;
             color: var(--text-muted);
             font-weight: 400;
-            margin-bottom: 2px;
         }
 
-        /* ── Simple tag ── */
+        /* ── Single tag ── */
         .tag {
             display: inline-block;
             margin-top: 12px;
@@ -384,7 +348,6 @@
             color: var(--accent);
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 0.01em;
             text-decoration: none;
             transition: background 0.18s ease, box-shadow 0.18s ease;
         }
@@ -449,8 +412,9 @@
     <!-- Grid -->
     <div class="grid">
 
-        <a href="/member/users">
-            <div class="card">
+        <!-- Anishka — single link -->
+        <a class="card-link-wrap" href="/member/users">
+            <div class="card is-linked">
                 <div class="avatar-wrap">
                     <img th:src="@{/images/anishka.png}" alt="Anishka Das">
                 </div>
@@ -460,44 +424,51 @@
             </div>
         </a>
 
-        <div class="card card-link" role="link" tabindex="0" onclick="window.location.href='/member/friends'"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='/member/friends';}">
-            <div class="avatar-wrap">
-                <img src="https://via.placeholder.com/100" alt="Poulami Sinha">
+        <!-- Poulami — single link via module-links -->
+        <a class="card-link-wrap" href="/member/friends">
+            <div class="card is-linked">
+                <div class="avatar-wrap">
+                    <img th:src="@{/images/poulami.png}" alt="Poulami Sinha">
+                </div>
+                <h3>Poulami Sinha</h3>
+                <p>Friends Module</p>
+                <span class="tag">Friends</span>
             </div>
-            <h3>Poulami Sinha</h3>
-            <p>Friends Module</p>
-            <div class="module-links">
-                <a href="/member/friends">Friends Module</a>
+        </a>
+
+        <!-- Soumyojit — multiple links -->
+        <div class="card-link-wrap">
+            <div class="card is-linked">
+                <div class="avatar-wrap">
+                    <img th:src="@{/images/soumyojit.png}" alt="Soumyojit Sen Gupta">
+                </div>
+                <h3>Soumyojit Sen Gupta</h3>
+                <p>Likes &amp; Notifications</p>
+                <div class="module-links">
+                    <a href="/member/likes">Likes Module</a>
+                    <a href="/member/notifications">Notifications Module</a>
+                </div>
             </div>
         </div>
 
-        <div class="card has-links">
-            <div class="avatar-wrap">
-                <img th:src="@{/images/soumyojit.png}" alt="Soumyajit Sen Gupta">
-            </div>
-            <h3>Soumyojit Sen Gupta</h3>
-            <p>Likes &amp; Notifications</p>
-            <div class="module-links">
-                <a href="/member/likes">Likes Module</a>
-                <a href="/member/notifications">Notifications Module</a>
-            </div>
-        </div>
-
-        <div class="card has-links">
-            <div class="avatar-wrap">
-                <img th:src="@{/images/sagnik.png}" alt="Sagnik Dutta">
-            </div>
-            <h3>Sagnik Dutta</h3>
-            <p>Comments &amp; Posts</p>
-            <div class="module-links">
-                <a href="/member/comments">Comments Module</a>
-                <a href="/member/posts">Posts Module</a>
+        <!-- Sagnik — multiple links -->
+        <div class="card-link-wrap">
+            <div class="card is-linked">
+                <div class="avatar-wrap">
+                    <img th:src="@{/images/sagnik.png}" alt="Sagnik Dutta">
+                </div>
+                <h3>Sagnik Dutta</h3>
+                <p>Comments &amp; Posts</p>
+                <div class="module-links">
+                    <a href="/member/comments">Comments Module</a>
+                    <a href="/member/posts">Posts Module</a>
+                </div>
             </div>
         </div>
 
-        <a href="/member/messages">
-            <div class="card">
+        <!-- Ashmit — single link -->
+        <a class="card-link-wrap" href="/member/messages">
+            <div class="card is-linked">
                 <div class="avatar-wrap">
                     <img th:src="@{/images/ashmit.png}" alt="Ashmit Dutta">
                 </div>
@@ -507,15 +478,20 @@
             </div>
         </a>
 
-        <div class="card">
-            <div class="avatar-wrap">
-                <img th:src="@{/images/anshi.png}" alt="Anshi Prajapati">
+        <!-- Anshi — inactive -->
+        <div class="card-link-wrap">
+            <div class="card is-inactive">
+                <div class="avatar-wrap">
+                    <img th:src="@{/images/anshi.png}" alt="Anshi Prajapati">
+                </div>
+                <h3>Anshi Prajapati</h3>
+                <p>Groups Module</p>
+                <span class="tag">Groups</span>
             </div>
-            <h3>Anshi Prajapati</h3>
-            <p>Groups Module</p>
-            <span class="tag">Groups</span>
         </div>
+
     </div>
 </div>
+
 </body>
 </html>
