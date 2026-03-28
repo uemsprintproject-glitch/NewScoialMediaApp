@@ -1,7 +1,10 @@
 package com.socialmedia.social_media_frontend.controller;
 
 import com.socialmedia.social_media_frontend.model.Message;
+import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.MessageClientService;
+
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +33,34 @@ public class MessageController {
 
     @GetMapping("/by-id")
     public String getMessageById(@RequestParam int id, Model model) {
-        model.addAttribute("message", service.getMessageById(id));
-        return "messages/message-by-id";
+
+        Message message = null;
+
+        try {
+            message = service.getMessageById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (message == null) {
+            model.addAttribute("data", List.of());
+            model.addAttribute("error", "Message not found with ID: " + id);
+        } else {
+            model.addAttribute("data", List.of(message));
+        }
+
+        return "messages/result";
     }
 
     @PostMapping("/send")
     public String sendMessage(@ModelAttribute Message message) {
+
+        // ✅ ensure nested objects exist
+        if (message.getSender() == null)
+            message.setSender(new User());
+        if (message.getReceiver() == null)
+            message.setReceiver(new User());
+
         service.sendMessage(message);
         return "redirect:/member/messages";
     }
