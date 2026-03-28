@@ -1,333 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Message Results</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-
-    
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --bg: #0a0c10;
-            --surface: #111318;
-            --surface-alt: #0e1016;
-            --border: rgba(255,255,255,0.07);
-            --accent: #4f8ef7;
-            --accent-soft: rgba(79, 142, 247, 0.12);
-            --text-primary: #f0f2f8;
-            --text-secondary: #7a8099;
-            --text-muted: #454b62;
-            --gradient-hero: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
-            --success: #4fca8e;
-            --success-soft: rgba(79, 202, 142, 0.08);
-        }
-
         body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.6;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 700px;
-            height: 400px;
-            background: radial-gradient(ellipse at center, rgba(79,142,247,0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ── Header ── */
-        header {
-            position: relative;
-            z-index: 1;
-            padding: 52px 24px 0;
-            text-align: center;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
-            margin-bottom: 28px;
-        }
-
-        .back-link:hover { color: var(--accent); }
-        .back-link::before { content: '←'; font-size: 15px; }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: var(--accent-soft);
-            border: 1px solid rgba(79,142,247,0.25);
-            border-radius: 100px;
-            padding: 5px 14px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--accent);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-        }
-
-        .badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.6rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            background: var(--gradient-hero);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-        }
-
-        .header-sub {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
-
-        /* ── Divider ── */
-        .divider {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            max-width: 860px;
-            margin: 36px auto 0;
-            padding: 0 32px;
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .divider-label {
-            font-family: 'Syne', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        /* ── Table wrapper ── */
-        .table-wrap {
-            position: relative;
-            z-index: 1;
-            max-width: 860px;
-            margin: 32px auto 80px;
-            padding: 0 32px;
-            animation: fadeUp 0.5s ease both;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .table-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            overflow: hidden;
+            font-family: Arial;
+            background: #111;
+            color: white;
         }
 
         table {
-            width: 100%;
+            width: 80%;
+            margin: 40px auto;
             border-collapse: collapse;
         }
 
-        /* ── Table head ── */
-        thead tr {
-            border-bottom: 1px solid var(--border);
+        th, td {
+            padding: 10px;
+            border: 1px solid #444;
+            text-align: center;
         }
 
         th {
-            font-family: 'Syne', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            padding: 16px 24px;
-            text-align: left;
-            background: var(--surface-alt);
+            background: #222;
         }
 
-        th:first-child { border-radius: 0; }
-
-        /* ── Table body ── */
-        tbody tr {
-            border-bottom: 1px solid var(--border);
-            transition: background 0.18s ease;
+        tr:hover {
+            background: #333;
         }
 
-        tbody tr:last-child { border-bottom: none; }
-
-        tbody tr:hover { background: rgba(79,142,247,0.05); }
-
-        td {
-            padding: 16px 24px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        /* ID column pill */
-        td:first-child {
-            font-family: 'Syne', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        td:first-child span {
-            display: inline-block;
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid rgba(79,142,247,0.2);
-            border-radius: 6px;
-            padding: 2px 10px;
-            font-size: 11px;
-            letter-spacing: 0.04em;
-        }
-
-        /* Username — brighter */
-        td:nth-child(2) {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        /* Email — monospace feel */
-        td:nth-child(3) {
-            font-size: 13px;
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
-
-        /* ── Empty state ── */
-        .empty-row td {
-            text-align: center;
-            padding: 48px 24px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* ── Footer ── */
-        footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding-bottom: 40px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 600px) {
-            .table-wrap { padding: 0 16px; }
-            th, td { padding: 12px 14px; font-size: 13px; }
+        a {
+            color: gray;
+            margin-left: 20px;
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <a href="/member/messages" class="back-link">Back to Messages</a>
-    <br>
-    <div class="badge">Messages API</div>
-    <h2>Message Data</h2>
-    <p class="header-sub">Displaying all retrieved message records</p>
-</header>
+<a href="/member/messages">← Back</a>
+<h2 style="text-align:center;">Message Data</h2>
 
-<div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-label">Results</span>
-    <div class="divider-line"></div>
-</div>
+<table>
 
-<div class="table-wrap">
-    <div class="table-card">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Message</th>
-                    <th>Sender</th>
-                    <th>Receiver</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
+    <thead>
+    <tr>
+        <th>Message ID</th>
+        <th>Sender ID</th>
+        <th>Receiver ID</th>
+        <th>Message</th>
+        <th>Timestamp</th>
+    </tr>
+    </thead>
 
-            <tbody>
-                <tr th:each="msg : ${data}">
-                    <td><span th:text="${msg.messageID}"></span></td>
-                    <td th:text="${msg.message_text}"></td>
-                    <td th:text="${msg.sender != null ? msg.sender.username : 'N/A'}"></td>
-                    <td th:text="${msg.receiver != null ? msg.receiver.username : 'N/A'}"></td>
-                    <td th:text="${#temporals.format(msg.timestamp, 'dd-MM-yyyy HH:mm')}"></td>
-                </tr>
+    <tbody>
 
-                <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                    <td colspan="5">No messages found.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+    <tr th:each="msg : ${data}">
+    <td><span th:text="${msg.messageID}"></span></td>
+
+    
+
+    
+    <td th:text="${msg.sender.username}"></td>
+    <td th:text="${msg.receiver.username}"></td>
+
+    <td th:text="${msg.message_text}"></td>
+
+    <td th:text="${msg.timestamp}"></td>
+</tr>
+
+    <tr th:if="${#lists.isEmpty(data)}">
+        <td colspan="5">No messages found</td>
+    </tr>
+
+    </tbody>
+
+</table>
 
 </body>
 </html>
