@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 @RequestMapping("/member/friends")
-@CrossOrigin(origins = "http://localhost:8080")
 public class FriendController {
 
     private final FriendService service;
