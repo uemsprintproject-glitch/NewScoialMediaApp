@@ -37,18 +37,6 @@ public class FriendController {
         return "friends/friend-by-id";
     }
 
-    @GetMapping("/user/by-id")
-    public String getUserById(@RequestParam Integer userId, Model model) {
-        model.addAttribute("user", service.getUserById(userId));
-        return "users/user-by-id";
-    }
-
-    @GetMapping("/by-user")
-    public String getFriendsByUser(@RequestParam Integer userId, Model model) {
-        model.addAttribute("data", service.getFriendsByUser(userId));
-        return "users/result";
-    }
-
     @GetMapping("/requests/pending")
     public String getPendingRequests(@RequestParam Integer userId, Model model) {
         model.addAttribute("data", service.getPendingRequests(userId));

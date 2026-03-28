@@ -1,7 +1,6 @@
 package com.socialmedia.social_media_frontend.service;
 
 import com.socialmedia.social_media_frontend.model.Friend;
-import com.socialmedia.social_media_frontend.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,15 +20,6 @@ public class FriendClientService {
 
     public Friend getFriendById(Integer friendshipId) {
         return restTemplate.getForObject(BASE_URL + "/by-id?friendshipId=" + friendshipId, Friend.class);
-    }
-
-    public User getUserById(Integer userId) {
-        return restTemplate.getForObject(BASE_URL + "/user/by-id?userId=" + userId, User.class);
-    }
-
-    public List<User> getFriendsByUser(Integer userId) {
-        User[] users = restTemplate.getForObject(BASE_URL + "/by-user?userId=" + userId, User[].class);
-        return users == null ? List.of() : Arrays.asList(users);
     }
 
     public List<Friend> getPendingRequests(Integer userId) {

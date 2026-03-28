@@ -31,19 +31,9 @@ public class FriendService {
                 .orElseThrow(() -> new RuntimeException("Friendship not found"));
     }
 
-    public User getUserById(Integer userId) {
+    private User getUserById(Integer userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-    }
-
-    public List<User> getFriendsByUser(Integer userId) {
-        User user = getUserById(userId);
-        List<User> users = new ArrayList<>();
-        users.addAll(friendRepository.findByUser1AndStatus(user, Friend.Status.accepted)
-                .stream().map(Friend::getUser2).toList());
-        users.addAll(friendRepository.findByUser2AndStatus(user, Friend.Status.accepted)
-                .stream().map(Friend::getUser1).toList());
-        return new ArrayList<>(new LinkedHashSet<>(users));
     }
 
     public List<Friend> getPendingRequests(Integer userId) {
