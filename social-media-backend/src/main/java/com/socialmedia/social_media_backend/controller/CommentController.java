@@ -33,11 +33,13 @@ public class CommentController {
     }
 
     @PostMapping("/create")
-    public Comment createComment(@RequestParam int userId,
-                                 @RequestParam int postId,
-                                 @RequestParam String content) {
+    public Comment createComment(@RequestBody Comment comment) {
 
-        return service.createComment(userId, postId, content);
+        return service.createComment(
+                comment.getUser().getUserID(),
+                comment.getPost().getPostID(),
+                comment.getComment_text()
+        );
     }
 
     @PostMapping("/update")

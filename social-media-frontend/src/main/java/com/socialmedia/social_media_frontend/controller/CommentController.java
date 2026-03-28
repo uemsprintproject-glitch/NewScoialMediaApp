@@ -33,9 +33,10 @@ public class CommentController {
     }
 
     @PostMapping("/create")
-    public String createComment(@RequestParam int userId,
-                                @RequestParam int postId,
-                                @RequestParam String comment_text) {
+    public String createComment(
+            @RequestParam int userId,
+            @RequestParam int postId,
+            @RequestParam String comment_text) {
 
         Comment comment = new Comment();
         comment.setComment_text(comment_text);
