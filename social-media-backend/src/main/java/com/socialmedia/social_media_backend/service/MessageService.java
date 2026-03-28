@@ -18,6 +18,7 @@ public class MessageService {
     private final UserService userService;
 
     public List<Message> getAllMessages() {
+        System.out.println("Hello");
         return messageRepository.findAll();
     }
 

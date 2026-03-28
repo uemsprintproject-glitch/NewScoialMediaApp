@@ -33,6 +33,12 @@ public class MessageController {
         return messageService.getMessageByIdSafe(id);
     }
 
+    // Backward-compatible lookup for clients that call /member/messages/{id}
+    @GetMapping("/{id}")
+    public Message getMessageByIdPath(@PathVariable Integer id) {
+        return messageService.getMessageByIdSafe(id);
+    }
+
     // ✅ correct endpoint
     @PostMapping("/create")
     public Message sendMessage(@RequestBody Message message) {
