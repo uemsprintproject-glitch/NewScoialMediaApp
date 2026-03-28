@@ -12,6 +12,7 @@ import lombok.*;
 public class Notification {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer notificationID;
 
     private String content;

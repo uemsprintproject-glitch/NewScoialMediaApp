@@ -1,6 +1,4 @@
 package com.socialmedia.social_media_backend.controller;
-
-import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.service.UserService;
 
@@ -8,9 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/member/users")
-@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     private final UserService service;
@@ -44,8 +42,28 @@ public class UserController {
         service.deleteUser(id);
     }
 
+    // @GetMapping("/posts")
+    // public List<Post> getPostsByUser(@RequestParam int id) {
+    //     return service.getPostsByUser(id);
+    // }
+    
+    @GetMapping("/username")
+    public List<User> getUserByUsername(@RequestParam String username){
+        return service.getUserByUsername(username);
+    }
+
+    @GetMapping("/email")
+    public User getUserByEmail(@RequestParam String email){
+        return service.getUserByEmail(email);
+    }
+
     @GetMapping("/posts")
-        public List<Post> getPostsByUser(@RequestParam int id) {
-        return service.getPostsByUser(id);
-    }   
+    public User getUserByPost(@RequestParam int id){
+        return service.getUserByPostId(id);
+    }
+
+    @GetMapping("/comment")
+    public User getUserByComment(@RequestParam int id){
+        return service.getUserByComment(id);
+    }
 }

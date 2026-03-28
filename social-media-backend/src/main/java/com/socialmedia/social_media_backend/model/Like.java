@@ -12,6 +12,7 @@ import lombok.*;
 public class Like {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer likeID;
 
     private java.sql.Timestamp timestamp;

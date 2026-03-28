@@ -11,7 +11,6 @@ import java.util.List;
 @RequestMapping("/member/posts")
 @CrossOrigin(origins = "http://localhost:8080")
 public class PostController {
-
     private final PostService service;
 
     public PostController(PostService service) {
@@ -21,6 +20,11 @@ public class PostController {
     @GetMapping("/all")
     public List<Post> getAllPosts() {
         return service.getAllPosts();
+    }
+
+    @GetMapping("/by-id")
+    public Post getPostById(@RequestParam("postId") int postId){
+        return service.getPostById(postId);
     }
 
     @GetMapping("/by-user")
@@ -34,8 +38,14 @@ public class PostController {
         return service.createPost(userId, content);
     }
 
+    @PostMapping("/update")
+    public Post updatePost(@RequestBody Post post){
+        return service.updatePost(post);
+    }
+
     @PostMapping("/delete")
     public void deletePost(@RequestParam Integer postId) {
         service.deletePost(postId);
     }
+
 }

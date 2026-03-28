@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/member/posts")
 public class PostController {
@@ -30,6 +28,12 @@ public class PostController {
         return "posts/result";
     }
 
+    @GetMapping("/by-id")
+    public String getPostById(@RequestParam("postId") int postId,Model model){
+        model.addAttribute("post", service.getPostById(postId));
+        return "posts/post";
+    }
+
     @GetMapping("/by-user")
     public String getPostsByUser(@RequestParam int userId, Model model) {
         model.addAttribute("data", service.getPostsByUser(userId));
@@ -40,6 +44,12 @@ public class PostController {
     public String createPost(@RequestParam int userId,
                              @RequestParam String content) {
         service.createPost(userId, content);
+        return "redirect:/member/posts";
+    }
+
+    @PostMapping("/update")
+    public String updatePost(@ModelAttribute Post post){
+        service.updatePost(post);
         return "redirect:/member/posts";
     }
 

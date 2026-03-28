@@ -38,7 +38,7 @@ public class CommentClientService {
 
     public List<Comment> getCommentsByPost(int postId) {
         Comment[] comments = restTemplate.getForObject(
-                BASE_URL + "/post?id=" + postId,
+                BASE_URL + "/by-post?postId=" + postId,
                 Comment[].class
         );
         return Arrays.asList(comments);
@@ -46,7 +46,7 @@ public class CommentClientService {
 
     public List<Comment> getCommentsByUser(int userId) {
         Comment[] comments = restTemplate.getForObject(
-                BASE_URL + "/user?id=" + userId,
+                BASE_URL + "/by-user?userId=" + userId,
                 Comment[].class
         );
         return Arrays.asList(comments);

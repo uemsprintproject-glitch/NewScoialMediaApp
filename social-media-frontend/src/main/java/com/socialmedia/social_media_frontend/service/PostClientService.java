@@ -30,9 +30,11 @@ public class PostClientService {
 
     public void createPost(int userId, String content) {
         restTemplate.postForObject(
-                BASE_URL + "/create?userId=" + userId + "&content=" + content,
+                BASE_URL + "/create?userId={userId}&content={content}",
                 null,
-                Post.class
+                Post.class,
+                userId,
+                content
         );
     }
 
@@ -42,5 +44,13 @@ public class PostClientService {
                 null,
                 Void.class
         );
+    }
+
+    public void updatePost(Post post) {
+        restTemplate.postForObject(BASE_URL + "/update",post, Post.class);
+    }
+
+    public Post getPostById(int id) {
+        return restTemplate.getForObject(BASE_URL + "/by-id?postId=" + id, Post.class);
     }
 }

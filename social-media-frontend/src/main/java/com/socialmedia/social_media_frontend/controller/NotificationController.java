@@ -45,10 +45,9 @@ public class NotificationController {
     }
 
     @PostMapping("/create")
-    public String createNotification(@RequestParam Integer notificationID,
-            @RequestParam String content,
+    public String createNotification(@RequestParam String content,
             @RequestParam Integer userID) {
-        service.createNotification(buildNotification(notificationID, content, userID));
+        service.createNotification(buildCreateNotification(content, userID));
         return "redirect:/member/notifications";
     }
 
@@ -56,7 +55,7 @@ public class NotificationController {
     public String updateNotification(@RequestParam Integer notificationID,
             @RequestParam String content,
             @RequestParam Integer userID) {
-        service.updateNotification(buildNotification(notificationID, content, userID));
+        service.updateNotification(buildUpdateNotification(notificationID, content, userID));
         return "redirect:/member/notifications";
     }
 
@@ -64,6 +63,14 @@ public class NotificationController {
     public String deleteNotification(@RequestParam Integer id) {
         service.deleteNotification(id);
         return "redirect:/member/notifications";
+    }
+
+    private Notification buildCreateNotification(String content, Integer userID) {
+        return buildNotification(null, content, userID);
+    }
+
+    private Notification buildUpdateNotification(Integer notificationID, String content, Integer userID) {
+        return buildNotification(notificationID, content, userID);
     }
 
     private Notification buildNotification(Integer notificationID, String content, Integer userID) {
