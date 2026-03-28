@@ -100,7 +100,6 @@
             padding: 56px 32px 80px;
         }
 
-        /* ── Hero ── */
         .hero {
             text-align: center;
             margin-bottom: 48px;
@@ -165,7 +164,6 @@
             font-weight: 400;
         }
 
-        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -188,7 +186,6 @@
             white-space: nowrap;
         }
 
-        /* ── Grid ── */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -196,15 +193,12 @@
             align-items: stretch;
         }
 
-        /* ── Universal card reset ── */
-        /* Strip display:contents from all <a> so grid sizing is consistent */
         a.card-link-wrap {
             text-decoration: none;
             color: inherit;
-            display: block; /* participate in grid as a cell */
+            display: block; 
         }
 
-        /* ── Card ── */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -215,7 +209,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: 100%;           /* fill the grid cell */
+            height: 100%;    
             min-height: 280px;
             position: relative;
             overflow: hidden;
@@ -263,7 +257,6 @@
             }
         }
 
-        /* gradient top accent bar */
         .card::before {
             content: '';
             position: absolute;
@@ -288,7 +281,6 @@
             width: 56%;
         }
 
-        /* cards with module links are always full opacity */
         .card.has-links {
             opacity: 1;
         }
@@ -300,7 +292,6 @@
             margin-bottom: 16px;
         }
 
-        /* gradient ring — only on linked cards */
         .avatar-wrap::after {
             content: '';
             position: absolute;
