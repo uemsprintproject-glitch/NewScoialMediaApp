@@ -60,7 +60,7 @@ public class UserController {
     
     @GetMapping("/username")
     public String getUserByUsername(@RequestParam String username, Model model){
-        model.addAttribute("users", service.getUserByUsername(username));
+        model.addAttribute("data", service.getUserByUsername(username));
         return "users/get-by-username";
     }
 
