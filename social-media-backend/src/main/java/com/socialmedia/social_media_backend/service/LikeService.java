@@ -34,6 +34,7 @@ public class LikeService {
     }
 
     public Like createLike(Like like) {
+        like.setLikeID(null);
         like.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         return likeRepository.save(like);
     }

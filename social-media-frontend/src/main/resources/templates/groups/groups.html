@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Notifications API</title>
+    <title>Groups API</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
@@ -249,6 +249,14 @@
             animation-delay: 0.22s;
         }
 
+        .box:nth-child(5) {
+            animation-delay: 0.28s;
+        }
+
+        .box:nth-child(6) {
+            animation-delay: 0.34s;
+        }
+
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -284,10 +292,6 @@
             background: linear-gradient(90deg, #d97706, #f59e0b);
         }
 
-        .accent-delete {
-            background: linear-gradient(90deg, #dc2626, #f87171);
-        }
-
         .box-header {
             display: flex;
             align-items: center;
@@ -314,12 +318,6 @@
             background: var(--accent-soft);
             color: var(--accent);
             border: 1px solid var(--accent-mid);
-        }
-
-        .method-delete {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border: 1px solid var(--danger-mid);
         }
 
         .method-put {
@@ -406,12 +404,6 @@
             border-color: var(--accent-mid);
         }
 
-        .btn-delete {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border-color: var(--danger-mid);
-        }
-
         .btn-put {
             background: var(--warning-soft);
             color: var(--warning);
@@ -471,7 +463,7 @@
             </div>
             SocialPlatform
         </a>
-        <div class="topbar-right">Notifications Module</div>
+        <div class="topbar-right">Groups Module</div>
     </nav>
 
     <div class="page">
@@ -479,13 +471,13 @@
         <div class="breadcrumb">
             <a th:href="@{/}">Home</a>
             <span class="breadcrumb-sep">›</span>
-            <span class="breadcrumb-current">Notifications API</span>
+            <span class="breadcrumb-current">Groups API</span>
         </div>
 
         <div class="page-title-wrap">
-            <div class="page-label">Notifications Module</div>
-            <div class="page-title">Notifications API</div>
-            <div class="page-subtitle">Soumyajit Sen Gupta - Manage user notifications</div>
+            <div class="page-label">Groups Module</div>
+            <div class="page-title">Groups API</div>
+            <div class="page-subtitle">Manage community groups and admins</div>
         </div>
 
         <div class="section-header">
@@ -500,24 +492,19 @@
                 <div class="box-accent accent-get"></div>
                 <div class="box-header">
                     <span class="method-badge method-get">GET</span>
-                    <h2>Fetch Notifications</h2>
+                    <h2>Fetch Groups</h2>
                 </div>
                 <div class="box-sep"></div>
 
-                <a th:href="@{/member/notifications/all}" class="btn-link">
-                    <button class="btn-get">Get All Notifications</button>
+                <a th:href="@{/member/groups/all}" class="btn-link">
+                    <button class="btn-get">Get All Groups</button>
                 </a>
 
-                <div class="or-divider"><span>or filter records</span></div>
+                <div class="or-divider"><span>or search by ID</span></div>
 
-                <form th:action="@{/member/notifications/by-id}" method="get">
-                    <input name="id" placeholder="Enter Notification ID" required>
-                    <button type="submit" class="btn-get">Get Notification By ID</button>
-                </form>
-
-                <form th:action="@{/member/notifications/by-user}" method="get">
-                    <input name="userID" placeholder="Enter User ID" required>
-                    <button type="submit" class="btn-get">Get Notifications By User</button>
+                <form th:action="@{/member/groups/by-id}" method="get">
+                    <input name="id" placeholder="Enter Group ID" required>
+                    <button type="submit" class="btn-get">Get Group By ID</button>
                 </form>
             </div>
 
@@ -525,14 +512,14 @@
                 <div class="box-accent accent-post"></div>
                 <div class="box-header">
                     <span class="method-badge method-post">POST</span>
-                    <h2>Create Notification</h2>
+                    <h2>Create Group</h2>
                 </div>
                 <div class="box-sep"></div>
 
-                <form th:action="@{/member/notifications/create}" method="post">
-                    <input name="content" placeholder="Content" required>
-                    <input name="userID" placeholder="User ID" required>
-                    <button type="submit" class="btn-post">Create Notification</button>
+                <form th:action="@{/member/groups/create}" method="post">
+                    <input name="groupName" placeholder="Group Name" required>
+                    <input name="admin.userID" placeholder="Admin User ID" required>
+                    <button type="submit" class="btn-post">Create New Group</button>
                 </form>
             </div>
 
@@ -540,29 +527,43 @@
                 <div class="box-accent accent-put"></div>
                 <div class="box-header">
                     <span class="method-badge method-put">PUT</span>
-                    <h2>Update Notification</h2>
+                    <h2>Update Group</h2>
                 </div>
                 <div class="box-sep"></div>
 
-                <form th:action="@{/member/notifications/update}" method="post">
-                    <input name="notificationID" placeholder="Notification ID" required>
-                    <input name="content" placeholder="Content" required>
-                    <input name="userID" placeholder="User ID" required>
-                    <button type="submit" class="btn-put">Update Notification</button>
+                <form th:action="@{/member/groups/update}" method="post">
+                    <input name="groupID" placeholder="Group ID" required>
+                    <input name="groupName" placeholder="Group Name">
+                    <input name="admin.userID" placeholder="Admin User ID">
+                    <button type="submit" class="btn-put">Update Group</button>
                 </form>
             </div>
 
             <div class="box">
-                <div class="box-accent accent-delete"></div>
+                <div class="box-accent accent-get"></div>
                 <div class="box-header">
-                    <span class="method-badge method-delete">DELETE</span>
-                    <h2>Delete Notification</h2>
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Group By Name</h2>
                 </div>
                 <div class="box-sep"></div>
 
-                <form th:action="@{/member/notifications/delete}" method="post">
-                    <input name="id" placeholder="Notification ID" required>
-                    <button type="submit" class="btn-delete">Delete Notification</button>
+                <form th:action="@{/member/groups/by-name}" method="get">
+                    <input name="name" placeholder="Enter Group Name" required>
+                    <button type="submit" class="btn-get">Get Group By Name</button>
+                </form>
+            </div>
+
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Groups By Admin</h2>
+                </div>
+                <div class="box-sep"></div>
+
+                <form th:action="@{/member/groups/by-admin}" method="get">
+                    <input name="adminId" placeholder="Enter Admin User ID" required>
+                    <button type="submit" class="btn-get">Get Admin Groups</button>
                 </form>
             </div>
 

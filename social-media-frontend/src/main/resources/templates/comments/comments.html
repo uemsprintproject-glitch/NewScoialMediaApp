@@ -235,17 +235,17 @@
 
             <form th:action="@{/member/comments/by-id}" method="get">
                 <input name="id" placeholder="Comment ID" required>
-                <button>Get Comment</button>
+                <button>Get Comment by Comment ID</button>
             </form>
 
             <form th:action="@{/member/comments/by-post}" method="get">
                 <input name="postId" placeholder="Post ID" required>
-                <button>Get Comments by Post</button>
+                <button>Get Comments by Post ID</button>
             </form>
 
             <form th:action="@{/member/comments/by-user}" method="get">
                 <input name="userId" placeholder="User ID" required>
-                <button>Get Comments by User</button>
+                <button>Get Comments by User ID</button>
             </form>
         </div>
 
@@ -253,15 +253,15 @@
         <div class="box">
             <div class="box-header">
                 <span class="method post">POST</span>
-                <h3>Create Comment</h3>
+                <h3>Create Comment </h3>
             </div>
 
 
             <form th:action="@{/member/comments/create}" method="post">
                 <input name="userId" placeholder="User ID" required>
                 <input name="postId" placeholder="Post ID" required>
-                <input name="comment_text" placeholder="Comment Content" required>
-                <button>Create</button>
+                <input name="comment_text" placeholder="Comment" required>
+                <button>Create Comment</button>
             </form>
         </div>
 

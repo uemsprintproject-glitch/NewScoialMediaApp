@@ -16,18 +16,22 @@ public class UserService {
         this.repo = repo;
     }
 
+    
     public List<User> getAllUsers() {
         return repo.findAll();
     }
 
+    
     public User getUserById(int id) {
         return repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
+
 
     public User createUser(User user) {
         return repo.save(user);
     }
 
+    
     public User updateUser(User updatedUser) {
         User existingUser = repo.findById(updatedUser.getUserID())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -37,8 +41,9 @@ public class UserService {
         existingUser.setPassword(updatedUser.getPassword());
         existingUser.setProfilePicture(updatedUser.getProfilePicture());
 
-        return repo.save(existingUser);
+        return repo.save(existingUser); 
     }
+
 
     public void deleteUser(int id) {
         repo.deleteById(id);

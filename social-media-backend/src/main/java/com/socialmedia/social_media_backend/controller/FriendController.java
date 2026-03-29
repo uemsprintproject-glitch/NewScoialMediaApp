@@ -24,17 +24,8 @@ public class FriendController {
 
     @GetMapping("/by-id")
     public Friend getFriendById(@RequestParam Integer friendshipId) {
+        System.out.println();
         return service.getFriendById(friendshipId);
-    }
-
-    @GetMapping("/user/by-id")
-    public User getUserById(@RequestParam Integer userId) {
-        return service.getUserById(userId);
-    }
-
-    @GetMapping("/by-user")
-    public List<User> getFriendsByUser(@RequestParam Integer userId) {
-        return service.getFriendsByUser(userId);
     }
 
     @GetMapping("/requests/pending")
@@ -44,6 +35,7 @@ public class FriendController {
 
     @GetMapping("/requests/sent")
     public List<Friend> getSentRequests(@RequestParam Integer userId) {
+        System.out.println(userId);
         return service.getSentRequests(userId);
     }
 

@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -35,4 +34,8 @@ public class Post {
     @OneToMany(mappedBy = "post")
     @JsonIgnore
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private List<Like> likes;
 }
