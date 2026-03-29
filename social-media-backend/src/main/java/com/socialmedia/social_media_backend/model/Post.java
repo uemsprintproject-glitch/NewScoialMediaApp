@@ -2,7 +2,6 @@ package com.socialmedia.social_media_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,8 +35,4 @@ public class Post {
     @OneToMany(mappedBy = "post")
     @JsonIgnore
     private List<Comment> comments;
-
-//     @OneToMany(mappedBy = "post")
-//     @JsonIgnore
-//     private List<Like> likes;
 }

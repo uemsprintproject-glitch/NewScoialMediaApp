@@ -1,6 +1,5 @@
 package com.socialmedia.social_media_backend.service;
 
-import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 
@@ -43,11 +42,6 @@ public class UserService {
 
     public void deleteUser(int id) {
         repo.deleteById(id);
-    }
-
-    public List<Post> getPostsByUser(int userId) {
-        User user = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return user.getPosts();
     }
 
     public List<User> getUserByUsername(String username){

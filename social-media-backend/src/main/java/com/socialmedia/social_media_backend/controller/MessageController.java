@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/messages")
-@CrossOrigin(origins = "http://localhost:8080")
 public class MessageController {
 
     private final MessageService messageService;
@@ -46,9 +45,7 @@ public class MessageController {
 
     @PutMapping("/{id}")
     public Message updateMessage(@PathVariable Integer id, @RequestBody Message message) {
-
         message.setMessageID(id);
-
         return messageService.updateMessage(message);
     }
 
