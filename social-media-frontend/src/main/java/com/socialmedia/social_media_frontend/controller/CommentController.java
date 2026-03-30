@@ -85,4 +85,12 @@ public class CommentController {
         model.addAttribute("data", service.getCommentsByUser(userId));
         return "comments/result";
     }
+
+    @GetMapping("/sorted")
+    public String getSortedComments(@RequestParam String dir, Model model) {
+
+        model.addAttribute("data", service.getSortedComments(dir));
+
+        return "comments/result";
+    }
 }
