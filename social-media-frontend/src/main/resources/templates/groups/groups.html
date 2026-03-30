@@ -20,9 +20,7 @@
             --bg: #f4f6fa;
             --surface: #ffffff;
             --surface-alt: #f8f9fc;
-            --surface-input: #f4f6fa;
             --border: #e4e8f0;
-            --border-input: #d8dde8;
             --border-light: #eef1f7;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
@@ -30,12 +28,6 @@
             --success: #059669;
             --success-soft: rgba(5, 150, 105, 0.08);
             --success-mid: rgba(5, 150, 105, 0.18);
-            --danger: #dc2626;
-            --danger-soft: rgba(220, 38, 38, 0.08);
-            --danger-mid: rgba(220, 38, 38, 0.18);
-            --warning: #d97706;
-            --warning-soft: rgba(217, 119, 6, 0.08);
-            --warning-mid: rgba(217, 119, 6, 0.18);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
@@ -51,7 +43,6 @@
             min-height: 100vh;
         }
 
-        /* ── Top nav ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -103,14 +94,12 @@
             font-weight: 500;
         }
 
-        /* ── Page ── */
         .page {
-            max-width: 860px;
+            max-width: 820px;
             margin: 0 auto;
             padding: 48px 32px 80px;
         }
 
-        /* ── Breadcrumb ── */
         .breadcrumb {
             display: flex;
             align-items: center;
@@ -133,14 +122,12 @@
 
         .breadcrumb-sep {
             color: var(--border);
-            font-size: 13px;
         }
 
         .breadcrumb-current {
             color: var(--text-secondary);
         }
 
-        /* ── Page title ── */
         .page-title-wrap {
             margin-bottom: 36px;
         }
@@ -196,12 +183,11 @@
             font-weight: 400;
         }
 
-        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
             gap: 14px;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .section-line {
@@ -219,47 +205,34 @@
             white-space: nowrap;
         }
 
-        /* ── Grid: 2x2 ── */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            align-items: stretch;
-        }
-
-        /* ── Box card ── */
-        .box {
+        .group {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 26px 24px;
+            overflow: hidden;
             box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+            margin-bottom: 20px;
             animation: fadeUp 0.4s ease both;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .box:nth-child(1) {
-            animation-delay: 0.04s;
+        .group:nth-child(1) {
+            animation-delay: 0.05s;
         }
 
-        .box:nth-child(2) {
-            animation-delay: 0.10s;
+        .group:nth-child(2) {
+            animation-delay: 0.12s;
         }
 
-        .box:nth-child(3) {
-            animation-delay: 0.16s;
-        }
-
-        .box:nth-child(4) {
-            animation-delay: 0.22s;
+        .group:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #d0d7e8;
         }
 
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateY(14px);
             }
 
             to {
@@ -268,40 +241,25 @@
             }
         }
 
-        .box:hover {
-            box-shadow: var(--shadow-md);
-            border-color: #d0d7e8;
-        }
-
-        /* top accent bar */
-        .box-accent {
+        .group-bar {
             height: 3px;
-            border-radius: 4px;
-            margin-bottom: 20px;
         }
 
-        .accent-get {
+        .bar-get {
             background: linear-gradient(90deg, #059669, #34d399);
         }
 
-        .accent-post {
+        .bar-post {
             background: linear-gradient(90deg, #2563eb, #7c3aed);
         }
 
-        .accent-put {
-            background: linear-gradient(90deg, #d97706, #f59e0b);
-        }
-
-        .accent-delete {
-            background: linear-gradient(90deg, #dc2626, #f87171);
-        }
-
-        /* ── Box header ── */
-        .box-header {
+        .group-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 18px;
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--surface-alt);
         }
 
         .method-badge {
@@ -313,166 +271,112 @@
             text-transform: uppercase;
         }
 
-        .method-get {
+        .badge-get {
             background: var(--success-soft);
             color: var(--success);
             border: 1px solid var(--success-mid);
         }
 
-        .method-post {
+        .badge-post {
             background: var(--accent-soft);
             color: var(--accent);
             border: 1px solid var(--accent-mid);
         }
 
-        .method-delete {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border: 1px solid var(--danger-mid);
-        }
-
-        .method-put {
-            background: var(--warning-soft);
-            color: var(--warning);
-            border: 1px solid var(--warning-mid);
-        }
-
-        .box h2 {
-            font-size: 14px;
+        .group-title {
+            font-size: 13px;
             font-weight: 700;
             color: var(--text-primary);
             letter-spacing: -0.01em;
         }
 
-        /* ── Separator ── */
-        .box-sep {
-            height: 1px;
-            background: var(--border-light);
-            margin: 0 0 18px;
-        }
-
-        /* ── Forms ── */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex: 1;
-        }
-
-        input {
-            width: 100%;
-            background: var(--surface-input);
-            border: 1px solid var(--border-input);
-            border-radius: 8px;
-            padding: 10px 13px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px;
-            color: var(--text-primary);
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        input::placeholder {
-            color: var(--text-muted);
-        }
-
-        input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-soft);
-            background: var(--surface);
-        }
-
-        /* ── Buttons ── */
-        button {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px;
+        .group-count {
+            margin-left: auto;
+            font-size: 11px;
             font-weight: 600;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
-            letter-spacing: 0.01em;
+            color: var(--text-muted);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 2px 9px;
         }
 
-        button:hover {
-            opacity: 0.88;
-            transform: translateY(-1px);
+        .endpoint-list {
+            padding: 8px 0;
         }
 
-        button:active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .btn-get {
-            background: var(--success-soft);
-            color: var(--success);
-            border-color: var(--success-mid);
-        }
-
-        .btn-post {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border-color: var(--accent-mid);
-        }
-
-        .btn-delete {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border-color: var(--danger-mid);
-        }
-
-        .btn-put {
-            background: var(--warning-soft);
-            color: var(--warning);
-            border-color: var(--warning-mid);
-        }
-
-        .btn-link {
-            display: block;
-            text-decoration: none;
-        }
-
-        /* ── OR divider ── */
-        .or-divider {
+        .endpoint-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .or-divider::before,
-        .or-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-light);
+        .endpoint-row:last-child {
+            border-bottom: none;
         }
 
-        .or-divider span {
-            font-size: 11px;
-            font-weight: 500;
+        .endpoint-row a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 13px 22px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: background 0.15s ease;
+        }
+
+        .endpoint-row a:hover {
+            background: var(--bg);
+        }
+
+        .endpoint-row a:hover .endpoint-path {
+            color: var(--accent);
+        }
+
+        .endpoint-row a:hover .endpoint-arrow {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        .endpoint-method {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .em-get {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+
+        .em-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .endpoint-path {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: -0.01em;
+            transition: color 0.15s ease;
+        }
+
+        .endpoint-arrow {
+            margin-left: auto;
+            font-size: 14px;
             color: var(--text-muted);
-            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.15s ease, transform 0.15s ease;
         }
 
-        /* ── Footer ── */
-        footer {
-            margin-top: 48px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 620px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
+        @media (max-width: 600px) {
             .page {
                 padding: 32px 16px 60px;
             }
@@ -480,13 +384,16 @@
             .topbar {
                 padding: 0 20px;
             }
+
+            .endpoint-path {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Top nav -->
     <nav class="topbar">
         <a th:href="@{/}" class="topbar-logo">
             <div class="topbar-logo-mark">
@@ -501,122 +408,91 @@
 
     <div class="page">
 
-        <!-- Breadcrumb -->
         <div class="breadcrumb">
             <a th:href="@{/}">Home</a>
             <span class="breadcrumb-sep">›</span>
-            <span class="breadcrumb-current">Groups API</span>
+            <a th:href="@{/member/groups}">Groups</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">API Dashboard</span>
         </div>
 
-        <!-- Title -->
         <div class="page-title-wrap">
             <div class="page-label">Groups Module</div>
-            <div class="page-title">Groups API</div>
-            <div class="page-subtitle">Anshi Prajapati — Manage platform groups</div>
+            <div class="page-title">Groups API Dashboard</div>
+            <div class="page-subtitle">Browse and navigate all available group endpoints</div>
         </div>
 
-        <!-- READ OPERATIONS -->
         <div class="section-header">
             <div class="section-line"></div>
-            <span class="section-label">OPERATIONS</span>
+            <span class="section-label">Endpoints</span>
             <div class="section-line"></div>
         </div>
 
-        <div class="grid">
-            <!-- GET ALL -->
-            <div class="box">
-                <div class="box-accent accent-get"></div>
-                <div class="box-header">
-                    <span class="method-badge method-get">GET</span>
-                    <h2>Get All Groups</h2>
-                </div>
-                <div class="box-sep"></div>
-                <a th:href="@{/member/groups/all}" class="btn-link">
-                    <button class="btn-get">Fetch All</button>
-                </a>
+        <div class="group">
+            <div class="group-bar bar-get"></div>
+            <div class="group-header">
+                <span class="method-badge badge-get">GET</span>
+                <span class="group-title">Read Endpoints</span>
+                <span class="group-count">4 endpoints</span>
             </div>
-
-            <!-- GET BY ID -->
-            <div class="box">
-                <div class="box-accent accent-get"></div>
-                <div class="box-header">
-                    <span class="method-badge method-get">GET</span>
-                    <h2>Get Group By ID</h2>
+            <div class="endpoint-list">
+                <div class="endpoint-row">
+                    <a th:href="@{/member/groups/all}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/groups/all</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
                 </div>
-                <div class="box-sep"></div>
-                <form th:action="@{/member/groups/by-id}" method="get">
-                    <input name="id" placeholder="Enter Group ID" required>
-                    <button type="submit" class="btn-get">Fetch Group</button>
-                </form>
-            </div>
-
-            <!-- GET BY NAME -->
-            <div class="box">
-                <div class="box-accent accent-get"></div>
-                <div class="box-header">
-                    <span class="method-badge method-get">GET</span>
-                    <h2>Get Group By Name</h2>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/groups/by-id-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/groups/by-id</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
                 </div>
-                <div class="box-sep"></div>
-                <form th:action="@{/member/groups/by-name}" method="get">
-                    <input name="groupName" placeholder="Enter Group Name" required>
-                    <button type="submit" class="btn-get">Fetch Group</button>
-                </form>
-            </div>
-
-            <!-- BY ADMIN -->
-            <div class="box">
-                <div class="box-accent accent-get"></div>
-                <div class="box-header">
-                    <span class="method-badge method-get">GET</span>
-                    <h2>Get By Admin</h2>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/groups/by-name-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/groups/by-name</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
                 </div>
-                <div class="box-sep"></div>
-                <form th:action="@{/member/groups/by-admin}" method="get">
-                    <input name="adminId" placeholder="Admin User ID" required>
-                    <button type="submit" class="btn-get">Fetch Groups</button>
-                </form>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/groups/by-admin-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/groups/by-admin</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div style="height: 48px;"></div>
-
-
-        <div class="grid">
-            <!-- CREATE -->
-            <div class="box">
-                <div class="box-accent accent-post"></div>
-                <div class="box-header">
-                    <span class="method-badge method-post">POST</span>
-                    <h2>Create Group</h2>
-                </div>
-                <div class="box-sep"></div>
-                <form th:action="@{/member/groups/create}" method="post">
-                    <input name="groupName" placeholder="Group Name" required>
-                    <input name="adminID" placeholder="Admin User ID" required>
-                    <button type="submit" class="btn-post">Create Group</button>
-                </form>
+        <div class="group">
+            <div class="group-bar bar-post"></div>
+            <div class="group-header">
+                <span class="method-badge badge-post">POST</span>
+                <span class="group-title">Write Endpoints</span>
+                <span class="group-count">2 endpoints</span>
             </div>
-
-            <!-- UPDATE -->
-            <div class="box">
-                <div class="box-accent accent-put"></div>
-                <div class="box-header">
-                    <span class="method-badge method-put">PUT</span>
-                    <h2>Update Group</h2>
+            <div class="endpoint-list">
+                <div class="endpoint-row">
+                    <a th:href="@{/member/groups/create-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/groups/create</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
                 </div>
-                <div class="box-sep"></div>
-                <form th:action="@{/member/groups/update}" method="post">
-                    <input name="groupID" placeholder="Group ID" required>
-                    <input name="groupName" placeholder="New Group Name">
-                    <input name="adminID" placeholder="New Admin ID">
-                    <button type="submit" class="btn-put">Update Group</button>
-                </form>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/groups/update-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/groups/update</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-<script th:src="@{/js/endpoint-workbench.js}"></script>
 </body>
 
 </html>

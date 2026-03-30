@@ -41,6 +41,31 @@ public class GroupController {
         return "groups/result";
     }
 
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "groups/get-by-id";
+    }
+
+    @GetMapping("/by-name-form")
+    public String getByNameForm() {
+        return "groups/get-by-name";
+    }
+
+    @GetMapping("/by-admin-form")
+    public String getByAdminForm() {
+        return "groups/get-by-admin";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "groups/create-group";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "groups/update-group";
+    }
+
     @PostMapping("/create")
     public String createGroup(@RequestParam String groupName, @RequestParam int adminID) {
         Group group = new Group();

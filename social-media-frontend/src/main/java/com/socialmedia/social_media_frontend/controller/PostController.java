@@ -29,7 +29,7 @@ public class PostController {
     }
 
     @GetMapping("/by-id")
-    public String getPostById(@RequestParam("postId") int postId,Model model){
+    public String getPostById(@RequestParam("postId") int postId, Model model) {
         model.addAttribute("post", service.getPostById(postId));
         return "posts/post";
     }
@@ -40,15 +40,40 @@ public class PostController {
         return "posts/result";
     }
 
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "posts/get-by-id";
+    }
+
+    @GetMapping("/by-user-form")
+    public String getByUserForm() {
+        return "posts/get-by-user";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "posts/create-post";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "posts/update-post";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "posts/delete-post";
+    }
+
     @PostMapping("/create")
     public String createPost(@RequestParam int userId,
-                             @RequestParam String content) {
+            @RequestParam String content) {
         service.createPost(userId, content);
         return "redirect:/member/posts";
     }
 
     @PostMapping("/update")
-    public String updatePost(@ModelAttribute Post post){
+    public String updatePost(@ModelAttribute Post post) {
         service.updatePost(post);
         return "redirect:/member/posts";
     }
@@ -66,5 +91,4 @@ public class PostController {
 
         return "posts/result";
     }
-
 }
