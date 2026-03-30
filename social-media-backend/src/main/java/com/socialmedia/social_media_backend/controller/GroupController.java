@@ -51,7 +51,10 @@ public class GroupController {
         return service.getGroupByName(groupName);
     }
 
-
+    @GetMapping("/by-admin")
+    public List<Group> getGroupsByAdmin(@RequestParam("adminId") int adminId) {
+        return service.getGroupsByAdmin(adminId);
+    }
 
     @PostMapping("/create")
     public String createGroup(@RequestBody Group group) {
@@ -77,10 +80,7 @@ public class GroupController {
 //        return "Group deleted successfully";
 //    }
 
-    @GetMapping("/by-admin")
-    public List<Group> getGroupsByAdmin(@RequestParam("adminId") int adminId) {
-        return service.getGroupsByAdmin(adminId);
-    }
+   
 
     
    

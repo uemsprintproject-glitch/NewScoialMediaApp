@@ -1,5 +1,6 @@
 package com.socialmedia.social_media_backend.service;
 
+import org.springframework.data.domain.Sort;
 import com.socialmedia.social_media_backend.model.Comment;
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
@@ -7,7 +8,6 @@ import com.socialmedia.social_media_backend.repository.CommentRepository;
 import com.socialmedia.social_media_backend.repository.PostRepository;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -75,4 +75,6 @@ public class CommentService {
 
         return  commentRepository.save(existingComment);
     }
+
+
 }

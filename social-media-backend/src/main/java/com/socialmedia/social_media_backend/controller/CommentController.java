@@ -55,4 +55,6 @@ public class CommentController {
     public List<Comment> getCommentsByPost(@RequestParam int postId) {
         return service.getCommentsByPost(postId);
     }
+
+
 }

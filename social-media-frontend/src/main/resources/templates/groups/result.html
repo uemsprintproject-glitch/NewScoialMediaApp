@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Group Results</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -29,8 +25,8 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
         }
 
         body {
@@ -40,6 +36,7 @@
             min-height: 100vh;
         }
 
+        /* ── Top nav ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -91,12 +88,14 @@
             font-weight: 500;
         }
 
+        /* ── Page ── */
         .page {
-            max-width: 920px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 48px 32px 80px;
         }
 
+        /* ── Breadcrumb ── */
         .breadcrumb {
             display: flex;
             align-items: center;
@@ -113,21 +112,12 @@
             transition: color 0.2s;
         }
 
-        .breadcrumb a:hover {
-            color: var(--accent);
-        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb-sep { color: var(--border); }
+        .breadcrumb-current { color: var(--text-secondary); }
 
-        .breadcrumb-sep {
-            color: var(--border);
-        }
-
-        .breadcrumb-current {
-            color: var(--text-secondary);
-        }
-
-        .page-title-wrap {
-            margin-bottom: 32px;
-        }
+        /* ── Page title ── */
+        .page-title-wrap { margin-bottom: 32px; }
 
         .page-label {
             display: inline-flex;
@@ -155,15 +145,8 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.35;
-            }
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.35; }
         }
 
         .page-title {
@@ -180,6 +163,7 @@
             font-weight: 400;
         }
 
+        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -187,11 +171,7 @@
             margin-bottom: 20px;
         }
 
-        .section-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
+        .section-line { flex: 1; height: 1px; background: var(--border); }
 
         .section-label {
             font-size: 11px;
@@ -202,20 +182,14 @@
             white-space: nowrap;
         }
 
+        /* ── Table card ── */
         .table-wrap {
             animation: fadeUp 0.4s ease both;
         }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .table-card {
@@ -226,6 +200,7 @@
             box-shadow: var(--shadow-md);
         }
 
+        /* gradient top bar */
         .table-top {
             height: 3px;
             background: var(--gradient-hero);
@@ -236,6 +211,7 @@
             border-collapse: collapse;
         }
 
+        /* ── Head ── */
         thead tr {
             border-bottom: 1px solid var(--border);
         }
@@ -251,18 +227,14 @@
             background: var(--surface-alt);
         }
 
+        /* ── Body ── */
         tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background 0.15s ease;
         }
 
-        tbody tr:last-child {
-            border-bottom: none;
-        }
-
-        tbody tr:hover {
-            background: rgba(37, 99, 235, 0.03);
-        }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: rgba(37,99,235,0.03); }
 
         td {
             padding: 15px 24px;
@@ -272,6 +244,7 @@
             vertical-align: middle;
         }
 
+        /* ID pill */
         td:first-child span {
             display: inline-block;
             background: var(--accent-soft);
@@ -284,11 +257,20 @@
             letter-spacing: 0.04em;
         }
 
+        /* Name */
         td:nth-child(2) {
             font-weight: 600;
             color: var(--text-primary);
         }
 
+        /* Admin */
+        td:nth-child(3) {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* ── Empty state ── */
         .empty-row td {
             text-align: center;
             padding: 56px 24px;
@@ -297,6 +279,7 @@
             font-weight: 500;
         }
 
+        /* ── Footer row ── */
         .page-footer {
             margin-top: 24px;
             display: flex;
@@ -322,101 +305,88 @@
         }
 
         .back-btn:hover {
-            background: rgba(37, 99, 235, 0.14);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+            background: rgba(37,99,235,0.14);
+            box-shadow: 0 2px 8px rgba(37,99,235,0.12);
         }
 
-        .back-btn::before {
-            content: '←';
-        }
+        .back-btn::before { content: '←'; }
 
-        @media (max-width: 700px) {
-            .page {
-                padding: 32px 16px 60px;
-            }
-
-            .topbar {
-                padding: 0 20px;
-            }
-
-            th,
-            td {
-                padding: 12px 14px;
-                font-size: 13px;
-            }
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .page { padding: 32px 16px 60px; }
+            .topbar { padding: 0 20px; }
+            th, td { padding: 12px 14px; font-size: 13px; }
         }
     </style>
 </head>
-
 <body>
 
-    <nav class="topbar">
-        <a th:href="@{/}" class="topbar-logo">
-            <div class="topbar-logo-mark">
-                <svg viewBox="0 0 24 24">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-            </div>
-            SocialPlatform
-        </a>
-        <div class="topbar-right">Groups Module</div>
-    </nav>
-
-    <div class="page">
-
-        <div class="breadcrumb">
-            <a th:href="@{/}">Home</a>
-            <span class="breadcrumb-sep">›</span>
-            <a th:href="@{/member/groups}">Groups API</a>
-            <span class="breadcrumb-sep">›</span>
-            <span class="breadcrumb-current">Results</span>
+<!-- Top nav -->
+<nav class="topbar">
+    <a th:href="@{/}" class="topbar-logo">
+        <div class="topbar-logo-mark">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
+        SocialPlatform
+    </a>
+    <div class="topbar-right">Groups Module</div>
+</nav>
 
-        <div class="page-title-wrap">
-            <div class="page-label">Groups Module</div>
-            <div class="page-title">Group Data</div>
-            <div class="page-subtitle">Live response from the groups endpoints</div>
-        </div>
+<div class="page">
 
-        <div class="section-header">
-            <div class="section-line"></div>
-            <span class="section-label">Results</span>
-            <div class="section-line"></div>
-        </div>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a th:href="@{/}">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a th:href="@{/member/groups}">Groups</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Group Results</span>
+    </div>
 
-        <div class="table-wrap">
-            <div class="table-card">
-                <div class="table-top"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Group ID</th>
-                            <th>Group Name</th>
-                            <th>Admin User ID</th>
-                        </tr>
-                    </thead>
+    <!-- Title -->
+    <div class="page-title-wrap">
+        <div class="page-label">Groups Module</div>
+        <div class="page-title">Group Data</div>
+        <div class="page-subtitle">Displaying retrieved group records</div>
+    </div>
 
-                    <tbody>
-                        <tr th:each="group : ${data}">
-                            <td><span th:text="${group.groupID}"></span></td>
-                            <td th:text="${group.groupName}"></td>
-                            <td th:text="${group.admin.userID}"></td>
-                        </tr>
+    <!-- Section divider -->
+    <div class="section-header">
+        <div class="section-line"></div>
+        <span class="section-label">Results</span>
+        <div class="section-line"></div>
+    </div>
 
-                        <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                            <td colspan="3">No groups found</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="page-footer">
-            <span>Showing group entries from selected query</span>
-            <a th:href="@{/member/groups}" class="back-btn">Back To Groups</a>
+    <!-- Table -->
+    <div class="table-wrap">
+        <div class="table-card">
+            <div class="table-top"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Group Name</th>
+                        <th>Admin Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="group : ${data}">
+                        <td><span th:text="${group.groupID}"></span></td>
+                        <td th:text="${group.groupName}"></td>
+                        <td th:text="${group.admin != null ? group.admin.username : 'N/A'}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
+                        <td colspan="3">No groups found.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-</body>
+    <div class="page-footer">
+        <a th:href="@{/member/groups}" class="back-btn">Back to Groups</a>
+    </div>
+</div>
 
+</body>
 </html>

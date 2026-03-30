@@ -1,10 +1,12 @@
 package com.socialmedia.social_media_backend.service;
+
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.PostRepository;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -53,7 +55,6 @@ public class PostService {
                 .orElseThrow(()-> new RuntimeException("User not found"));
 
         existingPost.setContent(updatedPost.getContent());
-        existingPost.setPostID(updatedPost.getPostID());
 
         return  postRepository.save(existingPost);
     }
