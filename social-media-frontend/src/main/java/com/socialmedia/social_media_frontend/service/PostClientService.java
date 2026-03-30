@@ -53,4 +53,12 @@ public class PostClientService {
     public Post getPostById(int id) {
         return restTemplate.getForObject(BASE_URL + "/by-id?postId=" + id, Post.class);
     }
+
+    public List<Post> getSortedPosts(String dir) {
+        Post[] posts = restTemplate.getForObject(
+                BASE_URL + "/sorted?dir=" + dir,
+                Post[].class
+        );
+        return Arrays.asList(posts);
+    }
 }
