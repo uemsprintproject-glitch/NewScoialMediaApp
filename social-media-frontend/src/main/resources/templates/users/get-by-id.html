@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Group Results</title>
+    <title>Get User By ID</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -17,10 +17,13 @@
             --surface: #ffffff;
             --surface-alt: #f8f9fc;
             --border: #e4e8f0;
-            --border-light: #eef1f7;
+            --border-input: #d8dde8;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
             --accent-mid: rgba(37, 99, 235, 0.18);
+            --success: #059669;
+            --success-soft: rgba(5, 150, 105, 0.08);
+            --success-mid: rgba(5, 150, 105, 0.18);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
@@ -90,9 +93,9 @@
 
         /* ── Page ── */
         .page {
-            max-width: 900px;
+            max-width: 520px;
             margin: 0 auto;
-            padding: 48px 32px 80px;
+            padding: 48px 24px 80px;
         }
 
         /* ── Breadcrumb ── */
@@ -117,15 +120,15 @@
         .breadcrumb-current { color: var(--text-secondary); }
 
         /* ── Page title ── */
-        .page-title-wrap { margin-bottom: 32px; }
+        .page-title-wrap { margin-bottom: 28px; }
 
         .page-label {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid var(--accent-mid);
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
             border-radius: 6px;
             padding: 3px 10px;
             font-size: 11px;
@@ -139,7 +142,7 @@
             content: '';
             width: 5px;
             height: 5px;
-            background: var(--accent);
+            background: var(--success);
             border-radius: 50%;
             animation: pulse 2s ease-in-out infinite;
         }
@@ -150,7 +153,7 @@
         }
 
         .page-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--text-primary);
             letter-spacing: -0.03em;
@@ -163,121 +166,130 @@
             font-weight: 400;
         }
 
-        /* ── Section divider ── */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-        }
-
-        .section-line { flex: 1; height: 1px; background: var(--border); }
-
-        .section-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        /* ── Table card ── */
-        .table-wrap {
-            animation: fadeUp 0.4s ease both;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .table-card {
+        /* ── Form card ── */
+        .form-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
             overflow: hidden;
             box-shadow: var(--shadow-md);
+            animation: fadeUp 0.4s ease both;
         }
 
-        /* gradient top bar */
-        .table-top {
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-bar {
             height: 3px;
-            background: var(--gradient-hero);
+            background: linear-gradient(90deg, #059669, #34d399);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        /* ── Head ── */
-        thead tr {
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 24px 14px;
             border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            padding: 14px 24px;
-            text-align: left;
             background: var(--surface-alt);
         }
 
-        /* ── Body ── */
-        tbody tr {
-            border-bottom: 1px solid var(--border-light);
-            transition: background 0.15s ease;
-        }
-
-        tbody tr:last-child { border-bottom: none; }
-        tbody tr:hover { background: rgba(37,99,235,0.03); }
-
-        td {
-            padding: 15px 24px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        /* ID pill */
-        td:first-child span {
-            display: inline-block;
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid var(--accent-mid);
+        .method-badge {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            padding: 3px 9px;
             border-radius: 5px;
-            padding: 2px 9px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
         }
 
-        /* Name */
-        td:nth-child(2) {
-            font-weight: 600;
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
             color: var(--text-primary);
         }
 
-        /* Admin */
-        td:nth-child(3) {
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--text-secondary);
+        .card-path {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
         }
 
-        /* ── Empty state ── */
-        .empty-row td {
-            text-align: center;
-            padding: 56px 24px;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
+        /* ── Form body ── */
+        .card-body {
+            padding: 24px;
         }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input::placeholder { color: var(--text-muted); }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            background: var(--surface);
+        }
+
+        .field-hint {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ── Submit button ── */
+        .btn-submit {
+            width: 100%;
+            padding: 12px 18px;
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-submit:hover {
+            background: rgba(5,150,105,0.14);
+            box-shadow: 0 2px 10px rgba(5,150,105,0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active { transform: translateY(0); }
 
         /* ── Footer row ── */
         .page-footer {
@@ -311,11 +323,10 @@
 
         .back-btn::before { content: '←'; }
 
-        /* ── Responsive ── */
-        @media (max-width: 640px) {
+        @media (max-width: 560px) {
             .page { padding: 32px 16px 60px; }
             .topbar { padding: 0 20px; }
-            th, td { padding: 12px 14px; font-size: 13px; }
+            .card-path { display: none; }
         }
     </style>
 </head>
@@ -329,7 +340,7 @@
         </div>
         SocialPlatform
     </a>
-    <div class="topbar-right">Groups Module</div>
+    <div class="topbar-right">Users Module</div>
 </nav>
 
 <div class="page">
@@ -338,53 +349,36 @@
     <div class="breadcrumb">
         <a th:href="@{/}">Home</a>
         <span class="breadcrumb-sep">›</span>
-        <a th:href="@{/member/groups}">Groups</a>
+        <a th:href="@{/member/users}">Users</a>
         <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Group Results</span>
+        <span class="breadcrumb-current">Get By ID</span>
     </div>
 
     <!-- Title -->
     <div class="page-title-wrap">
-        <div class="page-label">Groups Module</div>
-        <div class="page-title">Group Data</div>
-        <div class="page-subtitle">Displaying retrieved group records</div>
+        <div class="page-label">GET</div>
+        <div class="page-title">Get User By ID</div>
+        <div class="page-subtitle">Fetch a single user record by their unique ID</div>
     </div>
 
-    <!-- Section divider -->
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Results</span>
-        <div class="section-line"></div>
-    </div>
-
-    <!-- Table -->
-    <div class="table-wrap">
-        <div class="table-card">
-            <div class="table-top"></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Group Name</th>
-                        <th>Admin Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="group : ${data}">
-                        <td><span th:text="${group.groupID}"></span></td>
-                        <td th:text="${group.groupName}"></td>
-                        <td th:text="${group.admin != null ? group.admin.username : 'N/A'}"></td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                        <td colspan="3">No groups found.</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- Form card -->
+    <div class="form-card">
+        <div class="card-bar"></div>
+        <div class="card-header">
+            <span class="method-badge">GET</span>
+            <span class="card-title">Fetch User</span>
+            <span class="card-path">/member/users/by-id</span>
         </div>
-    </div>
-
-    <div class="page-footer">
-        <a th:href="@{/member/groups}" class="back-btn">Back to Groups</a>
+        <div class="card-body">
+            <form th:action="@{/member/users/by-id}" method="get">
+                <div class="field">
+                    <label for="userId">User ID</label>
+                    <input id="userId" name="id" placeholder="e.g. 1042" required>
+                    <div class="field-hint">Enter the numeric ID of the user to retrieve.</div>
+                </div>
+                <button type="submit" class="btn-submit">Fetch User →</button>
+            </form>
+        </div>
     </div>
 </div>
 

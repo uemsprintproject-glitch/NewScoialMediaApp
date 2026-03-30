@@ -38,4 +38,7 @@ public class Post {
     @OneToMany(mappedBy = "post")
     @JsonIgnore
     private List<Like> likes;
+
+    public Post(int i, String helloWorld, int i1, Object o) {
+    }
 }

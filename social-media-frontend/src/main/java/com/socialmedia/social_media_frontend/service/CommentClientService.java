@@ -51,4 +51,14 @@ public class CommentClientService {
         );
         return Arrays.asList(comments);
     }
+    public List<Comment> getSortedComments(String dir) {
+        Comment[] comments = restTemplate.getForObject(
+                BASE_URL + "/sorted?dir=" + dir,
+                Comment[].class
+        );
+        return Arrays.asList(comments);
+    }
+
+
+
 }
