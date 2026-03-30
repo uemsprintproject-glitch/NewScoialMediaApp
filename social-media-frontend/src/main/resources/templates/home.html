@@ -449,18 +449,23 @@
         <!-- Grid -->
         <div class="grid">
 
-            <a href="/member/users" class="card-link-wrap">
-                <div class="card">
+            <!-- 1 & 6: Comments & Posts -->
+            <div class="card has-links">
+                <a href="/member/comments" class="avatar-link" style="display: contents;">
                     <div class="avatar-wrap">
-                        <img th:src="@{/images/anishka.png}" alt="Anishka Das">
+                        <img th:src="@{/images/sagnik.png}" alt="Sagnik Dutta">
                     </div>
-                    <h3>Anishka Das</h3>
-                    <p>Users Module</p>
-                    <span class="tag">Users</span>
+                </a>
+                <h3>Sagnik Dutta</h3>
+                <p>Comments &amp; Posts</p>
+                <div class="module-links">
+                    <a href="/member/comments">Comments Module</a>
+                    <a href="/member/posts">Posts Module</a>
                 </div>
-            </a>
+            </div>
 
-            <a href="/member/friends" class="card-link-wrap">
+            <!-- 2: Friends -->
+            <a href="/member/friends">
                 <div class="card">
                     <div class="avatar-wrap">
                         <img th:src="@{/images/poulami.png}" alt="Poulami Sinha">
@@ -471,10 +476,13 @@
                 </div>
             </a>
 
+            <!-- 3 & 5: Likes & Notifications -->
             <div class="card has-links">
-                <div class="avatar-wrap">
-                    <img th:src="@{/images/soumyojit.png}" alt="Soumyajit Sen Gupta">
-                </div>
+                <a href="/member/likes" class="avatar-link" style="display: contents;">
+                    <div class="avatar-wrap">
+                        <img th:src="@{/images/soumyojit.png}" alt="Soumyajit Sen Gupta">
+                    </div>
+                </a>
                 <h3>Soumyojit Sen Gupta</h3>
                 <p>Likes &amp; Notifications</p>
                 <div class="module-links">
@@ -483,19 +491,8 @@
                 </div>
             </div>
 
-            <div class="card has-links">
-                <div class="avatar-wrap">
-                    <img th:src="@{/images/sagnik.png}" alt="Sagnik Dutta">
-                </div>
-                <h3>Sagnik Dutta</h3>
-                <p>Comments &amp; Posts</p>
-                <div class="module-links">
-                    <a href="/member/comments">Comments Module</a>
-                    <a href="/member/posts">Posts Module</a>
-                </div>
-            </div>
-
-            <a href="/member/messages" class="card-link-wrap">
+            <!-- 4: Messages -->
+            <a href="/member/messages">
                 <div class="card">
                     <div class="avatar-wrap">
                         <img th:src="@{/images/ashmit.png}" alt="Ashmit Dutta">
@@ -506,7 +503,20 @@
                 </div>
             </a>
 
-            <a href="/member/groups" class="card-link-wrap">
+            <!-- 7: Users -->
+            <a href="/member/users">
+                <div class="card">
+                    <div class="avatar-wrap">
+                        <img th:src="@{/images/anishka.png}" alt="Anishka Das">
+                    </div>
+                    <h3>Anishka Das</h3>
+                    <p>Users Module</p>
+                    <span class="tag">Users</span>
+                </div>
+            </a>
+
+            <!-- 8: Groups (Anshi Prajapati) -->
+            <a href="/member/groups">
                 <div class="card">
                     <div class="avatar-wrap">
                         <img th:src="@{/images/anshi.png}" alt="Anshi Prajapati">
@@ -519,6 +529,7 @@
 
         </div>
     </div>
+
 
 </body>
 

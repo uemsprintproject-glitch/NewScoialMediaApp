@@ -51,6 +51,7 @@
             min-height: 100vh;
         }
 
+        /* ── Top nav ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -102,12 +103,14 @@
             font-weight: 500;
         }
 
+        /* ── Page ── */
         .page {
             max-width: 860px;
             margin: 0 auto;
             padding: 48px 32px 80px;
         }
 
+        /* ── Breadcrumb ── */
         .breadcrumb {
             display: flex;
             align-items: center;
@@ -137,6 +140,7 @@
             color: var(--text-secondary);
         }
 
+        /* ── Page title ── */
         .page-title-wrap {
             margin-bottom: 36px;
         }
@@ -192,6 +196,7 @@
             font-weight: 400;
         }
 
+        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -214,6 +219,7 @@
             white-space: nowrap;
         }
 
+        /* ── Grid: 2x2 ── */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -221,6 +227,7 @@
             align-items: stretch;
         }
 
+        /* ── Box card ── */
         .box {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -249,14 +256,6 @@
             animation-delay: 0.22s;
         }
 
-        .box:nth-child(5) {
-            animation-delay: 0.28s;
-        }
-
-        .box:nth-child(6) {
-            animation-delay: 0.34s;
-        }
-
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -274,6 +273,7 @@
             border-color: #d0d7e8;
         }
 
+        /* top accent bar */
         .box-accent {
             height: 3px;
             border-radius: 4px;
@@ -292,6 +292,11 @@
             background: linear-gradient(90deg, #d97706, #f59e0b);
         }
 
+        .accent-delete {
+            background: linear-gradient(90deg, #dc2626, #f87171);
+        }
+
+        /* ── Box header ── */
         .box-header {
             display: flex;
             align-items: center;
@@ -320,6 +325,12 @@
             border: 1px solid var(--accent-mid);
         }
 
+        .method-delete {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border: 1px solid var(--danger-mid);
+        }
+
         .method-put {
             background: var(--warning-soft);
             color: var(--warning);
@@ -333,12 +344,14 @@
             letter-spacing: -0.01em;
         }
 
+        /* ── Separator ── */
         .box-sep {
             height: 1px;
             background: var(--border-light);
             margin: 0 0 18px;
         }
 
+        /* ── Forms ── */
         form {
             display: flex;
             flex-direction: column;
@@ -369,6 +382,7 @@
             background: var(--surface);
         }
 
+        /* ── Buttons ── */
         button {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px;
@@ -404,6 +418,12 @@
             border-color: var(--accent-mid);
         }
 
+        .btn-delete {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border-color: var(--danger-mid);
+        }
+
         .btn-put {
             background: var(--warning-soft);
             color: var(--warning);
@@ -415,6 +435,7 @@
             text-decoration: none;
         }
 
+        /* ── OR divider ── */
         .or-divider {
             display: flex;
             align-items: center;
@@ -436,6 +457,17 @@
             white-space: nowrap;
         }
 
+        /* ── Footer ── */
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 620px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -454,6 +486,7 @@
 
 <body>
 
+    <!-- Top nav -->
     <nav class="topbar">
         <a th:href="@{/}" class="topbar-logo">
             <div class="topbar-logo-mark">
@@ -468,46 +501,89 @@
 
     <div class="page">
 
+        <!-- Breadcrumb -->
         <div class="breadcrumb">
             <a th:href="@{/}">Home</a>
             <span class="breadcrumb-sep">›</span>
             <span class="breadcrumb-current">Groups API</span>
         </div>
 
+        <!-- Title -->
         <div class="page-title-wrap">
             <div class="page-label">Groups Module</div>
             <div class="page-title">Groups API</div>
-            <div class="page-subtitle">Manage community groups and admins</div>
+            <div class="page-subtitle">Anshi Prajapati — Manage platform groups</div>
         </div>
 
+        <!-- READ OPERATIONS -->
         <div class="section-header">
             <div class="section-line"></div>
-            <span class="section-label">Operations</span>
+            <span class="section-label">OPERATIONS</span>
             <div class="section-line"></div>
         </div>
 
         <div class="grid">
-
+            <!-- GET ALL -->
             <div class="box">
                 <div class="box-accent accent-get"></div>
                 <div class="box-header">
                     <span class="method-badge method-get">GET</span>
-                    <h2>Fetch Groups</h2>
+                    <h2>Get All Groups</h2>
                 </div>
                 <div class="box-sep"></div>
-
                 <a th:href="@{/member/groups/all}" class="btn-link">
-                    <button class="btn-get">Get All Groups</button>
+                    <button class="btn-get">Fetch All</button>
                 </a>
+            </div>
 
-                <div class="or-divider"><span>or search by ID</span></div>
-
+            <!-- GET BY ID -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Get Group By ID</h2>
+                </div>
+                <div class="box-sep"></div>
                 <form th:action="@{/member/groups/by-id}" method="get">
                     <input name="id" placeholder="Enter Group ID" required>
-                    <button type="submit" class="btn-get">Get Group By ID</button>
+                    <button type="submit" class="btn-get">Fetch Group</button>
                 </form>
             </div>
 
+            <!-- GET BY NAME -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Get Group By Name</h2>
+                </div>
+                <div class="box-sep"></div>
+                <form th:action="@{/member/groups/by-name}" method="get">
+                    <input name="groupName" placeholder="Enter Group Name" required>
+                    <button type="submit" class="btn-get">Fetch Group</button>
+                </form>
+            </div>
+
+            <!-- BY ADMIN -->
+            <div class="box">
+                <div class="box-accent accent-get"></div>
+                <div class="box-header">
+                    <span class="method-badge method-get">GET</span>
+                    <h2>Get By Admin</h2>
+                </div>
+                <div class="box-sep"></div>
+                <form th:action="@{/member/groups/by-admin}" method="get">
+                    <input name="adminId" placeholder="Admin User ID" required>
+                    <button type="submit" class="btn-get">Fetch Groups</button>
+                </form>
+            </div>
+        </div>
+
+        <div style="height: 48px;"></div>
+
+
+        <div class="grid">
+            <!-- CREATE -->
             <div class="box">
                 <div class="box-accent accent-post"></div>
                 <div class="box-header">
@@ -515,14 +591,14 @@
                     <h2>Create Group</h2>
                 </div>
                 <div class="box-sep"></div>
-
                 <form th:action="@{/member/groups/create}" method="post">
                     <input name="groupName" placeholder="Group Name" required>
-                    <input name="admin.userID" placeholder="Admin User ID" required>
-                    <button type="submit" class="btn-post">Create New Group</button>
+                    <input name="adminID" placeholder="Admin User ID" required>
+                    <button type="submit" class="btn-post">Create Group</button>
                 </form>
             </div>
 
+            <!-- UPDATE -->
             <div class="box">
                 <div class="box-accent accent-put"></div>
                 <div class="box-header">
@@ -530,43 +606,13 @@
                     <h2>Update Group</h2>
                 </div>
                 <div class="box-sep"></div>
-
                 <form th:action="@{/member/groups/update}" method="post">
                     <input name="groupID" placeholder="Group ID" required>
-                    <input name="groupName" placeholder="Group Name">
-                    <input name="admin.userID" placeholder="Admin User ID">
+                    <input name="groupName" placeholder="New Group Name">
+                    <input name="adminID" placeholder="New Admin ID">
                     <button type="submit" class="btn-put">Update Group</button>
                 </form>
             </div>
-
-            <div class="box">
-                <div class="box-accent accent-get"></div>
-                <div class="box-header">
-                    <span class="method-badge method-get">GET</span>
-                    <h2>Group By Name</h2>
-                </div>
-                <div class="box-sep"></div>
-
-                <form th:action="@{/member/groups/by-name}" method="get">
-                    <input name="name" placeholder="Enter Group Name" required>
-                    <button type="submit" class="btn-get">Get Group By Name</button>
-                </form>
-            </div>
-
-            <div class="box">
-                <div class="box-accent accent-get"></div>
-                <div class="box-header">
-                    <span class="method-badge method-get">GET</span>
-                    <h2>Groups By Admin</h2>
-                </div>
-                <div class="box-sep"></div>
-
-                <form th:action="@{/member/groups/by-admin}" method="get">
-                    <input name="adminId" placeholder="Enter Admin User ID" required>
-                    <button type="submit" class="btn-get">Get Admin Groups</button>
-                </form>
-            </div>
-
         </div>
     </div>
 
