@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Get User By Comment</title>
+    <title>Get User By Username</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -351,14 +351,14 @@
         <span class="breadcrumb-sep">›</span>
         <a th:href="@{/member/users}">Users</a>
         <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Get By Email</span>
+        <span class="breadcrumb-current">Get By Username</span>
     </div>
 
     <!-- Title -->
     <div class="page-title-wrap">
         <div class="page-label">GET</div>
-        <div class="page-title">Get User By Comment</div>
-        <div class="page-subtitle">Fetch a single user record by their Comment</div>
+        <div class="page-title">Get User By Username</div>
+        <div class="page-subtitle">Fetch a single user record by their Username</div>
     </div>
 
     <!-- Form card -->
@@ -367,14 +367,14 @@
         <div class="card-header">
             <span class="method-badge">GET</span>
             <span class="card-title">Fetch User</span>
-            <span class="card-path">/member/users/email</span>
+            <span class="card-path">/member/users/username</span>
         </div>
         <div class="card-body">
-            <form th:action="@{/member/users/comment}" method="get">
+            <form th:action="@{/member/users/username}" method="get">
                 <div class="field">
-                    <label for="comment">Comment ID</label>
-                    <input id="comment" name="id" placeholder="e.g. 100001" required>
-                    <div class="field-hint">Enter the Comment ID of the user to retrieve.</div>
+                    <label for="username">Comment ID</label>
+                    <input id="username" name="username" placeholder="e.g. Adam" required>
+                    <div class="field-hint">Enter the Username of the user to retrieve.</div>
                 </div>
                 <button type="submit" class="btn-submit">Fetch User →</button>
             </form>
