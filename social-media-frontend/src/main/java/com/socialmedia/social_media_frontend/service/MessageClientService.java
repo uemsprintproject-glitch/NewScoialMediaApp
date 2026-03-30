@@ -16,33 +16,40 @@ public class MessageClientService {
     private static final String BASE_URL = "http://localhost:8090/member/messages";
 
     public List<Message> getAllMessages() {
-        Message[] messages = restTemplate.getForObject(BASE_URL, Message[].class);
+        Message[] messages = restTemplate.getForObject(BASE_URL + "/all", Message[].class);
         return messages == null ? Collections.emptyList() : Arrays.asList(messages);
     }
 
     public Message getMessageById(Integer id) {
-        return restTemplate.getForObject(BASE_URL + "/" + id, Message.class);
+        return restTemplate.getForObject(BASE_URL + "/by-id?id=" + id, Message.class);
     }
 
+    // ✅ FIXED: /create instead of /send
     public void sendMessage(Message message) {
-        restTemplate.postForObject(BASE_URL, message, Message.class);
+        restTemplate.postForObject(BASE_URL + "/create", message, Message.class);
     }
 
+    // ✅ better REST
     public void updateMessage(Message message) {
-        restTemplate.postForObject(BASE_URL + "/update", message, Message.class);
+        restTemplate.put(BASE_URL + "/update", message);
     }
 
+    // ✅ better REST
     public void deleteMessage(Integer id) {
-        restTemplate.delete(BASE_URL + "/" + id);
+        restTemplate.delete(BASE_URL + "/delete?id=" + id);
     }
 
     public List<Message> getMessagesBySender(Integer senderId) {
-        Message[] messages = restTemplate.getForObject(BASE_URL + "/sender/" + senderId, Message[].class);
+        Message[] messages = restTemplate.getForObject(
+                BASE_URL + "/by-sender?senderId=" + senderId,
+                Message[].class);
         return messages == null ? Collections.emptyList() : Arrays.asList(messages);
     }
 
     public List<Message> getMessagesByReceiver(Integer receiverId) {
-        Message[] messages = restTemplate.getForObject(BASE_URL + "/receiver/" + receiverId, Message[].class);
+        Message[] messages = restTemplate.getForObject(
+                BASE_URL + "/by-receiver?receiverId=" + receiverId,
+                Message[].class);
         return messages == null ? Collections.emptyList() : Arrays.asList(messages);
     }
 

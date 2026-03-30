@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Results</title>
+    <title>Friend Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -20,7 +20,7 @@
             --border-light: #eef1f7;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
-            --accent-mid: rgba(37, 99, 235, 0.18);
+            --accent-mid: rgba(37, 99, 235, 0.15);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
@@ -36,7 +36,6 @@
             min-height: 100vh;
         }
 
-        /* ── Top nav ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -46,9 +45,6 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .topbar-logo {
@@ -88,14 +84,12 @@
             font-weight: 500;
         }
 
-        /* ── Page ── */
         .page {
-            max-width: 900px;
+            max-width: 980px;
             margin: 0 auto;
             padding: 48px 32px 80px;
         }
 
-        /* ── Breadcrumb ── */
         .breadcrumb {
             display: flex;
             align-items: center;
@@ -116,7 +110,6 @@
         .breadcrumb-sep { color: var(--border); }
         .breadcrumb-current { color: var(--text-secondary); }
 
-        /* ── Page title ── */
         .page-title-wrap { margin-bottom: 32px; }
 
         .page-label {
@@ -146,7 +139,7 @@
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50%       { opacity: 0.35; }
+            50%      { opacity: 0.35; }
         }
 
         .page-title {
@@ -163,7 +156,6 @@
             font-weight: 400;
         }
 
-        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -182,7 +174,6 @@
             white-space: nowrap;
         }
 
-        /* ── Table card ── */
         .table-wrap {
             animation: fadeUp 0.4s ease both;
         }
@@ -200,7 +191,6 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* gradient top bar */
         .table-top {
             height: 3px;
             background: var(--gradient-hero);
@@ -211,7 +201,6 @@
             border-collapse: collapse;
         }
 
-        /* ── Head ── */
         thead tr {
             border-bottom: 1px solid var(--border);
         }
@@ -227,7 +216,6 @@
             background: var(--surface-alt);
         }
 
-        /* ── Body ── */
         tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background 0.15s ease;
@@ -244,7 +232,6 @@
             vertical-align: middle;
         }
 
-        /* ID pill */
         td:first-child span {
             display: inline-block;
             background: var(--accent-soft);
@@ -257,20 +244,12 @@
             letter-spacing: 0.04em;
         }
 
-        /* Username */
-        td:nth-child(2) {
+        td:nth-child(4) {
             font-weight: 600;
             color: var(--text-primary);
+            text-transform: capitalize;
         }
 
-        /* Email */
-        td:nth-child(3) {
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-
-        /* ── Empty state ── */
         .empty-row td {
             text-align: center;
             padding: 56px 24px;
@@ -279,39 +258,6 @@
             font-weight: 500;
         }
 
-        /* ── Footer row ── */
-        .page-footer {
-            margin-top: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent);
-            text-decoration: none;
-            background: var(--accent-soft);
-            border: 1px solid var(--accent-mid);
-            border-radius: 8px;
-            padding: 7px 14px;
-            transition: background 0.2s, box-shadow 0.2s;
-        }
-
-        .back-btn:hover {
-            background: rgba(37,99,235,0.14);
-            box-shadow: 0 2px 8px rgba(37,99,235,0.12);
-        }
-
-        .back-btn::before { content: '←'; }
-
-        /* ── Responsive ── */
         @media (max-width: 640px) {
             .page { padding: 32px 16px 60px; }
             .topbar { padding: 0 20px; }
@@ -321,7 +267,6 @@
 </head>
 <body>
 
-<!-- Top nav -->
 <nav class="topbar">
     <a href="/" class="topbar-logo">
         <div class="topbar-logo-mark">
@@ -329,54 +274,52 @@
         </div>
         SocialPlatform
     </a>
-    <div class="topbar-right">Users Module</div>
+    <div class="topbar-right">Friends Module</div>
 </nav>
 
 <div class="page">
 
-    <!-- Breadcrumb -->
     <div class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-sep">›</span>
-        <a href="/member/users">Users</a>
+        <a href="/member/friends">Friends</a>
         <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">All Users</span>
+        <span class="breadcrumb-current">All Friendships</span>
     </div>
 
-    <!-- Title -->
     <div class="page-title-wrap">
-        <div class="page-label">Users Module</div>
-        <div class="page-title">User Data</div>
-        <div class="page-subtitle">Displaying all retrieved user records</div>
+        <div class="page-label">Friends Module</div>
+        <div class="page-title">Friendship Data</div>
+        <div class="page-subtitle">Displaying all retrieved friendship records</div>
     </div>
 
-    <!-- Section divider -->
     <div class="section-header">
         <div class="section-line"></div>
         <span class="section-label">Results</span>
         <div class="section-line"></div>
     </div>
 
-    <!-- Table -->
     <div class="table-wrap">
         <div class="table-card">
             <div class="table-top"></div>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th>Friendship ID</th>
+                        <th>User 1 ID</th>
+                        <th>User 2 ID</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="user : ${data}">
-                        <td><span th:text="${user.userID}"></span></td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.email}"></td>
+                    <tr th:each="friend : ${data}">
+                        <td><span th:text="${friend.friendshipID}"></span></td>
+                        <td th:text="${friend.user1 != null ? friend.user1.userID : '-'}"></td>
+                        <td th:text="${friend.user2 != null ? friend.user2.userID : '-'}"></td>
+                        <td th:text="${friend.status}"></td>
                     </tr>
                     <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                        <td colspan="3">No users found.</td>
+                        <td colspan="4">No friendship records found.</td>
                     </tr>
                 </tbody>
             </table>

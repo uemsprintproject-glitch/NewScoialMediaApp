@@ -51,16 +51,10 @@ public class UserController {
         service.deleteUser(id);
         return "redirect:/member/users";
     }
-
-    // @GetMapping("/posts")
-    // public String getPostsByUser(@RequestParam int id, Model model) {
-    //     model.addAttribute("posts", service.getPostsByUser(id));
-    //     return "users/posts";
-    // }
     
     @GetMapping("/username")
     public String getUserByUsername(@RequestParam String username, Model model){
-        model.addAttribute("users", service.getUserByUsername(username));
+        model.addAttribute("data", service.getUserByUsername(username));
         return "users/get-by-username";
     }
 

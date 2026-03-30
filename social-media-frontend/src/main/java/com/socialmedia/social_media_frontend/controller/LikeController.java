@@ -52,10 +52,9 @@ public class LikeController {
     }
 
     @PostMapping("/create")
-    public String createLike(@RequestParam Integer likeID,
-            @RequestParam Integer userID,
+    public String createLike(@RequestParam Integer userID,
             @RequestParam Integer postID) {
-        service.createLike(buildLike(likeID, userID, postID));
+        service.createLike(buildCreateLike(userID, postID));
         return "redirect:/member/likes";
     }
 
@@ -63,7 +62,7 @@ public class LikeController {
     public String updateLike(@RequestParam Integer likeID,
             @RequestParam Integer userID,
             @RequestParam Integer postID) {
-        service.updateLike(buildLike(likeID, userID, postID));
+        service.updateLike(buildUpdateLike(likeID, userID, postID));
         return "redirect:/member/likes";
     }
 
@@ -71,6 +70,14 @@ public class LikeController {
     public String deleteLike(@RequestParam Integer id) {
         service.deleteLike(id);
         return "redirect:/member/likes";
+    }
+
+    private Like buildCreateLike(Integer userID, Integer postID) {
+        return buildLike(null, userID, postID);
+    }
+
+    private Like buildUpdateLike(Integer likeID, Integer userID, Integer postID) {
+        return buildLike(likeID, userID, postID);
     }
 
     private Like buildLike(Integer likeID, Integer userID, Integer postID) {

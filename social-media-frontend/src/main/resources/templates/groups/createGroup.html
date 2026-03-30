@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Like Results</title>
+    <title>Create Group</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
@@ -19,12 +19,16 @@
         :root {
             --bg: #f4f6fa;
             --surface: #ffffff;
-            --surface-alt: #f8f9fc;
+            --surface-input: #f4f6fa;
             --border: #e4e8f0;
+            --border-input: #d8dde8;
             --border-light: #eef1f7;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
             --accent-mid: rgba(37, 99, 235, 0.18);
+            --success: #059669;
+            --success-soft: rgba(5, 150, 105, 0.08);
+            --success-mid: rgba(5, 150, 105, 0.18);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
@@ -92,9 +96,9 @@
         }
 
         .page {
-            max-width: 980px;
+            max-width: 760px;
             margin: 0 auto;
-            padding: 48px 32px 80px;
+            padding: 48px 24px 80px;
         }
 
         .breadcrumb {
@@ -126,7 +130,7 @@
         }
 
         .page-title-wrap {
-            margin-bottom: 32px;
+            margin-bottom: 30px;
         }
 
         .page-label {
@@ -145,31 +149,9 @@
             margin-bottom: 12px;
         }
 
-        .page-label::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.35;
-            }
-        }
-
         .page-title {
             font-size: 26px;
             font-weight: 800;
-            color: var(--text-primary);
             letter-spacing: -0.03em;
             margin-bottom: 4px;
         }
@@ -180,30 +162,14 @@
             font-weight: 400;
         }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-        }
-
-        .section-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .section-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .table-wrap {
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
             animation: fadeUp 0.4s ease both;
+            margin-bottom: 20px;
         }
 
         @keyframes fadeUp {
@@ -218,81 +184,128 @@
             }
         }
 
-        .table-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .table-top {
+        .panel-top {
             height: 3px;
             background: var(--gradient-hero);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .panel-body {
+            padding: 24px;
         }
 
-        thead tr {
-            border-bottom: 1px solid var(--border);
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
         }
 
-        th {
-            font-size: 11px;
-            font-weight: 700;
+        .method-badge {
+            font-size: 10px;
+            font-weight: 800;
             letter-spacing: 0.1em;
+            padding: 3px 9px;
+            border-radius: 5px;
             text-transform: uppercase;
-            color: var(--text-muted);
-            padding: 14px 24px;
-            text-align: left;
-            background: var(--surface-alt);
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--border-light);
-            transition: background 0.15s ease;
-        }
-
-        tbody tr:last-child {
-            border-bottom: none;
-        }
-
-        tbody tr:hover {
-            background: rgba(37, 99, 235, 0.03);
-        }
-
-        td {
-            padding: 15px 24px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        td:first-child span {
-            display: inline-block;
             background: var(--accent-soft);
             color: var(--accent);
             border: 1px solid var(--accent-mid);
-            border-radius: 5px;
-            padding: 2px 9px;
-            font-size: 11px;
+        }
+
+        .panel-title h2 {
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: -0.01em;
         }
 
-        .empty-row td {
-            text-align: center;
-            padding: 56px 24px;
+        .panel-sep {
+            height: 1px;
+            background: var(--border-light);
+            margin-bottom: 16px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        input {
+            width: 100%;
+            background: var(--surface-input);
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            padding: 10px 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input::placeholder {
             color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
         }
 
-        @media (max-width: 700px) {
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            background: var(--surface);
+        }
+
+        button {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+            letter-spacing: 0.01em;
+        }
+
+        button:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .btn-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent-mid);
+        }
+
+        .btn-get {
+            background: var(--success-soft);
+            color: var(--success);
+            border-color: var(--success-mid);
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-link {
+            text-decoration: none;
+            display: block;
+        }
+
+        @media (max-width: 640px) {
             .page {
                 padding: 32px 16px 60px;
             }
@@ -301,10 +314,9 @@
                 padding: 0 20px;
             }
 
-            th,
-            td {
-                padding: 12px 14px;
-                font-size: 13px;
+            .actions,
+            .box {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -313,7 +325,7 @@
 <body>
 
     <nav class="topbar">
-        <a href="/" class="topbar-logo">
+        <a th:href="@{/}" class="topbar-logo">
             <div class="topbar-logo-mark">
                 <svg viewBox="0 0 24 24">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -321,55 +333,59 @@
             </div>
             SocialPlatform
         </a>
-        <div class="topbar-right">Likes Module</div>
+        <div class="topbar-right">Groups Module</div>
     </nav>
 
     <div class="page">
-
         <div class="breadcrumb">
-            <a href="/">Home</a>
+            <a th:href="@{/}">Home</a>
             <span class="breadcrumb-sep">›</span>
-            <a href="/member/likes">Likes</a>
+            <a th:href="@{/member/groups}">Groups API</a>
             <span class="breadcrumb-sep">›</span>
-            <span class="breadcrumb-current">All Likes</span>
+            <span class="breadcrumb-current">Create Group</span>
         </div>
 
         <div class="page-title-wrap">
-            <div class="page-label">Likes Module</div>
-            <div class="page-title">Like Data</div>
-            <div class="page-subtitle">Displaying all retrieved like records</div>
+            <div class="page-label">Groups Module</div>
+            <div class="page-title">Create New Group</div>
+            <div class="page-subtitle">Add a new group with an admin owner</div>
         </div>
 
-        <div class="section-header">
-            <div class="section-line"></div>
-            <span class="section-label">Results</span>
-            <div class="section-line"></div>
+        <div class="panel">
+            <div class="panel-top"></div>
+            <div class="panel-body">
+                <div class="panel-title">
+                    <span class="method-badge">POST</span>
+                    <h2>Create Group Endpoint</h2>
+                </div>
+                <div class="panel-sep"></div>
+
+                <form th:action="@{/member/groups/create}" method="post">
+                    <input name="groupName" placeholder="Group Name" required>
+                    <input name="admin.userID" placeholder="Admin User ID" required>
+                    <button type="submit" class="btn-post">Create Group</button>
+                </form>
+            </div>
         </div>
 
-        <div class="table-wrap">
-            <div class="table-card">
-                <div class="table-top"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Like ID</th>
-                            <th>User ID</th>
-                            <th>Post ID</th>
-                            <th>Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="like : ${data}">
-                            <td><span th:text="${like.likeID}"></span></td>
-                            <td th:text="${like.user != null ? like.user.userID : '-'}"></td>
-                            <td th:text="${like.post != null ? like.post.postID : '-'}"></td>
-                            <td th:text="${like.timestamp}"></td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                            <td colspan="4">No likes found.</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="panel">
+            <div class="panel-top"></div>
+            <div class="panel-body">
+                <div class="panel-title">
+                    <span class="method-badge"
+                        style="background: var(--success-soft); color: var(--success); border-color: var(--success-mid);">GET</span>
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="panel-sep"></div>
+
+                <div class="actions">
+                    <a th:href="@{/member/groups/all}" class="btn-link">
+                        <button type="button" class="btn-get">View All Groups</button>
+                    </a>
+                    <a th:href="@{/member/groups}" class="btn-link">
+                        <button type="button" class="btn-get">Back To Groups API</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

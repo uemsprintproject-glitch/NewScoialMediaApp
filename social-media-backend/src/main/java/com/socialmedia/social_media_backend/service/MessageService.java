@@ -15,14 +15,15 @@ import java.util.Optional;
 public class MessageService {
 
     private final MessageRepository messageRepository;
+    private final UserService userService;
 
     public List<Message> getAllMessages() {
+        System.out.println("Hello");
         return messageRepository.findAll();
     }
 
     public Message getMessageByIdSafe(Integer id) {
-        Optional<Message> optionalMessage = messageRepository.findById(id);
-        return optionalMessage.orElse(null);
+        return messageRepository.findById(id).orElse(null);
     }
 
     public Message sendMessage(Message message) {
@@ -34,49 +35,65 @@ public class MessageService {
         Optional<Message> optionalMessage = messageRepository.findById(updatedMessage.getMessageID());
 
         if (optionalMessage.isPresent()) {
+
             Message existingMessage = optionalMessage.get();
 
+            // ✅ update message text safely
             if (updatedMessage.getMessage_text() != null) {
                 existingMessage.setMessage_text(updatedMessage.getMessage_text());
             }
 
-            if (updatedMessage.getSender() != null) {
-                existingMessage.setSender(updatedMessage.getSender());
+            // ✅ ONLY update sender if valid ID exists
+            if (updatedMessage.getSender() != null &&
+                    updatedMessage.getSender().getUserID() != null) {
+
+                User sender = userService.getUserById(
+                        updatedMessage.getSender().getUserID());
+
+                if (sender != null) {
+                    existingMessage.setSender(sender);
+                }
             }
 
-            if (updatedMessage.getReceiver() != null) {
-                existingMessage.setReceiver(updatedMessage.getReceiver());
+            // ✅ ONLY update receiver if valid ID exists
+            if (updatedMessage.getReceiver() != null &&
+                    updatedMessage.getReceiver().getUserID() != null) {
+
+                User receiver = userService.getUserById(
+                        updatedMessage.getReceiver().getUserID());
+
+                if (receiver != null) {
+                    existingMessage.setReceiver(receiver);
+                }
             }
 
             return messageRepository.save(existingMessage);
         }
 
-        throw new RuntimeException("Message not found with ID: " + updatedMessage.getMessageID());
+        throw new RuntimeException(
+                "Message not found with ID: " + updatedMessage.getMessageID());
     }
 
     public boolean deleteMessageSafe(Integer id) {
-        Optional<Message> optionalMessage = messageRepository.findById(id);
-
-        if (optionalMessage.isPresent()) {
+        if (messageRepository.existsById(id)) {
             messageRepository.deleteById(id);
             return true;
         }
-
         return false;
     }
 
-    // GET messages
-
     public List<Message> getMessagesBySender(User sender) {
-        return messageRepository.findBySender(sender);
+        return messageRepository.findBySender_UserID(sender.getUserID());
     }
 
     public List<Message> getMessagesByReceiver(User receiver) {
-        return messageRepository.findByReceiver(receiver);
+        return messageRepository.findByReceiver_UserID(receiver.getUserID());
     }
 
     public List<Message> getConversation(User u1, User u2) {
         return messageRepository
-                .findBySenderAndReceiverOrSenderAndReceiver(u1, u2, u2, u1);
+                .findBySender_UserIDAndReceiver_UserIDOrSender_UserIDAndReceiver_UserID(
+                        u1.getUserID(), u2.getUserID(),
+                        u2.getUserID(), u1.getUserID());
     }
 }

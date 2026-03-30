@@ -12,11 +12,13 @@ import lombok.*;
 public class Group {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer groupID;
 
+    @Column(name = "groupName", nullable = false, unique = true)
     private String groupName;
 
-    @ManyToOne
-    @JoinColumn(name = "adminID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "adminID", nullable = false)
     private User admin;
 }
