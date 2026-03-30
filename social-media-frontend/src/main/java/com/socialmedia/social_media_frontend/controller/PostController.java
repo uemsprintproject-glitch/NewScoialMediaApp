@@ -58,4 +58,13 @@ public class PostController {
         service.deletePost(postId);
         return "redirect:/member/posts";
     }
+
+    @GetMapping("/sorted")
+    public String getSortedPosts(@RequestParam String dir, Model model) {
+
+        model.addAttribute("data", service.getSortedPosts(dir));
+
+        return "posts/result";
+    }
+
 }
