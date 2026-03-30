@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Comments API</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -16,28 +19,30 @@
         :root {
             --bg: #f4f6fa;
             --surface: #ffffff;
-            --surface-hover: #fafbff;
+            --surface-alt: #f8f9fc;
             --border: #e4e8f0;
+            --border-light: #eef1f7;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
             --accent-mid: rgba(37, 99, 235, 0.18);
             --success: #059669;
-            --danger: #dc2626;
-            --warning: #d97706;
+            --success-soft: rgba(5, 150, 105, 0.08);
+            --success-mid: rgba(5, 150, 105, 0.18);
             --text-primary: #0f172a;
+            --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
-            --shadow-hover: 0 12px 36px rgba(37,99,235,0.13);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
+            background-color: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
         }
 
-        /* ── Topbar ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -47,56 +52,142 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        /* ── Page ── */
+        .topbar-logo {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+        }
+
+        .topbar-logo-mark {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar-right {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
         .page {
-            max-width: 900px;
-            margin: auto;
-            padding: 48px 32px;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
         }
 
-        /* ── Breadcrumb ── */
         .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 32px;
             font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            font-weight: 500;
         }
 
         .breadcrumb a {
-            text-decoration: none;
             color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        /* ── Header ── */
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
+
+        .page-title-wrap {
+            margin-bottom: 36px;
+        }
+
         .page-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             background: var(--accent-soft);
+            color: var(--accent);
             border: 1px solid var(--accent-mid);
-            padding: 4px 12px;
+            border-radius: 6px;
+            padding: 3px 10px;
             font-size: 11px;
             font-weight: 700;
-            border-radius: 6px;
-            display: inline-block;
-            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .page-label::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
         }
 
         .page-title {
             font-size: 26px;
             font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
         }
 
         .page-subtitle {
             font-size: 14px;
             color: var(--text-muted);
-            margin-bottom: 25px;
+            font-weight: 400;
         }
 
-        /* ── Section Header ── */
         .section-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 14px;
+            margin-bottom: 16px;
         }
 
         .section-line {
@@ -107,195 +198,315 @@
 
         .section-label {
             font-size: 11px;
+            font-weight: 700;
             color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        /* ── Grid ── */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        /* ── Card / Box ── */
-        .box {
+        .group {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 14px;
+            overflow: hidden;
             box-shadow: var(--shadow-sm);
-            position: relative;
-            transition: all 0.25s ease;
+            margin-bottom: 20px;
+            animation: fadeUp 0.4s ease both;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        /* hover animation (same as dashboard cards) */
-        .box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
+        .group:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .group:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .group:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #d0d7e8;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .group-bar {
             height: 3px;
-            background: var(--gradient-hero);
-            transition: width 0.3s ease;
         }
 
-        .box:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            border-color: rgba(37,99,235,0.25);
+        .bar-get {
+            background: linear-gradient(90deg, #059669, #34d399);
         }
 
-        .box:hover::before {
-            width: 60%;
+        .bar-post {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
         }
 
-        /* ── Header ── */
-        .box-header {
+        .group-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--surface-alt);
         }
 
-        .method {
+        .method-badge {
             font-size: 10px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            padding: 3px 9px;
+            border-radius: 5px;
+            text-transform: uppercase;
         }
 
-        .get { background: rgba(5,150,105,0.1); color: var(--success); }
-        .post { background: var(--accent-soft); color: var(--accent); }
-        .put { background: rgba(217,119,6,0.1); color: var(--warning); }
-        .delete { background: rgba(220,38,38,0.1); color: var(--danger); }
-
-        /* ── Inputs ── */
-        input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 10px;
+        .badge-get {
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
         }
 
-        /* ── Buttons ── */
-        button {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
+        .badge-post {
             background: var(--accent-soft);
             color: var(--accent);
-            cursor: pointer;
+            border: 1px solid var(--accent-mid);
         }
 
-        button:hover {
-            opacity: 0.85;
+        .group-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .group-count {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 2px 9px;
+        }
+
+        .endpoint-list {
+            padding: 8px 0;
+        }
+
+        .endpoint-row {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .endpoint-row:last-child {
+            border-bottom: none;
+        }
+
+        .endpoint-row a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 13px 22px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: background 0.15s ease;
+        }
+
+        .endpoint-row a:hover {
+            background: var(--bg);
+        }
+
+        .endpoint-row a:hover .endpoint-path {
+            color: var(--accent);
+        }
+
+        .endpoint-row a:hover .endpoint-arrow {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        .endpoint-method {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .em-get {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+
+        .em-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .endpoint-path {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: -0.01em;
+            transition: color 0.15s ease;
+        }
+
+        .endpoint-arrow {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .endpoint-path {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<nav class="topbar">
-    <b>SocialPlatform</b>
-    <span>Comments Module</span>
-</nav>
+    <nav class="topbar">
+        <a th:href="@{/}" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Comments Module</div>
+    </nav>
 
-<div class="page">
+    <div class="page">
 
-    <div class="breadcrumb">
-        <a href="/">Home</a> › Comments API
+        <div class="breadcrumb">
+            <a th:href="@{/}">Home</a>
+            <span class="breadcrumb-sep">&rsaquo;</span>
+            <a th:href="@{/member/comments}">Comments</a>
+            <span class="breadcrumb-sep">&rsaquo;</span>
+            <span class="breadcrumb-current">API Dashboard</span>
+        </div>
+
+        <div class="page-title-wrap">
+            <div class="page-label">Comments Module</div>
+            <div class="page-title">Comments API Dashboard</div>
+            <div class="page-subtitle">Browse and navigate all available comment endpoints</div>
+        </div>
+
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Endpoints</span>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="group">
+            <div class="group-bar bar-get"></div>
+            <div class="group-header">
+                <span class="method-badge badge-get">GET</span>
+                <span class="group-title">Read Endpoints</span>
+                <span class="group-count">5 endpoints</span>
+            </div>
+            <div class="endpoint-list">
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/all}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/comments/all</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/by-id-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/comments/by-id</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/by-post-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/comments/by-post</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/by-user-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/comments/by-user</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/sorted-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/comments/sorted</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="group">
+            <div class="group-bar bar-post"></div>
+            <div class="group-header">
+                <span class="method-badge badge-post">POST</span>
+                <span class="group-title">Write Endpoints</span>
+                <span class="group-count">3 endpoints</span>
+            </div>
+            <div class="endpoint-list">
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/create-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/comments/create</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/update-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/comments/update</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/comments/delete-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/comments/delete</span>
+                        <span class="endpoint-arrow">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="page-label">Comments Module</div>
-    <div class="page-title">Comments API</div>
-    <div class="page-subtitle">Manage post comments</div>
-
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Operations</span>
-        <div class="section-line"></div>
-    </div>
-
-    <div class="grid">
-
-        <!-- GET -->
-        <div class="box">
-            <div class="box-header">
-                <span class="method get">GET</span>
-                <h3>Fetch Comments</h3>
-            </div>
-
-            <a th:href="@{/member/comments/all}">
-                <button>Get All Comments</button>
-            </a>
-
-            <form th:action="@{/member/comments/by-id}" method="get">
-                <input name="id" placeholder="Comment ID" required>
-                <button>Get Comment by Comment ID</button>
-            </form>
-
-            <form th:action="@{/member/comments/by-post}" method="get">
-                <input name="postId" placeholder="Post ID" required>
-                <button>Get Comments by Post ID</button>
-            </form>
-
-            <form th:action="@{/member/comments/by-user}" method="get">
-                <input name="userId" placeholder="User ID" required>
-                <button>Get Comments by User ID</button>
-            </form>
-        </div>
-
-        <!-- CREATE -->
-        <div class="box">
-            <div class="box-header">
-                <span class="method post">POST</span>
-                <h3>Create Comment </h3>
-            </div>
-
-
-            <form th:action="@{/member/comments/create}" method="post">
-                <input name="userId" placeholder="User ID" required>
-                <input name="postId" placeholder="Post ID" required>
-                <input name="comment_text" placeholder="Comment" required>
-                <button>Create Comment</button>
-            </form>
-        </div>
-
-        <!-- UPDATE -->
-        <div class="box">
-            <div class="box-header">
-                <span class="method put">PUT</span>
-                <h3>Update Comment</h3>
-            </div>
-
-            <form th:action="@{/member/comments/update}" method="post">
-                <input name="commentID" placeholder="Comment ID" required>
-                <input name="comment_text" placeholder="Updated Content" required>
-                <button>Update</button>
-            </form>
-        </div>
-
-        <!-- DELETE -->
-        <div class="box">
-            <div class="box-header">
-                <span class="method delete">DELETE</span>
-                <h3>Delete Comment</h3>
-            </div>
-
-            <form th:action="@{/member/comments/delete}" method="post">
-                <input name="id" placeholder="Comment ID" required>
-                <button>Delete</button>
-            </form>
-        </div>
-
-
-
-    </div>
-</div>
 
 </body>
+
 </html>

@@ -40,6 +40,7 @@
             min-height: 100vh;
         }
 
+        /* ── Top nav ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -91,12 +92,14 @@
             font-weight: 500;
         }
 
+        /* ── Page ── */
         .page {
-            max-width: 920px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 48px 32px 80px;
         }
 
+        /* ── Breadcrumb ── */
         .breadcrumb {
             display: flex;
             align-items: center;
@@ -125,6 +128,7 @@
             color: var(--text-secondary);
         }
 
+        /* ── Page title ── */
         .page-title-wrap {
             margin-bottom: 32px;
         }
@@ -180,6 +184,7 @@
             font-weight: 400;
         }
 
+        /* ── Section divider ── */
         .section-header {
             display: flex;
             align-items: center;
@@ -202,6 +207,7 @@
             white-space: nowrap;
         }
 
+        /* ── Table card ── */
         .table-wrap {
             animation: fadeUp 0.4s ease both;
         }
@@ -226,6 +232,7 @@
             box-shadow: var(--shadow-md);
         }
 
+        /* gradient top bar */
         .table-top {
             height: 3px;
             background: var(--gradient-hero);
@@ -236,6 +243,7 @@
             border-collapse: collapse;
         }
 
+        /* ── Head ── */
         thead tr {
             border-bottom: 1px solid var(--border);
         }
@@ -251,6 +259,7 @@
             background: var(--surface-alt);
         }
 
+        /* ── Body ── */
         tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background 0.15s ease;
@@ -272,6 +281,7 @@
             vertical-align: middle;
         }
 
+        /* ID pill */
         td:first-child span {
             display: inline-block;
             background: var(--accent-soft);
@@ -284,11 +294,20 @@
             letter-spacing: 0.04em;
         }
 
+        /* Name */
         td:nth-child(2) {
             font-weight: 600;
             color: var(--text-primary);
         }
 
+        /* Admin */
+        td:nth-child(3) {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* ── Empty state ── */
         .empty-row td {
             text-align: center;
             padding: 56px 24px;
@@ -297,6 +316,7 @@
             font-weight: 500;
         }
 
+        /* ── Footer row ── */
         .page-footer {
             margin-top: 24px;
             display: flex;
@@ -330,7 +350,8 @@
             content: '←';
         }
 
-        @media (max-width: 700px) {
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
             .page {
                 padding: 32px 16px 60px;
             }
@@ -350,6 +371,7 @@
 
 <body>
 
+    <!-- Top nav -->
     <nav class="topbar">
         <a th:href="@{/}" class="topbar-logo">
             <div class="topbar-logo-mark">
@@ -364,47 +386,49 @@
 
     <div class="page">
 
+        <!-- Breadcrumb -->
         <div class="breadcrumb">
             <a th:href="@{/}">Home</a>
             <span class="breadcrumb-sep">›</span>
-            <a th:href="@{/member/groups}">Groups API</a>
+            <a th:href="@{/member/groups}">Groups</a>
             <span class="breadcrumb-sep">›</span>
             <span class="breadcrumb-current">Results</span>
         </div>
 
+        <!-- Title -->
         <div class="page-title-wrap">
             <div class="page-label">Groups Module</div>
             <div class="page-title">Group Data</div>
-            <div class="page-subtitle">Live response from the groups endpoints</div>
+            <div class="page-subtitle">Displaying retrieved group records</div>
         </div>
 
+        <!-- Section divider -->
         <div class="section-header">
             <div class="section-line"></div>
             <span class="section-label">Results</span>
             <div class="section-line"></div>
         </div>
 
+        <!-- Table -->
         <div class="table-wrap">
             <div class="table-card">
                 <div class="table-top"></div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Group ID</th>
+                            <th>ID</th>
                             <th>Group Name</th>
-                            <th>Admin User ID</th>
+                            <th>Admin Username</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <tr th:each="group : ${data}">
                             <td><span th:text="${group.groupID}"></span></td>
                             <td th:text="${group.groupName}"></td>
-                            <td th:text="${group.admin.userID}"></td>
+                            <td th:text="${group.admin != null ? group.admin.username : 'N/A'}"></td>
                         </tr>
-
                         <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                            <td colspan="3">No groups found</td>
+                            <td colspan="3">No groups found.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -412,11 +436,11 @@
         </div>
 
         <div class="page-footer">
-            <span>Showing group entries from selected query</span>
-            <a th:href="@{/member/groups}" class="back-btn">Back To Groups</a>
+            <a th:href="@{/member/groups}" class="back-btn">Back to Groups</a>
         </div>
     </div>
 
+    <script th:src='@{/js/table-enhancements.js}'></script>
 </body>
 
 </html>

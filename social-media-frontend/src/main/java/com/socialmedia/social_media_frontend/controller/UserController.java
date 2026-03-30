@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping
     public String page() {
-        return "users/users";
+        return "users/userAPI";
     }
 
     @GetMapping("/all")
@@ -74,5 +74,35 @@ public class UserController {
     public String getUserByComment(@RequestParam Integer id, Model model){
         model.addAttribute("user", service.getUserByComment(id));
         return "/users/get-by";
+    }
+
+    @GetMapping("/by-id-form")
+        public String getByIdForm() {
+        return "users/get-by-id";
+    }
+
+    @GetMapping("/username-form")
+        public String getByUsernameForm() {
+        return "users/get-by-username";
+    }
+
+    @GetMapping("/email-form")
+        public String getByEmailForm() {
+        return "users/get-by-email";
+    }
+
+    @GetMapping("/posts-form")
+        public String getPostsForm() {
+        return "users/get-by-post";
+    }
+
+    @GetMapping("/create-form")
+        public String createForm() {
+        return "users/create-user";
+    }
+
+    @GetMapping("/update-form")
+        public String updateForm() {
+        return "users/update-user";
     }
 }

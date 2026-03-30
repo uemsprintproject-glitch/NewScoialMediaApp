@@ -44,6 +44,31 @@ public class NotificationController {
         return "notifications/result";
     }
 
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "notifications/get-by-id";
+    }
+
+    @GetMapping("/by-user-form")
+    public String getByUserForm() {
+        return "notifications/get-by-user";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "notifications/create-notification";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "notifications/update-notification";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "notifications/delete-notification";
+    }
+
     @PostMapping("/create")
     public String createNotification(@RequestParam String content,
             @RequestParam Integer userID) {

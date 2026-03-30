@@ -1,7 +1,7 @@
 package com.socialmedia.social_media_frontend.service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,6 +23,11 @@ public class GroupClientService {
         return restTemplate.getForObject(BASE_URL + "/by-id?id=" + id, Group.class);
     }
 
+    public List<Group> getGroupByName(String groupName) {
+        Group[] groups = restTemplate.getForObject(BASE_URL + "/by-name?groupName=" + groupName, Group[].class);
+        return Arrays.asList(groups);
+    }
+
     public void createGroup(Group group) {
         restTemplate.postForObject(BASE_URL + "/create", group, String.class);
     }
@@ -33,11 +38,6 @@ public class GroupClientService {
 
     public List<Group> getGroupsByAdmin(int adminId) {
         Group[] groups = restTemplate.getForObject(BASE_URL + "/by-admin?adminId=" + adminId, Group[].class);
-        return Arrays.asList(groups);
-    }
-
-    public List<Group> getGroupByName(String name) {
-        Group[] groups = restTemplate.getForObject(BASE_URL + "/by-name?groupName=" + name, Group[].class);
         return Arrays.asList(groups);
     }
 }

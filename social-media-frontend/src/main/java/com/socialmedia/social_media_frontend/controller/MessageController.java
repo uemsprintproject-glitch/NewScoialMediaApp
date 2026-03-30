@@ -52,6 +52,41 @@ public class MessageController {
         return "messages/result";
     }
 
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "messages/get-by-id";
+    }
+
+    @GetMapping("/sender-form")
+    public String getBySenderForm() {
+        return "messages/get-by-sender";
+    }
+
+    @GetMapping("/receiver-form")
+    public String getByReceiverForm() {
+        return "messages/get-by-receiver";
+    }
+
+    @GetMapping("/conversation-form")
+    public String getConversationForm() {
+        return "messages/get-conversation";
+    }
+
+    @GetMapping("/send-form")
+    public String getSendForm() {
+        return "messages/send-message";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "messages/update-message";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "messages/delete-message";
+    }
+
     @PostMapping("/send")
     public String sendMessage(@ModelAttribute Message message) {
 
