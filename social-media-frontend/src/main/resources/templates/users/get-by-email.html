@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Get User By Email</title>
+</head>
+<body>
+
+<h2>Get User By Email</h2>
+
+<form th:action="@{/member/users/email}" method="get">
+    <input name="email" placeholder="Enter Email" required>
+    <button type="submit">Fetch User</button>
+</form>
+
+</body>
+</html>

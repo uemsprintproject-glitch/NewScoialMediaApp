@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.socialmedia.social_media_backend.model.Comment;
+import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 
@@ -63,6 +65,27 @@ public class UserServiceTest {
         when(repo.findByEmail("anishka@gmail.com")).thenReturn(user);
         User result = service.getUserByEmail("anishka@gmail.com");
         assertEquals("anishka",result.getUsername());
+    }
+
+    @Test
+    public void testGetUserByPostID(){
+        User user = User.builder().userID(1).username("anishka").email("anishka@gmail.com").password("123").build();
+        Post post = Post.builder().postID(101).user(user).content("Hello").build();
+        user.setPosts(List.of(post));
+        when(repo.findByPostsPostID(101)).thenReturn(user);
+        User result = service.getUserByPostId(101);
+        assertEquals("anishka", result.getUsername());
+    }
+
+    @Test
+    public void testGetUserByCommentID(){
+        User user = User.builder().userID(1).username("anishka").email("anishka@gmail.com").password("123").build();
+        Comment comment = Comment.builder().commentID(100001).comment_text("Nice Work").user(user).build();
+        user.setComments(List.of(comment));
+        when(repo.findByCommentsCommentID(100001)).thenReturn(user);
+
+        User result = service.getUserByComment(100001);
+        assertEquals("anishka", result.getUsername());
     }
 
     @Test

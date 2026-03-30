@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Get User By Comment</title>
+</head>
+<body>
+
+<h2>Get User By Comment</h2>
+
+<form th:action="@{/member/users/comment}" method="get">
+    <input name="id" placeholder="Enter Comment ID" required>
+    <button type="submit">Fetch User</button>
+</form>
+</body>
+</html>

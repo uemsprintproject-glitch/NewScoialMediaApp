@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Get User By Post</title>
+</head>
+<body>
+
+<h2>Get User By Post</h2>
+
+<form th:action="@{/member/users/posts}" method="get">
+    <input name="id" placeholder="Enter Post ID" required>
+    <button type="submit">Fetch Posts</button>
+</form>
+
+</body>
+</html>
