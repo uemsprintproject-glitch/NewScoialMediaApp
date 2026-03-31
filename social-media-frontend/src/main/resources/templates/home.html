@@ -365,20 +365,22 @@
         .module-links {
             margin-top: 14px;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 8px;
-            width: 100%;
         }
 
         .module-links a {
-            display: block;
+            display: inline-block;
             background: var(--accent-soft);
             border: 1px solid var(--accent-mid);
-            border-radius: 8px;
-            padding: 8px 12px;
+            border-radius: 999px;
+            padding: 4px 10px;
             color: var(--accent);
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             text-decoration: none;
             transition: background 0.18s ease, box-shadow 0.18s ease;
         }
@@ -490,8 +492,8 @@
                 <h3>Soumyojit Sen Gupta</h3>
                 <p>Likes &amp; Notifications</p>
                 <div class="module-links">
-                    <a href="/member/likes">Likes Module</a>
-                    <a href="/member/notifications">Notifications Module</a>
+                    <a href="/member/likes">Likes</a>
+                    <a href="/member/notifications">Notifications</a>
                 </div>
             </div>
 
@@ -505,8 +507,8 @@
                 <h3>Sagnik Dutta</h3>
                 <p>Comments &amp; Posts</p>
                 <div class="module-links">
-                    <a href="/member/comments">Comments Module</a>
-                    <a href="/member/posts">Posts Module</a>
+                    <a href="/member/comments">Comments</a>
+                    <a href="/member/posts">Posts</a>
                 </div>
             </div>
 
