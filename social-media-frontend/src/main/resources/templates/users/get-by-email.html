@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8">
     <title>Get User By Email</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -265,7 +263,6 @@
         }
     </style>
 </head>
-
 <body>
     <nav class="topbar">
         <a th:href="@{/}" class="topbar-logo">
@@ -298,20 +295,10 @@
                 <div class="card-title">/member/users/email</div>
             </div>
 
-            <form th:action="@{/member/users/email}" method="get">
-                <div class="form-grid">
-                    <label>
-                        Email Address
-                        <input type="email" name="email" placeholder="Enter email" required>
-                    </label>
-                </div>
-                <div class="actions">
-                    <button type="submit">Fetch User</button>
-                    <a th:href="@{/member/users}" class="btn-secondary">Back to Endpoints</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</body>
+<form th:action="@{/member/users/email}" method="get">
+    <input name="email" placeholder="Enter Email" required>
+    <button type="submit">Fetch User</button>
+</form>
 
+</body>
 </html>
