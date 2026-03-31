@@ -4,11 +4,12 @@ import com.socialmedia.social_media_frontend.model.Like;
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.LikeClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -35,13 +36,21 @@ public class LikeController {
     @GetMapping("/by-id")
     public String getLikeById(@RequestParam Integer id, Model model) {
         Like like = service.getLikeById(id);
-        model.addAttribute("data", like == null ? Collections.emptyList() : List.of(like));
+        if (like == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Like not found with ID: " + id);
+        }
+        model.addAttribute("data", List.of(like));
         return "likes/result";
     }
 
     @GetMapping("/by-user")
     public String getByUser(@RequestParam Integer userID, Model model) {
-        model.addAttribute("data", service.getLikesByUser(userID));
+        List<Like> likes = service.getLikesByUser(userID);
+        if (likes == null || likes.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No likes found for user ID: " + userID);
+        }
+        model.addAttribute("data", likes);
         return "likes/result";
     }
 
@@ -49,6 +58,36 @@ public class LikeController {
     public String getByPost(@RequestParam Integer postID, Model model) {
         model.addAttribute("data", service.getLikesByPost(postID));
         return "likes/result";
+    }
+
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "likes/get-by-id";
+    }
+
+    @GetMapping("/by-user-form")
+    public String getByUserForm() {
+        return "likes/get-by-user";
+    }
+
+    @GetMapping("/by-post-form")
+    public String getByPostForm() {
+        return "likes/get-by-post";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "likes/create-like";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "likes/update-like";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "likes/delete-like";
     }
 
     @PostMapping("/create")

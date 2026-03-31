@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-input: #f4f6fa;
+            --border: #e4e8f0;
+            --border-input: #d8dde8;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.18);
+            --warning: #d97706;
+            --warning-soft: rgba(217, 119, 6, 0.08);
+            --warning-mid: rgba(217, 119, 6, 0.18);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-logo {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+        }
+
+        .topbar-logo-mark {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar-right {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .page {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
+
+        .page-title-wrap {
+            margin-bottom: 26px;
+        }
+
+        .page-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--warning-soft);
+            color: var(--warning);
+            border: 1px solid var(--warning-mid);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            padding: 26px;
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .method-badge {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            padding: 3px 9px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            background: var(--warning-soft);
+            color: var(--warning);
+            border: 1px solid var(--warning-mid);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        input {
+            width: 100%;
+            margin-top: 6px;
+            background: var(--surface-input);
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            padding: 11px 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            background: var(--surface);
+        }
+
+        .actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button,
+        .btn-secondary {
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            background: var(--warning-soft);
+            color: var(--warning);
+            border-color: var(--warning-mid);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border-color: var(--border);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        @media (max-width: 720px) {
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            button,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="topbar">
+        <a th:href="@{/}" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Groups Module</div>
+    </nav>
+
+    <div class="page">
+        <div class="breadcrumb">
+            <a th:href="@{/}">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <a th:href="@{/member/groups}">Groups</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">Update Group</span>
+        </div>
+
+        <div class="page-title-wrap">
+            <div class="page-label">POST Endpoint</div>
+            <div class="page-title">Update Group</div>
+            <div class="page-subtitle">Update group details and admin assignment</div>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <span class="method-badge">POST</span>
+                <div class="card-title">/member/groups/update</div>
+            </div>
+
+            <form th:action="@{/member/groups/update}" method="post">
+                <div class="form-grid">
+                    <label>
+                        Group ID
+                        <input type="number" name="groupID" placeholder="Enter group ID" required>
+                    </label>
+                    <label>
+                        Group Name
+                        <input type="text" name="groupName" placeholder="Enter group name" required>
+                    </label>
+                    <label>
+                        Admin ID
+                        <input type="number" name="adminID" placeholder="Enter admin ID" required>
+                    </label>
+                </div>
+
+                <div class="actions">
+                    <button type="submit">Update Group</button>
+                    <a th:href="@{/member/groups}" class="btn-secondary">Back to Endpoints</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

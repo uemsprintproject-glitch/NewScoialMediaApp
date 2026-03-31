@@ -35,20 +35,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Comment> comments;
-
-    // @OneToMany(mappedBy = "user")
-    // @JsonIgnore
-    // private List<Like> likes;
-
-    // @OneToMany(mappedBy = "sender")
-    // @JsonIgnore
-    // private List<Message> sentMessages;
-
-    // @OneToMany(mappedBy = "receiver")
-    // @JsonIgnore
-    // private List<Message> receivedMessages;
-
-    // @OneToMany(mappedBy = "user")
-    // @JsonIgnore
-    // private List<Notification> notifications;
 }

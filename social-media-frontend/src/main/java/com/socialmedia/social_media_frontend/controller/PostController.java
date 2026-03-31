@@ -3,9 +3,11 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.service.PostClientService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/member/posts")
@@ -29,8 +31,12 @@ public class PostController {
     }
 
     @GetMapping("/by-id")
-    public String getPostById(@RequestParam("postId") int postId,Model model){
-        model.addAttribute("post", service.getPostById(postId));
+    public String getPostById(@RequestParam("postId") int postId, Model model) {
+        Post post = service.getPostById(postId);
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found with ID: " + postId);
+        }
+        model.addAttribute("post", post);
         return "posts/post";
     }
 
@@ -40,15 +46,40 @@ public class PostController {
         return "posts/result";
     }
 
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "posts/get-by-id";
+    }
+
+    @GetMapping("/by-user-form")
+    public String getByUserForm() {
+        return "posts/get-by-user";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "posts/create-post";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "posts/update-post";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "posts/delete-post";
+    }
+
     @PostMapping("/create")
     public String createPost(@RequestParam int userId,
-                             @RequestParam String content) {
+            @RequestParam String content) {
         service.createPost(userId, content);
         return "redirect:/member/posts";
     }
 
     @PostMapping("/update")
-    public String updatePost(@ModelAttribute Post post){
+    public String updatePost(@ModelAttribute Post post) {
         service.updatePost(post);
         return "redirect:/member/posts";
     }

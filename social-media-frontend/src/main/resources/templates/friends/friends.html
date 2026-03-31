@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Friends API</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -16,9 +20,7 @@
             --bg: #f4f6fa;
             --surface: #ffffff;
             --surface-alt: #f8f9fc;
-            --surface-input: #f4f6fa;
             --border: #e4e8f0;
-            --border-input: #d8dde8;
             --border-light: #eef1f7;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
@@ -26,15 +28,12 @@
             --success: #059669;
             --success-soft: rgba(5, 150, 105, 0.08);
             --success-mid: rgba(5, 150, 105, 0.18);
-            --danger: #dc2626;
-            --danger-soft: rgba(220, 38, 38, 0.08);
-            --danger-mid: rgba(220, 38, 38, 0.18);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
         }
 
         body {
@@ -96,7 +95,7 @@
         }
 
         .page {
-            max-width: 980px;
+            max-width: 820px;
             margin: 0 auto;
             padding: 48px 32px 80px;
         }
@@ -117,11 +116,21 @@
             transition: color 0.2s;
         }
 
-        .breadcrumb a:hover { color: var(--accent); }
-        .breadcrumb-sep { color: var(--border); font-size: 13px; }
-        .breadcrumb-current { color: var(--text-secondary); }
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
 
-        .page-title-wrap { margin-bottom: 36px; }
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
+
+        .page-title-wrap {
+            margin-bottom: 36px;
+        }
 
         .page-label {
             display: inline-flex;
@@ -149,8 +158,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%      { opacity: 0.35; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
         }
 
         .page-title {
@@ -171,10 +187,14 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
-        .section-line { flex: 1; height: 1px; background: var(--border); }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
 
         .section-label {
             font-size: 11px;
@@ -185,62 +205,61 @@
             white-space: nowrap;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            align-items: stretch;
-        }
-
-        .box {
+        .group {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 26px 24px;
+            overflow: hidden;
             box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+            margin-bottom: 20px;
             animation: fadeUp 0.4s ease both;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .box:nth-child(1)  { animation-delay: 0.04s; }
-        .box:nth-child(2)  { animation-delay: 0.08s; }
-        .box:nth-child(3)  { animation-delay: 0.12s; }
-        .box:nth-child(4)  { animation-delay: 0.16s; }
-        .box:nth-child(5)  { animation-delay: 0.20s; }
-        .box:nth-child(6)  { animation-delay: 0.24s; }
-        .box:nth-child(7)  { animation-delay: 0.28s; }
-        .box:nth-child(8)  { animation-delay: 0.32s; }
-        .box:nth-child(9)  { animation-delay: 0.36s; }
-        .box:nth-child(10) { animation-delay: 0.40s; }
-        .box:nth-child(11) { animation-delay: 0.44s; }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .group:nth-child(1) {
+            animation-delay: 0.05s;
         }
 
-        .box:hover {
+        .group:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .group:hover {
             box-shadow: var(--shadow-md);
             border-color: #d0d7e8;
         }
 
-        .box-accent {
-            height: 3px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .accent-get    { background: linear-gradient(90deg, #059669, #34d399); }
-        .accent-post   { background: linear-gradient(90deg, #2563eb, #7c3aed); }
-        .accent-delete { background: linear-gradient(90deg, #dc2626, #f87171); }
+        .group-bar {
+            height: 3px;
+        }
 
-        .box-header {
+        .bar-get {
+            background: linear-gradient(90deg, #059669, #34d399);
+        }
+
+        .bar-post {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+        }
+
+        .group-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 18px;
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--surface-alt);
         }
 
         .method-badge {
@@ -252,242 +271,249 @@
             text-transform: uppercase;
         }
 
-        .method-get    { background: var(--success-soft); color: var(--success); border: 1px solid var(--success-mid); }
-        .method-post   { background: var(--accent-soft);  color: var(--accent);  border: 1px solid var(--accent-mid); }
-        .method-delete { background: var(--danger-soft);  color: var(--danger);  border: 1px solid var(--danger-mid); }
+        .badge-get {
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
+        }
 
-        .box h2 {
-            font-size: 14px;
+        .badge-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .group-title {
+            font-size: 13px;
             font-weight: 700;
             color: var(--text-primary);
             letter-spacing: -0.01em;
         }
 
-        .box-sep {
-            height: 1px;
-            background: var(--border-light);
-            margin: 0 0 18px;
+        .group-count {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 2px 9px;
         }
 
-        form {
+        .endpoint-list {
+            padding: 8px 0;
+        }
+
+        .endpoint-row {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex: 1;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
         }
 
-        input {
+        .endpoint-row:last-child {
+            border-bottom: none;
+        }
+
+        .endpoint-row a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
             width: 100%;
-            background: var(--surface-input);
-            border: 1px solid var(--border-input);
-            border-radius: 8px;
-            padding: 10px 13px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px;
+            padding: 13px 22px;
+            text-decoration: none;
             color: var(--text-primary);
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: background 0.15s ease;
         }
 
-        input::placeholder { color: var(--text-muted); }
-
-        input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-soft);
-            background: var(--surface);
+        .endpoint-row a:hover {
+            background: var(--bg);
         }
 
-        button {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        .endpoint-row a:hover .endpoint-path {
+            color: var(--accent);
+        }
+
+        .endpoint-row a:hover .endpoint-arrow {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        .endpoint-method {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .em-get {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+
+        .em-post {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .endpoint-path {
             font-size: 13px;
             font-weight: 600;
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
-            letter-spacing: 0.01em;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: -0.01em;
+            transition: color 0.15s ease;
         }
 
-        button:hover  { opacity: 0.88; transform: translateY(-1px); }
-        button:active { transform: translateY(0); opacity: 1; }
-
-        .btn-get    { background: var(--success-soft); color: var(--success); border-color: var(--success-mid); }
-        .btn-post   { background: var(--accent-soft);  color: var(--accent);  border-color: var(--accent-mid); }
-        .btn-delete { background: var(--danger-soft);  color: var(--danger);  border-color: var(--danger-mid); }
-
-        .btn-link {
-            display: block;
-            text-decoration: none;
+        .endpoint-arrow {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.15s ease, transform 0.15s ease;
         }
 
-        @media (max-width: 980px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        @media (max-width: 600px) {
+            .page {
+                padding: 32px 16px 60px;
+            }
 
-        @media (max-width: 620px) {
-            .grid { grid-template-columns: 1fr; }
-            .page { padding: 32px 16px 60px; }
-            .topbar { padding: 0 20px; }
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .endpoint-path {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<nav class="topbar">
-    <a th:href="@{/}" class="topbar-logo">
-        <div class="topbar-logo-mark">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <nav class="topbar">
+        <a th:href="@{/}" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Friends Module</div>
+    </nav>
+
+    <div class="page">
+
+        <div class="breadcrumb">
+            <a th:href="@{/}">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <a th:href="@{/member/friends}">Friends</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">API Dashboard</span>
         </div>
-        SocialPlatform
-    </a>
-    <div class="topbar-right">Friends Module</div>
-</nav>
 
-<div class="page">
+        <div class="page-title-wrap">
+            <div class="page-label">Friends Module</div>
+            <div class="page-title">Friends API Dashboard</div>
+            <div class="page-subtitle">Browse and navigate all available friendship endpoints</div>
+        </div>
 
-    <div class="breadcrumb">
-        <a th:href="@{/}">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Friends API</span>
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Endpoints</span>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="group">
+            <div class="group-bar bar-get"></div>
+            <div class="group-header">
+                <span class="method-badge badge-get">GET</span>
+                <span class="group-title">Read Endpoints</span>
+                <span class="group-count">5 endpoints</span>
+            </div>
+            <div class="endpoint-list">
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/all}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/friends/all</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/by-id-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/friends/by-id</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/pending-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/friends/requests/pending</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/sent-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/friends/requests/sent</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/check-form}">
+                        <span class="endpoint-method em-get">GET</span>
+                        <span class="endpoint-path">/member/friends/check</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="group">
+            <div class="group-bar bar-post"></div>
+            <div class="group-header">
+                <span class="method-badge badge-post">POST</span>
+                <span class="group-title">Write Endpoints</span>
+                <span class="group-count">4 endpoints</span>
+            </div>
+            <div class="endpoint-list">
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/send-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/friends/send</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/accept-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/friends/accept</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/unsend-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/friends/unsend</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+                <div class="endpoint-row">
+                    <a th:href="@{/member/friends/remove-form}">
+                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-path">/member/friends/remove</span>
+                        <span class="endpoint-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="page-title-wrap">
-        <div class="page-label">Friends Module</div>
-        <div class="page-title">Friends API</div>
-        <div class="page-subtitle">Manage friendship requests and relations</div>
-    </div>
-
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Operations</span>
-        <div class="section-line"></div>
-    </div>
-
-    <div class="grid">
-
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Fetch All Friendships</h2>
-            </div>
-            <div class="box-sep"></div>
-            <a th:href="@{/member/friends/all}" class="btn-link">
-                <button class="btn-get">Get All</button>
-            </a>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Fetch Friendship By ID</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/by-id}" method="get">
-                <input name="friendshipId" placeholder="Friendship ID" required>
-                <button type="submit" class="btn-get">Get Friendship</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Pending Requests</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/requests/pending}" method="get">
-                <input name="userId" placeholder="User ID" required>
-                <button type="submit" class="btn-get">Get Pending</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Sent Requests</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/requests/sent}" method="get">
-                <input name="userId" placeholder="User ID" required>
-                <button type="submit" class="btn-get">Get Sent</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-get"></div>
-            <div class="box-header">
-                <span class="method-badge method-get">GET</span>
-                <h2>Check Friendship</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/check}" method="get">
-                <input name="userId1" placeholder="User ID 1" required>
-                <input name="userId2" placeholder="User ID 2" required>
-                <button type="submit" class="btn-get">Check</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-post"></div>
-            <div class="box-header">
-                <span class="method-badge method-post">POST</span>
-                <h2>Send Request</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/send}" method="post">
-                <input name="userId1" placeholder="Sender User ID" required>
-                <input name="userId2" placeholder="Receiver User ID" required>
-                <button type="submit" class="btn-post">Send</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-post"></div>
-            <div class="box-header">
-                <span class="method-badge method-post">POST</span>
-                <h2>Accept Request</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/accept}" method="post">
-                <input name="friendshipId" placeholder="Friendship ID" required>
-                <button type="submit" class="btn-post">Accept</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-delete"></div>
-            <div class="box-header">
-                <span class="method-badge method-delete">POST</span>
-                <h2>Unsend Request</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/unsend}" method="post">
-                <input name="friendshipId" placeholder="Friendship ID" required>
-                <button type="submit" class="btn-delete">Unsend</button>
-            </form>
-        </div>
-
-        <div class="box">
-            <div class="box-accent accent-delete"></div>
-            <div class="box-header">
-                <span class="method-badge method-delete">POST</span>
-                <h2>Remove Friend</h2>
-            </div>
-            <div class="box-sep"></div>
-            <form th:action="@{/member/friends/remove}" method="post">
-                <input name="friendshipId" placeholder="Friendship ID" required>
-                <button type="submit" class="btn-delete">Remove</button>
-            </form>
-        </div>
-
-    </div>
-</div>
 
 </body>
+
 </html>

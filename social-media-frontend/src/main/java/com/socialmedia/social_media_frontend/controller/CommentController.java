@@ -5,9 +5,11 @@ import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.CommentClientService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -70,7 +72,10 @@ public class CommentController {
     @GetMapping("/by-id")
     public String getCommentById(@RequestParam int id, Model model) {
         Comment comment = service.getCommentById(id);
-        model.addAttribute("data", List.of(comment)); // ✅ important
+        if (comment == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found with ID: " + id);
+        }
+        model.addAttribute("data", List.of(comment));
         return "comments/result";
     }
 

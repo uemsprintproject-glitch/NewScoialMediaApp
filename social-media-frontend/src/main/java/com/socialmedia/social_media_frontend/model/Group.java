@@ -6,8 +6,6 @@ public class Group {
     private String groupName;
     private User admin;
 
-    // GETTERS & SETTERS
-
     public Integer getGroupID() {
         return groupID;
     }

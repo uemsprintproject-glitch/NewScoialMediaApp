@@ -41,11 +41,6 @@ public class UserController {
     public void deleteUser(@RequestParam int id) {
         service.deleteUser(id);
     }
-
-    // @GetMapping("/posts")
-    // public List<Post> getPostsByUser(@RequestParam int id) {
-    //     return service.getPostsByUser(id);
-    // }
     
     @GetMapping("/username")
     public List<User> getUserByUsername(@RequestParam String username){
