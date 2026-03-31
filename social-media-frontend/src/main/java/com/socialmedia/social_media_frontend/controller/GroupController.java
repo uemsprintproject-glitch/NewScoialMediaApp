@@ -3,9 +3,13 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Group;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.GroupClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/member/groups")
@@ -31,13 +35,21 @@ public class GroupController {
     @GetMapping("/by-id")
     public String getGroupById(@RequestParam int id, Model model) {
         Group group = service.getGroupById(id);
+        if (group == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found with ID: " + id);
+        }
         model.addAttribute("data", java.util.Collections.singletonList(group));
         return "groups/result";
     }
 
     @GetMapping("/by-name")
     public String getGroupByName(@RequestParam String groupName, Model model) {
-        model.addAttribute("data", service.getGroupByName(groupName));
+        List<Group> groups = service.getGroupByName(groupName);
+        if (groups == null || groups.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No groups found with name: " + groupName);
+        }
+        model.addAttribute("data", groups);
         return "groups/result";
     }
 

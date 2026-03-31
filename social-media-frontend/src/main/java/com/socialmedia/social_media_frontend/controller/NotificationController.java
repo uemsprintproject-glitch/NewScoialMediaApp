@@ -3,11 +3,12 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Notification;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.NotificationClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -34,13 +35,21 @@ public class NotificationController {
     @GetMapping("/by-id")
     public String getById(@RequestParam Integer id, Model model) {
         Notification notification = service.getNotificationById(id);
-        model.addAttribute("data", notification == null ? Collections.emptyList() : List.of(notification));
+        if (notification == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Notification not found with ID: " + id);
+        }
+        model.addAttribute("data", List.of(notification));
         return "notifications/result";
     }
 
     @GetMapping("/by-user")
     public String getByUser(@RequestParam Integer userID, Model model) {
-        model.addAttribute("data", service.getNotificationsByUser(userID));
+        List<Notification> notifications = service.getNotificationsByUser(userID);
+        if (notifications == null || notifications.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No notifications found for user ID: " + userID);
+        }
+        model.addAttribute("data", notifications);
         return "notifications/result";
     }
 

@@ -59,18 +59,14 @@ public class MessageController {
     // ✅ DELETE instead of POST
     @DeleteMapping("/delete")
     public String deleteMessage(@RequestParam Integer id) {
-        boolean deleted = messageService.deleteMessageSafe(id);
-        return deleted ? "Message deleted" : "Message not found";
+        messageService.deleteMessageSafe(id);
+        return "Message deleted";
     }
 
     @GetMapping("/by-sender")
     public List<Message> getMessagesBySender(@RequestParam Integer senderId) {
 
         User sender = userService.getUserById(senderId);
-
-        if (sender == null) {
-            throw new RuntimeException("Sender not found");
-        }
 
         return messageService.getMessagesBySender(sender);
     }
@@ -79,10 +75,6 @@ public class MessageController {
     public List<Message> getMessagesByReceiver(@RequestParam Integer receiverId) {
 
         User receiver = userService.getUserById(receiverId);
-
-        if (receiver == null) {
-            throw new RuntimeException("Receiver not found");
-        }
 
         return messageService.getMessagesByReceiver(receiver);
     }
@@ -93,10 +85,6 @@ public class MessageController {
 
         User u1 = userService.getUserById(user1);
         User u2 = userService.getUserById(user2);
-
-        if (u1 == null || u2 == null) {
-            throw new RuntimeException("Invalid user IDs");
-        }
 
         return messageService.getConversation(u1, u2);
     }

@@ -7,8 +7,10 @@ import com.socialmedia.social_media_frontend.service.MessageClientService;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/member/messages")
@@ -33,21 +35,12 @@ public class MessageController {
 
     @GetMapping("/by-id")
     public String getMessageById(@RequestParam int id, Model model) {
-
-        Message message = null;
-
-        try {
-            message = service.getMessageById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Message message = service.getMessageById(id);
         if (message == null) {
-            model.addAttribute("data", List.of());
-            model.addAttribute("error", "Message not found with ID: " + id);
-        } else {
-            model.addAttribute("data", List.of(message));
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found with ID: " + id);
         }
+
+        model.addAttribute("data", List.of(message));
 
         return "messages/result";
     }

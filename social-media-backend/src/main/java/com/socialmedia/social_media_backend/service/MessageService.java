@@ -1,5 +1,6 @@
 package com.socialmedia.social_media_backend.service;
 
+import com.socialmedia.social_media_backend.exception.ResourceNotFoundException;
 import com.socialmedia.social_media_backend.model.Message;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.MessageRepository;
@@ -23,7 +24,8 @@ public class MessageService {
     }
 
     public Message getMessageByIdSafe(Integer id) {
-        return messageRepository.findById(id).orElse(null);
+        return messageRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Message not found with ID: " + id));
     }
 
     public Message sendMessage(Message message) {
@@ -70,7 +72,7 @@ public class MessageService {
             return messageRepository.save(existingMessage);
         }
 
-        throw new RuntimeException(
+        throw new ResourceNotFoundException(
                 "Message not found with ID: " + updatedMessage.getMessageID());
     }
 
@@ -79,7 +81,7 @@ public class MessageService {
             messageRepository.deleteById(id);
             return true;
         }
-        return false;
+        throw new ResourceNotFoundException("Message not found with ID: " + id);
     }
 
     public List<Message> getMessagesBySender(User sender) {
