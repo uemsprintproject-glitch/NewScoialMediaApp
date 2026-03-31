@@ -1,18 +1,336 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <meta charset="UTF-8">
     <title>Create User</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --surface-input: #f4f6fa;
+            --border: #e4e8f0;
+            --border-input: #d8dde8;
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --accent-mid: rgba(37, 99, 235, 0.18);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            height: 60px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .topbar-logo {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .topbar-logo-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--gradient-hero);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar-right {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .page {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 28px;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
+
+        .page-label {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 6px;
+            padding: 3px 10px;
+            margin-bottom: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 26px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            padding: 26px;
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .method-badge {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 5px;
+            padding: 3px 9px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .span-2 {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        input {
+            width: 100%;
+            margin-top: 6px;
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            background: var(--surface-input);
+            padding: 11px 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            background: var(--surface);
+        }
+
+        .actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button,
+        .btn-secondary {
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        button {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent-mid);
+        }
+
+        .btn-secondary {
+            color: var(--text-secondary);
+            border-color: var(--border);
+            background: transparent;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .span-2 {
+                grid-column: auto;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            button,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <nav class="topbar">
+        <a th:href="@{/}" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Users Module</div>
+    </nav>
 
-<h2>Create User</h2>
+    <div class="page">
+        <div class="breadcrumb">
+            <a th:href="@{/}">Home</a>
+            <span class="breadcrumb-sep">&rsaquo;</span>
+            <a th:href="@{/member/users}">Users</a>
+            <span class="breadcrumb-sep">&rsaquo;</span>
+            <span class="breadcrumb-current">Create User</span>
+        </div>
 
-<form th:action="@{/member/users/create}" method="post">
-    <input name="username" placeholder="Username" required>
-    <input name="email" placeholder="Email" required>
-    <input name="password" placeholder="Password" type="password" required>
-    <button type="submit">Create User</button>
-</form>
+        <div class="page-label">POST Endpoint</div>
+        <div class="page-title">Create User</div>
+        <div class="page-subtitle">Create a new user account</div>
 
+        <div class="card">
+            <div class="card-head">
+                <span class="method-badge">POST</span>
+                <div class="card-title">/member/users/create</div>
+            </div>
+
+            <form th:action="@{/member/users/create}" method="post">
+                <div class="form-grid">
+                    <label>
+                        Username
+                        <input name="username" placeholder="Enter username" required>
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" name="email" placeholder="Enter email" required>
+                    </label>
+                    <label class="span-2">
+                        Password
+                        <input type="password" name="password" placeholder="Enter password" required>
+                    </label>
+                </div>
+                <div class="actions">
+                    <button type="submit">Create User</button>
+                    <a th:href="@{/member/users}" class="btn-secondary">Back to Endpoints</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -53,8 +53,49 @@ public class FriendController {
     public String checkFriendship(@RequestParam Integer userId1, @RequestParam Integer userId2, Model model) {
         Boolean isFriend = service.checkFriendship(userId1, userId2);
         model.addAttribute("friend", null);
-        model.addAttribute("resultMessage", Boolean.TRUE.equals(isFriend) ? "Users are friends" : "Users are not friends");
+        model.addAttribute("resultMessage",
+                Boolean.TRUE.equals(isFriend) ? "Users are friends" : "Users are not friends");
         return "friends/friend-by-id";
+    }
+
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "friends/get-by-id";
+    }
+
+    @GetMapping("/pending-form")
+    public String getPendingForm() {
+        return "friends/get-pending";
+    }
+
+    @GetMapping("/sent-form")
+    public String getSentForm() {
+        return "friends/get-sent";
+    }
+
+    @GetMapping("/check-form")
+    public String getCheckForm() {
+        return "friends/check-friendship";
+    }
+
+    @GetMapping("/send-form")
+    public String getSendForm() {
+        return "friends/send-request";
+    }
+
+    @GetMapping("/accept-form")
+    public String getAcceptForm() {
+        return "friends/accept-request";
+    }
+
+    @GetMapping("/unsend-form")
+    public String getUnsendForm() {
+        return "friends/unsend-request";
+    }
+
+    @GetMapping("/remove-form")
+    public String getRemoveForm() {
+        return "friends/remove-friend";
     }
 
     @PostMapping("/send")

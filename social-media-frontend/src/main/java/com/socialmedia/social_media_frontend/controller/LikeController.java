@@ -51,6 +51,36 @@ public class LikeController {
         return "likes/result";
     }
 
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "likes/get-by-id";
+    }
+
+    @GetMapping("/by-user-form")
+    public String getByUserForm() {
+        return "likes/get-by-user";
+    }
+
+    @GetMapping("/by-post-form")
+    public String getByPostForm() {
+        return "likes/get-by-post";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "likes/create-like";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "likes/update-like";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "likes/delete-like";
+    }
+
     @PostMapping("/create")
     public String createLike(@RequestParam Integer userID,
             @RequestParam Integer postID) {

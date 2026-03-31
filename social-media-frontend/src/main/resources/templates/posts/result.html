@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Post Results</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -21,22 +24,22 @@
             --border-light: #eef1f7;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
-            --accent-mid: rgba(37, 99, 235, 0.15);
+            --accent-mid: rgba(37, 99, 235, 0.18);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-primary);
+            min-height: 100vh;
         }
 
-        /* ── Topbar ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -46,57 +49,142 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        /* ── Page ── */
+        .topbar-logo {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+        }
+
+        .topbar-logo-mark {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            background: var(--gradient-hero);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-logo-mark svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .topbar-right {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
         .page {
-            max-width: 860px;
-            margin: auto;
-            padding: 48px 32px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
         }
 
-        /* ── Breadcrumb ── */
         .breadcrumb {
-            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 32px;
             font-size: 13px;
             color: var(--text-muted);
+            font-weight: 500;
         }
 
         .breadcrumb a {
-            text-decoration: none;
             color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        /* ── Title ── */
-        .page-label {
-            display: inline-block;
-            background: var(--accent-soft);
-            border: 1px solid var(--accent-mid);
+        .breadcrumb a:hover {
             color: var(--accent);
-            padding: 4px 12px;
+        }
+
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
+
+        .page-title-wrap {
+            margin-bottom: 32px;
+        }
+
+        .page-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent-mid);
+            border-radius: 6px;
+            padding: 3px 10px;
             font-size: 11px;
             font-weight: 700;
-            border-radius: 6px;
-            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .page-label::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
         }
 
         .page-title {
             font-size: 26px;
             font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
             margin-bottom: 4px;
         }
 
         .page-subtitle {
             font-size: 14px;
             color: var(--text-muted);
+            font-weight: 400;
         }
 
-        /* ── Section Header ── */
         .section-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin: 30px 0 20px;
+            gap: 14px;
+            margin-bottom: 20px;
         }
 
         .section-line {
@@ -107,17 +195,40 @@
 
         .section-label {
             font-size: 11px;
+            font-weight: 700;
             color: var(--text-muted);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        /* ── Table Card ── */
+        .table-wrap {
+            animation: fadeUp 0.4s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .table-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
             box-shadow: var(--shadow-md);
+        }
+
+        .table-top {
+            height: 3px;
+            background: var(--gradient-hero);
         }
 
         table {
@@ -125,7 +236,6 @@
             border-collapse: collapse;
         }
 
-        /* head */
         thead tr {
             border-bottom: 1px solid var(--border);
         }
@@ -133,109 +243,153 @@
         th {
             font-size: 11px;
             font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--text-muted);
-            padding: 16px 24px;
+            padding: 14px 24px;
+            text-align: left;
             background: var(--surface-alt);
         }
 
-        /* body */
         tbody tr {
             border-bottom: 1px solid var(--border-light);
             transition: background 0.15s ease;
         }
 
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
         tbody tr:hover {
-            background: var(--surface-alt);
+            background: rgba(37, 99, 235, 0.03);
         }
 
         td {
-            padding: 16px 24px;
+            padding: 15px 24px;
             font-size: 14px;
-        }
-
-        /* ID pill */
-        td:first-child {
-            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: left;
+            vertical-align: middle;
         }
 
         td:first-child span {
             display: inline-block;
             background: var(--accent-soft);
             color: var(--accent);
-            border-radius: 6px;
-            padding: 3px 10px;
-            font-size: 12px;
+            border: 1px solid var(--accent-mid);
+            border-radius: 5px;
+            padding: 2px 9px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
         }
 
-        /* empty state */
+        td:nth-child(3) {
+            max-width: 420px;
+            word-break: break-word;
+        }
+
+        td:nth-child(4) {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
         .empty-row td {
             text-align: center;
-            padding: 40px;
+            padding: 56px 24px;
             color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 760px) {
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            th,
+            td {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+
+            td:nth-child(4) {
+                white-space: normal;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- Topbar -->
-<nav class="topbar">
-    <div><b>SocialPlatform</b></div>
-    <div>Posts Module</div>
-</nav>
+    <nav class="topbar">
+        <a href="/" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Posts Module</div>
+    </nav>
 
-<div class="page">
+    <div class="page">
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="/">Home</a> ›
-        <a href="/member/posts">Posts</a> ›
-        Results
+        <div class="breadcrumb">
+            <a href="/">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <a href="/member/posts">Posts</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">Results</span>
+        </div>
+
+        <div class="page-title-wrap">
+            <div class="page-label">Posts Module</div>
+            <div class="page-title">Post Data</div>
+            <div class="page-subtitle">Displaying retrieved post records</div>
+        </div>
+
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Results</span>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="table-wrap">
+            <div class="table-card">
+                <div class="table-top"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Post ID</th>
+                            <th>User ID</th>
+                            <th>Content</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="post : ${data}">
+                            <td><span th:text="${post.postID}"></span></td>
+                            <td th:text="${post.user != null ? post.user.userID : '-'}"></td>
+                            <td th:text="${post.content}"></td>
+                            <td th:text="${post.timestamp}"></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
+                            <td colspan="4">No posts found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <!-- Title -->
-    <div class="page-label">Records</div>
-    <div class="page-title">Post Data</div>
-    <div class="page-subtitle">Displaying retrieved posts</div>
-
-    <!-- Section -->
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Results</span>
-        <div class="section-line"></div>
-    </div>
-
-    <!-- Table -->
-    <div class="table-card">
-        <table>
-
-            <thead>
-            <tr>
-                <th>Post ID</th>
-                <th>User ID</th>
-                <th>Content</th>
-                <th>Timestamp</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr th:each="post : ${data}">
-                <td><span th:text="${post.postID}"></span></td>
-                <td th:text="${post.user != null ? post.user.userID : '-'}"></td>
-                <td th:text="${post.content}"></td>
-                <td th:text="${post.timestamp}"></td>
-            </tr>
-
-            <tr class="empty-row" th:if="${#lists.isEmpty(data)}">
-                <td colspan="4">No posts found</td>
-            </tr>
-            </tbody>
-
-        </table>
-    </div>
-
-</div>
-
+    <script th:src='@{/js/table-enhancements.js}'></script>
 </body>
+
 </html>
