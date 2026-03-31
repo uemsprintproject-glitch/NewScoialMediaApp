@@ -97,4 +97,5 @@ public class PostController {
 
         return "posts/result";
     }
+
 }

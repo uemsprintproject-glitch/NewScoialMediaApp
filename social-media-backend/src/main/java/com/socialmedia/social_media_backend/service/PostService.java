@@ -1,6 +1,5 @@
 package com.socialmedia.social_media_backend.service;
 
-import com.socialmedia.social_media_backend.exception.ResourceNotFoundException;
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.PostRepository;
