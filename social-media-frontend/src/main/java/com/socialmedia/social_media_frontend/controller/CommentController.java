@@ -98,4 +98,39 @@ public class CommentController {
 
         return "comments/result";
     }
+
+    @GetMapping("/by-id-form")
+    public String getByIdForm() {
+        return "comments/get-by-id";
+    }
+
+    @GetMapping("/by-post-form")
+    public String getByPostForm() {
+        return "comments/get-by-post";
+    }
+
+    @GetMapping("/by-user-form")
+    public String getByUserForm() {
+        return "comments/get-by-user";
+    }
+
+    @GetMapping("/sorted-form")
+    public String getSortedForm() {
+        return "comments/get-sorted";
+    }
+
+    @GetMapping("/create-form")
+    public String getCreateForm() {
+        return "comments/create-comment";
+    }
+
+    @GetMapping("/update-form")
+    public String getUpdateForm() {
+        return "comments/update-comment";
+    }
+
+    @GetMapping("/delete-form")
+    public String getDeleteForm() {
+        return "comments/delete-comment";
+    }
 }
