@@ -1,7 +1,6 @@
 package com.socialmedia.social_media_backend.service;
 
 import org.springframework.data.domain.Sort;
-import com.socialmedia.social_media_backend.exception.ResourceNotFoundException;
 import com.socialmedia.social_media_backend.model.Comment;
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
@@ -82,5 +81,6 @@ public class CommentService {
 
         return commentRepository.save(existingComment);
     }
+
 
 }

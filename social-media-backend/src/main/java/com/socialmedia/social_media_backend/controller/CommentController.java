@@ -55,9 +55,5 @@ public class CommentController {
         return service.getCommentsByPost(postId);
     }
 
-    @GetMapping("/sorted")
-    public List<Comment> getSortedComments(@RequestParam String dir) {
-        return service.getSortedComments(dir);
-    }
 
 }
