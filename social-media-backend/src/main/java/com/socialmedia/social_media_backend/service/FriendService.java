@@ -1,5 +1,6 @@
 package com.socialmedia.social_media_backend.service;
 
+import com.socialmedia.social_media_backend.exception.ResourceNotFoundException;
 import com.socialmedia.social_media_backend.model.Friend;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.repository.FriendRepository;
@@ -28,12 +29,12 @@ public class FriendService {
 
     public Friend getFriendById(Integer friendshipId) {
         return friendRepository.findById(friendshipId)
-                .orElseThrow(() -> new RuntimeException("Friendship not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Friendship not found"));
     }
 
     private User getUserById(Integer userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     public List<Friend> getPendingRequests(Integer userId) {

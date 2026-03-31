@@ -2,12 +2,14 @@ package com.socialmedia.social_media_frontend.controller;
 
 import com.socialmedia.social_media_frontend.model.Friend;
 import com.socialmedia.social_media_frontend.service.FriendClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/member/friends")
@@ -33,6 +35,9 @@ public class FriendController {
     @GetMapping("/by-id")
     public String getFriendById(@RequestParam Integer friendshipId, Model model) {
         Friend friend = service.getFriendById(friendshipId);
+        if (friend == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Friendship not found with ID: " + friendshipId);
+        }
         model.addAttribute("friend", friend);
         return "friends/friend-by-id";
     }
