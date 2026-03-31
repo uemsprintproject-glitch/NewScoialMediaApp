@@ -1,8 +1,8 @@
 package com.socialmedia.social_media_frontend.service;
 
-
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -39,24 +39,24 @@ public class UserClientService {
     }
 
     public List<Post> getPostsByUser(int userId) {
-        Post[] posts = restTemplate.getForObject(BASE_URL + "/posts?id=" + userId,Post[].class);
+        Post[] posts = restTemplate.getForObject(BASE_URL + "/posts?id=" + userId, Post[].class);
         return Arrays.asList(posts);
     }
 
-    public List<User> getUserByUsername(String username){
-        User[] user = restTemplate.getForObject(BASE_URL + "/username?username="+username, User[].class);
-        return Arrays.asList(user);
+    public List<User> getUserByUsername(String username) {
+        User[] user = restTemplate.getForObject(BASE_URL + "/username?username=" + username, User[].class);
+        return user == null ? Collections.emptyList() : Arrays.asList(user);
     }
 
-    public User getUserByEmail(String email){
-        return restTemplate.getForObject(BASE_URL + "/email?email="+email, User.class);
+    public User getUserByEmail(String email) {
+        return restTemplate.getForObject(BASE_URL + "/email?email=" + email, User.class);
     }
 
-    public User getUserByPost(int id){
-        return restTemplate.getForObject(BASE_URL+"/posts?id="+id, User.class);
+    public User getUserByPost(int id) {
+        return restTemplate.getForObject(BASE_URL + "/posts?id=" + id, User.class);
     }
 
-    public User getUserByComment(Integer id){
-        return restTemplate.getForObject(BASE_URL+"/comment?id="+id, User.class);
+    public User getUserByComment(Integer id) {
+        return restTemplate.getForObject(BASE_URL + "/comment?id=" + id, User.class);
     }
 }
