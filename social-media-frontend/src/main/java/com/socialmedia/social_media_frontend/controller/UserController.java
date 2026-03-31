@@ -100,8 +100,8 @@ public class UserController {
     }
 
     @GetMapping("/username-form")
-    public String getByUsernameForm() {
-        return "users/get-by-username";
+        public String getByUsernameForm() {
+        return "users/get-by-user_name";
     }
 
     @GetMapping("/email-form")
@@ -112,6 +112,11 @@ public class UserController {
     @GetMapping("/posts-form")
     public String getPostsForm() {
         return "users/get-by-post";
+    }
+
+    @GetMapping("/comments-form")
+        public String getCommentsForm() {
+        return "users/get-by-comment";
     }
 
     @GetMapping("/create-form")
