@@ -253,6 +253,10 @@
             background: linear-gradient(90deg, #2563eb, #7c3aed);
         }
 
+        .bar-put {
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+        }
+
         .group-header {
             display: flex;
             align-items: center;
@@ -281,6 +285,12 @@
             background: var(--accent-soft);
             color: var(--accent);
             border: 1px solid var(--accent-mid);
+        }
+
+        .badge-put {
+            background: rgba(217, 119, 6, 0.08);
+            color: #b45309;
+            border: 1px solid rgba(217, 119, 6, 0.18);
         }
 
         .group-title {
@@ -357,6 +367,11 @@
         .em-post {
             background: var(--accent-soft);
             color: var(--accent);
+        }
+
+        .em-put {
+            background: rgba(217, 119, 6, 0.08);
+            color: #b45309;
         }
 
         .endpoint-path {
@@ -468,20 +483,31 @@
         </div>
 
         <div class="group">
-            <div class="group-bar bar-post"></div>
+            <div class="group-bar bar-put"></div>
             <div class="group-header">
-                <span class="method-badge badge-post">POST</span>
-                <span class="group-title">Write Endpoints</span>
-                <span class="group-count">2 endpoints</span>
+                <span class="method-badge badge-put">PUT</span>
+                <span class="group-title">Create Endpoints</span>
+                <span class="group-count">1 endpoint</span>
             </div>
             <div class="endpoint-list">
                 <div class="endpoint-row">
                     <a th:href="@{/member/groups/create-form}">
-                        <span class="endpoint-method em-post">POST</span>
+                        <span class="endpoint-method em-put">PUT</span>
                         <span class="endpoint-path">/member/groups/create</span>
                         <span class="endpoint-arrow">→</span>
                     </a>
                 </div>
+            </div>
+        </div>
+
+        <div class="group">
+            <div class="group-bar bar-post"></div>
+            <div class="group-header">
+                <span class="method-badge badge-post">POST</span>
+                <span class="group-title">Write Endpoints</span>
+                <span class="group-count">1 endpoint</span>
+            </div>
+            <div class="endpoint-list">
                 <div class="endpoint-row">
                     <a th:href="@{/member/groups/update-form}">
                         <span class="endpoint-method em-post">POST</span>

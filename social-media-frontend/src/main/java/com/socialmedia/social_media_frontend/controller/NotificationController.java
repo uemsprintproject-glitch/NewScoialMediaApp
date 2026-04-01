@@ -109,7 +109,7 @@ public class NotificationController {
         return "notifications/delete-notification";
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     public String createNotification(@RequestParam String content,
             @RequestParam Integer userID) {
         service.createNotification(buildCreateNotification(content, userID));
