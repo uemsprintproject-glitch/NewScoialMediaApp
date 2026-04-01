@@ -1,6 +1,5 @@
 package com.socialmedia.social_media_backend.service;
 
-import org.springframework.data.domain.Sort;
 import com.socialmedia.social_media_backend.model.Comment;
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
@@ -69,12 +68,10 @@ public class CommentService {
 
     public Comment updateComment(Comment updatedComment) {
         Comment existingComment = commentRepository.findById(updatedComment.getCommentID())
-                .orElseThrow();
+                .orElseThrow(()-> new RuntimeException("Comment not found for id: "+updatedComment.getCommentID()));
 
         existingComment.setComment_text(updatedComment.getComment_text());
 
         return  commentRepository.save(existingComment);
     }
-
-
 }

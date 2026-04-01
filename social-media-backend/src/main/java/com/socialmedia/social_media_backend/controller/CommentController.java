@@ -22,8 +22,8 @@ public class CommentController {
     }
 
     @GetMapping("/by-id")
-    public Comment getCommentById(@RequestParam int id) {
-        return service.getCommentById(id);
+    public Comment getCommentById(@RequestParam Integer commentId) {
+        return service.getCommentById(commentId);
     }
 
     @GetMapping("/by-user")
