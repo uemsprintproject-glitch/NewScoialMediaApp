@@ -2,12 +2,15 @@ package com.socialmedia.social_media_frontend.controller;
 
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.UserClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/users")
@@ -25,9 +28,18 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public String getAllUsers(Model model) {
-        model.addAttribute("data", service.getAllUsers());
-        return "users/result";
+    public String getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllUsers(),
+                page,
+                size,
+                "/member/users/all",
+                "users/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
@@ -59,9 +71,19 @@ public class UserController {
     }
 
     @GetMapping("/username")
-    public String getUserByUsername(@RequestParam String username, Model model) {
-        model.addAttribute("data", service.getUserByUsername(username));
-        return "users/get-by-username";
+    public String getUserByUsername(
+            @RequestParam String username,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getUserByUsername(username),
+                page,
+                size,
+                "/member/users/username",
+                "users/get-by-username",
+                model,
+                Map.of("username", username));
     }
 
     @GetMapping("/email")
@@ -100,7 +122,7 @@ public class UserController {
     }
 
     @GetMapping("/username-form")
-        public String getByUsernameForm() {
+    public String getByUsernameForm() {
         return "users/get-by-user_name";
     }
 
@@ -115,7 +137,7 @@ public class UserController {
     }
 
     @GetMapping("/comments-form")
-        public String getCommentsForm() {
+    public String getCommentsForm() {
         return "users/get-by-comment";
     }
 

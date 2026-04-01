@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <title>Comments Results</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -27,8 +30,8 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
         }
 
         body {
@@ -171,71 +174,142 @@
             padding: 40px;
             color: var(--text-muted);
         }
+
+        .pagination-bar {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 90px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-mid);
+            background: var(--accent-soft);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .page-btn:hover {
+            background: rgba(37, 99, 235, 0.14);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.45;
+            pointer-events: none;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .page-status {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<!-- Topbar -->
-<nav class="topbar">
-    <div><b>SocialPlatform</b></div>
-    <div>Comments Module</div>
-</nav>
+    <!-- Topbar -->
+    <nav class="topbar">
+        <div><b>SocialPlatform</b></div>
+        <div>Comments Module</div>
+    </nav>
 
-<div class="page">
+    <div class="page">
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="/">Home</a> ›
-        <a href="/member/comments">Comments</a> ›
-        Results
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">Home</a> ›
+            <a href="/member/comments">Comments</a> ›
+            Results
+        </div>
+
+        <!-- Title -->
+        <div class="page-label">Records</div>
+        <div class="page-title">Comments Data</div>
+        <div class="page-subtitle">Displaying retrieved comments</div>
+
+        <!-- Section -->
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Results</span>
+            <div class="section-line"></div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Comment ID</th>
+                        <th>User ID</th>
+                        <th>Post ID</th>
+                        <th>Content</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="comment : ${data}">
+                        <td><span th:text="${comment.commentID}"></span></td>
+                        <td th:text="${comment.user != null ? comment.user.userID : '-'}"></td>
+                        <td th:text="${comment.post != null ? comment.post.postID : '-'}"></td>
+                        <td th:text="${comment.comment_text}"></td>
+                        <td th:text="${comment.timestamp}"></td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(data)}">
+                        <td colspan="5" class="empty">No comments found</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="pagination-bar">
+            <div th:text="|Showing ${#lists.size(data)} of ${totalItems} comments|">Showing 0 of 0 comments</div>
+            <div class="pagination-controls">
+                <a class="page-btn" th:classappend="${!hasPrevious} ? ' disabled'" th:href="${previousPageUrl}"
+                    th:attr="aria-disabled=${!hasPrevious}">Previous</a>
+                <span class="page-status" th:text="|Page ${currentPage + 1} of ${totalPages}|">Page 1 of 1</span>
+                <a class="page-btn" th:classappend="${!hasNext} ? ' disabled'" th:href="${nextPageUrl}"
+                    th:attr="aria-disabled=${!hasNext}">Next</a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Title -->
-    <div class="page-label">Records</div>
-    <div class="page-title">Comments Data</div>
-    <div class="page-subtitle">Displaying retrieved comments</div>
-
-    <!-- Section -->
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Results</span>
-        <div class="section-line"></div>
-    </div>
-
-    <!-- Table -->
-    <div class="table-card">
-        <table>
-
-            <thead>
-            <tr>
-                <th>Comment ID</th>
-                <th>User ID</th>
-                <th>Post ID</th>
-                <th>Content</th>
-                <th>Timestamp</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr th:each="comment : ${data}">
-                <td><span th:text="${comment.commentID}"></span></td>
-                <td th:text="${comment.user != null ? comment.user.userID : '-'}"></td>
-                <td th:text="${comment.post != null ? comment.post.postID : '-'}"></td>
-                <td th:text="${comment.comment_text}"></td>
-                <td th:text="${comment.timestamp}"></td>
-            </tr>
-
-            <tr th:if="${#lists.isEmpty(data)}">
-                <td colspan="5" class="empty">No comments found</td>
-            </tr>
-            </tbody>
-
-        </table>
-    </div>
-
-</div>
-
-<script th:src='@{/js/table-enhancements.js}'></script>
+    <script th:src='@{/js/table-enhancements.js}'></script>
 </body>
+
 </html>

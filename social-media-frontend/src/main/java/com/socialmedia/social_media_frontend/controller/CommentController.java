@@ -4,6 +4,7 @@ import com.socialmedia.social_media_frontend.model.Comment;
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.CommentClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/comments")
@@ -29,9 +31,18 @@ public class CommentController {
     }
 
     @GetMapping("/all")
-    public String getAllComments(Model model) {
-        model.addAttribute("data", service.getAllComments());
-        return "comments/result";
+    public String getAllComments(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllComments(),
+                page,
+                size,
+                "/member/comments/all",
+                "comments/result",
+                model,
+                Map.of());
     }
 
     @PostMapping("/create")
@@ -70,33 +81,71 @@ public class CommentController {
     }
 
     @GetMapping("/by-id")
-    public String getCommentById(@RequestParam int id, Model model) {
+    public String getCommentById(
+            @RequestParam int id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         Comment comment = service.getCommentById(id);
         if (comment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found with ID: " + id);
         }
-        model.addAttribute("data", List.of(comment));
-        return "comments/result";
+        return PaginationUtils.renderPaginatedResult(
+                List.of(comment),
+                page,
+                size,
+                "/member/comments/by-id",
+                "comments/result",
+                model,
+                Map.of("id", id));
     }
 
     @GetMapping("/by-post")
-    public String getCommentsByPost(@RequestParam int postId, Model model) {
-        model.addAttribute("data", service.getCommentsByPost(postId));
-        return "comments/result";
+    public String getCommentsByPost(
+            @RequestParam int postId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getCommentsByPost(postId),
+                page,
+                size,
+                "/member/comments/by-post",
+                "comments/result",
+                model,
+                Map.of("postId", postId));
     }
 
     @GetMapping("/by-user")
-    public String getCommentsByUser(@RequestParam int userId, Model model) {
-        model.addAttribute("data", service.getCommentsByUser(userId));
-        return "comments/result";
+    public String getCommentsByUser(
+            @RequestParam int userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getCommentsByUser(userId),
+                page,
+                size,
+                "/member/comments/by-user",
+                "comments/result",
+                model,
+                Map.of("userId", userId));
     }
 
     @GetMapping("/sorted")
-    public String getSortedComments(@RequestParam String dir, Model model) {
-
-        model.addAttribute("data", service.getSortedComments(dir));
-
-        return "comments/result";
+    public String getSortedComments(
+            @RequestParam String dir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getSortedComments(dir),
+                page,
+                size,
+                "/member/comments/sorted",
+                "comments/result",
+                model,
+                Map.of("dir", dir));
     }
 
     @GetMapping("/by-id-form")

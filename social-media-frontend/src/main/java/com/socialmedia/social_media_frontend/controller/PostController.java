@@ -2,12 +2,15 @@ package com.socialmedia.social_media_frontend.controller;
 
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.service.PostClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/posts")
@@ -25,9 +28,18 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public String getAllPosts(Model model) {
-        model.addAttribute("data", service.getAllPosts());
-        return "posts/result";
+    public String getAllPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllPosts(),
+                page,
+                size,
+                "/member/posts/all",
+                "posts/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
@@ -41,9 +53,19 @@ public class PostController {
     }
 
     @GetMapping("/by-user")
-    public String getPostsByUser(@RequestParam int userId, Model model) {
-        model.addAttribute("data", service.getPostsByUser(userId));
-        return "posts/result";
+    public String getPostsByUser(
+            @RequestParam int userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getPostsByUser(userId),
+                page,
+                size,
+                "/member/posts/by-user",
+                "posts/result",
+                model,
+                Map.of("userId", userId));
     }
 
     @GetMapping("/by-id-form")
@@ -91,11 +113,19 @@ public class PostController {
     }
 
     @GetMapping("/sorted")
-    public String getSortedPosts(@RequestParam String dir, Model model) {
-
-        model.addAttribute("data", service.getSortedPosts(dir));
-
-        return "posts/result";
+    public String getSortedPosts(
+            @RequestParam String dir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getSortedPosts(dir),
+                page,
+                size,
+                "/member/posts/sorted",
+                "posts/result",
+                model,
+                Map.of("dir", dir));
     }
 
 }

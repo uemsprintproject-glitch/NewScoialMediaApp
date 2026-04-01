@@ -3,6 +3,7 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Notification;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.NotificationClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/notifications")
@@ -27,30 +29,59 @@ public class NotificationController {
     }
 
     @GetMapping("/all")
-    public String getAllNotifications(Model model) {
-        model.addAttribute("data", service.getAllNotifications());
-        return "notifications/result";
+    public String getAllNotifications(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllNotifications(),
+                page,
+                size,
+                "/member/notifications/all",
+                "notifications/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
-    public String getById(@RequestParam Integer id, Model model) {
+    public String getById(
+            @RequestParam Integer id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         Notification notification = service.getNotificationById(id);
         if (notification == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Notification not found with ID: " + id);
         }
-        model.addAttribute("data", List.of(notification));
-        return "notifications/result";
+        return PaginationUtils.renderPaginatedResult(
+                List.of(notification),
+                page,
+                size,
+                "/member/notifications/by-id",
+                "notifications/result",
+                model,
+                Map.of("id", id));
     }
 
     @GetMapping("/by-user")
-    public String getByUser(@RequestParam Integer userID, Model model) {
+    public String getByUser(
+            @RequestParam Integer userID,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         List<Notification> notifications = service.getNotificationsByUser(userID);
         if (notifications == null || notifications.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No notifications found for user ID: " + userID);
         }
-        model.addAttribute("data", notifications);
-        return "notifications/result";
+        return PaginationUtils.renderPaginatedResult(
+                notifications,
+                page,
+                size,
+                "/member/notifications/by-user",
+                "notifications/result",
+                model,
+                Map.of("userID", userID));
     }
 
     @GetMapping("/by-id-form")
