@@ -4,6 +4,7 @@ import com.socialmedia.social_media_frontend.model.Like;
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.LikeClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/likes")
@@ -28,36 +30,75 @@ public class LikeController {
     }
 
     @GetMapping("/all")
-    public String getAllLikes(Model model) {
-        model.addAttribute("data", service.getAllLikes());
-        return "likes/result";
+    public String getAllLikes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllLikes(),
+                page,
+                size,
+                "/member/likes/all",
+                "likes/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
-    public String getLikeById(@RequestParam Integer id, Model model) {
+    public String getLikeById(
+            @RequestParam Integer id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         Like like = service.getLikeById(id);
         if (like == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Like not found with ID: " + id);
         }
-        model.addAttribute("data", List.of(like));
-        return "likes/result";
+        return PaginationUtils.renderPaginatedResult(
+                List.of(like),
+                page,
+                size,
+                "/member/likes/by-id",
+                "likes/result",
+                model,
+                Map.of("id", id));
     }
 
     @GetMapping("/by-user")
-    public String getByUser(@RequestParam Integer userID, Model model) {
+    public String getByUser(
+            @RequestParam Integer userID,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         List<Like> likes = service.getLikesByUser(userID);
         if (likes == null || likes.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No likes found for user ID: " + userID);
         }
-        model.addAttribute("data", likes);
-        return "likes/result";
+        return PaginationUtils.renderPaginatedResult(
+                likes,
+                page,
+                size,
+                "/member/likes/by-user",
+                "likes/result",
+                model,
+                Map.of("userID", userID));
     }
 
     @GetMapping("/by-post")
-    public String getByPost(@RequestParam Integer postID, Model model) {
-        model.addAttribute("data", service.getLikesByPost(postID));
-        return "likes/result";
+    public String getByPost(
+            @RequestParam Integer postID,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getLikesByPost(postID),
+                page,
+                size,
+                "/member/likes/by-post",
+                "likes/result",
+                model,
+                Map.of("postID", postID));
     }
 
     @GetMapping("/by-id-form")

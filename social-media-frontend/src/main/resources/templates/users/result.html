@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>User Results</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -25,8 +29,8 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
         }
 
         body {
@@ -112,12 +116,22 @@
             transition: color 0.2s;
         }
 
-        .breadcrumb a:hover { color: var(--accent); }
-        .breadcrumb-sep { color: var(--border); }
-        .breadcrumb-current { color: var(--text-secondary); }
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
 
         /* ── Page title ── */
-        .page-title-wrap { margin-bottom: 32px; }
+        .page-title-wrap {
+            margin-bottom: 32px;
+        }
 
         .page-label {
             display: inline-flex;
@@ -145,8 +159,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.35; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
         }
 
         .page-title {
@@ -171,7 +192,11 @@
             margin-bottom: 20px;
         }
 
-        .section-line { flex: 1; height: 1px; background: var(--border); }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
 
         .section-label {
             font-size: 11px;
@@ -188,8 +213,15 @@
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .table-card {
@@ -233,8 +265,13 @@
             transition: background 0.15s ease;
         }
 
-        tbody tr:last-child { border-bottom: none; }
-        tbody tr:hover { background: rgba(37,99,235,0.03); }
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(37, 99, 235, 0.03);
+        }
 
         td {
             padding: 15px 24px;
@@ -305,85 +342,169 @@
         }
 
         .back-btn:hover {
-            background: rgba(37,99,235,0.14);
-            box-shadow: 0 2px 8px rgba(37,99,235,0.12);
+            background: rgba(37, 99, 235, 0.14);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
         }
 
-        .back-btn::before { content: '←'; }
+        .back-btn::before {
+            content: '←';
+        }
+
+        .pagination-bar {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 90px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-mid);
+            background: var(--accent-soft);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .page-btn:hover {
+            background: rgba(37, 99, 235, 0.14);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.45;
+            pointer-events: none;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .page-status {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
 
         /* ── Responsive ── */
         @media (max-width: 640px) {
-            .page { padding: 32px 16px 60px; }
-            .topbar { padding: 0 20px; }
-            th, td { padding: 12px 14px; font-size: 13px; }
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            th,
+            td {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+
+            .pagination-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<!-- Top nav -->
-<nav class="topbar">
-    <a href="/" class="topbar-logo">
-        <div class="topbar-logo-mark">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <!-- Top nav -->
+    <nav class="topbar">
+        <a href="/" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Users Module</div>
+    </nav>
+
+    <div class="page">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <a href="/member/users">Users</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">All Users</span>
         </div>
-        SocialPlatform
-    </a>
-    <div class="topbar-right">Users Module</div>
-</nav>
 
-<div class="page">
+        <!-- Title -->
+        <div class="page-title-wrap">
+            <div class="page-label">Users Module</div>
+            <div class="page-title">User Data</div>
+            <div class="page-subtitle">Displaying all retrieved user records</div>
+        </div>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="/">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <a href="/member/users">Users</a>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">All Users</span>
-    </div>
+        <!-- Section divider -->
+        <div class="section-header">
+            <div class="section-line"></div>
+            <span class="section-label">Results</span>
+            <div class="section-line"></div>
+        </div>
 
-    <!-- Title -->
-    <div class="page-title-wrap">
-        <div class="page-label">Users Module</div>
-        <div class="page-title">User Data</div>
-        <div class="page-subtitle">Displaying all retrieved user records</div>
-    </div>
+        <!-- Table -->
+        <div class="table-wrap">
+            <div class="table-card">
+                <div class="table-top"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${data}">
+                            <td><span th:text="${user.userID}"></span></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.email}"></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
+                            <td colspan="3">No users found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <!-- Section divider -->
-    <div class="section-header">
-        <div class="section-line"></div>
-        <span class="section-label">Results</span>
-        <div class="section-line"></div>
-    </div>
-
-    <!-- Table -->
-    <div class="table-wrap">
-        <div class="table-card">
-            <div class="table-top"></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="user : ${data}">
-                        <td><span th:text="${user.userID}"></span></td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.email}"></td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(data)}" class="empty-row">
-                        <td colspan="3">No users found.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="pagination-bar">
+                <div th:text="|Showing ${#lists.size(data)} of ${totalItems} users|">Showing 0 of 0 users</div>
+                <div class="pagination-controls">
+                    <a class="page-btn" th:classappend="${!hasPrevious} ? ' disabled'" th:href="${previousPageUrl}"
+                        th:attr="aria-disabled=${!hasPrevious}">Previous</a>
+                    <span class="page-status" th:text="|Page ${currentPage + 1} of ${totalPages}|">Page 1 of 1</span>
+                    <a class="page-btn" th:classappend="${!hasNext} ? ' disabled'" th:href="${nextPageUrl}"
+                        th:attr="aria-disabled=${!hasNext}">Next</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script th:src='@{/js/table-enhancements.js}'></script>
+    <script th:src='@{/js/table-enhancements.js}'></script>
 </body>
+
 </html>

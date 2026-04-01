@@ -3,6 +3,7 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Group;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.GroupClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/groups")
@@ -27,30 +29,59 @@ public class GroupController {
     }
 
     @GetMapping("/all")
-    public String getAllGroups(Model model) {
-        model.addAttribute("data", service.getAllGroups());
-        return "groups/result";
+    public String getAllGroups(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllGroups(),
+                page,
+                size,
+                "/member/groups/all",
+                "groups/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
-    public String getGroupById(@RequestParam int id, Model model) {
+    public String getGroupById(
+            @RequestParam int id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         Group group = service.getGroupById(id);
         if (group == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found with ID: " + id);
         }
-        model.addAttribute("data", java.util.Collections.singletonList(group));
-        return "groups/result";
+        return PaginationUtils.renderPaginatedResult(
+                List.of(group),
+                page,
+                size,
+                "/member/groups/by-id",
+                "groups/result",
+                model,
+                Map.of("id", id));
     }
 
     @GetMapping("/by-name")
-    public String getGroupByName(@RequestParam String groupName, Model model) {
+    public String getGroupByName(
+            @RequestParam String groupName,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         List<Group> groups = service.getGroupByName(groupName);
         if (groups == null || groups.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No groups found with name: " + groupName);
         }
-        model.addAttribute("data", groups);
-        return "groups/result";
+        return PaginationUtils.renderPaginatedResult(
+                groups,
+                page,
+                size,
+                "/member/groups/by-name",
+                "groups/result",
+                model,
+                Map.of("groupName", groupName));
     }
 
     @GetMapping("/by-id-form")
@@ -102,8 +133,18 @@ public class GroupController {
     }
 
     @GetMapping("/by-admin")
-    public String getGroupsByAdmin(@RequestParam int adminId, Model model) {
-        model.addAttribute("data", service.getGroupsByAdmin(adminId));
-        return "groups/result";
+    public String getGroupsByAdmin(
+            @RequestParam int adminId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getGroupsByAdmin(adminId),
+                page,
+                size,
+                "/member/groups/by-admin",
+                "groups/result",
+                model,
+                Map.of("adminId", adminId));
     }
 }

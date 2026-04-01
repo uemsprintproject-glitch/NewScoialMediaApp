@@ -3,8 +3,10 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Message;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.MessageClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.http.HttpStatus;
@@ -28,21 +30,38 @@ public class MessageController {
     }
 
     @GetMapping("/all")
-    public String getAllMessages(Model model) {
-        model.addAttribute("data", service.getAllMessages());
-        return "messages/result";
+    public String getAllMessages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllMessages(),
+                page,
+                size,
+                "/member/messages/all",
+                "messages/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
-    public String getMessageById(@RequestParam int id, Model model) {
+    public String getMessageById(
+            @RequestParam int id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
         Message message = service.getMessageById(id);
         if (message == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found with ID: " + id);
         }
-
-        model.addAttribute("data", List.of(message));
-
-        return "messages/result";
+        return PaginationUtils.renderPaginatedResult(
+                List.of(message),
+                page,
+                size,
+                "/member/messages/by-id",
+                "messages/result",
+                model,
+                Map.of("id", id));
     }
 
     @GetMapping("/by-id-form")
@@ -106,22 +125,50 @@ public class MessageController {
     }
 
     @GetMapping("/sender")
-    public String getMessagesBySender(@RequestParam int senderId, Model model) {
-        model.addAttribute("data", service.getMessagesBySender(senderId));
-        return "messages/result";
+    public String getMessagesBySender(
+            @RequestParam int senderId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getMessagesBySender(senderId),
+                page,
+                size,
+                "/member/messages/sender",
+                "messages/result",
+                model,
+                Map.of("senderId", senderId));
     }
 
     @GetMapping("/receiver")
-    public String getMessagesByReceiver(@RequestParam int receiverId, Model model) {
-        model.addAttribute("data", service.getMessagesByReceiver(receiverId));
-        return "messages/result";
+    public String getMessagesByReceiver(
+            @RequestParam int receiverId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getMessagesByReceiver(receiverId),
+                page,
+                size,
+                "/member/messages/receiver",
+                "messages/result",
+                model,
+                Map.of("receiverId", receiverId));
     }
 
     @GetMapping("/conversation")
     public String getConversation(@RequestParam int user1,
             @RequestParam int user2,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
-        model.addAttribute("data", service.getConversation(user1, user2));
-        return "messages/result";
+        return PaginationUtils.renderPaginatedResult(
+                service.getConversation(user1, user2),
+                page,
+                size,
+                "/member/messages/conversation",
+                "messages/result",
+                model,
+                Map.of("user1", user1, "user2", user2));
     }
 }

@@ -2,6 +2,7 @@ package com.socialmedia.social_media_frontend.controller;
 
 import com.socialmedia.social_media_frontend.model.Friend;
 import com.socialmedia.social_media_frontend.service.FriendClientService;
+import com.socialmedia.social_media_frontend.util.PaginationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member/friends")
@@ -27,9 +30,18 @@ public class FriendController {
     }
 
     @GetMapping("/all")
-    public String getAllFriends(Model model) {
-        model.addAttribute("data", service.getAllFriends());
-        return "friends/result";
+    public String getAllFriends(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getAllFriends(),
+                page,
+                size,
+                "/member/friends/all",
+                "friends/result",
+                model,
+                Map.of());
     }
 
     @GetMapping("/by-id")
@@ -43,15 +55,35 @@ public class FriendController {
     }
 
     @GetMapping("/requests/pending")
-    public String getPendingRequests(@RequestParam Integer userId, Model model) {
-        model.addAttribute("data", service.getPendingRequests(userId));
-        return "friends/result";
+    public String getPendingRequests(
+            @RequestParam Integer userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getPendingRequests(userId),
+                page,
+                size,
+                "/member/friends/requests/pending",
+                "friends/result",
+                model,
+                Map.of("userId", userId));
     }
 
     @GetMapping("/requests/sent")
-    public String getSentRequests(@RequestParam Integer userId, Model model) {
-        model.addAttribute("data", service.getSentRequests(userId));
-        return "friends/result";
+    public String getSentRequests(
+            @RequestParam Integer userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        return PaginationUtils.renderPaginatedResult(
+                service.getSentRequests(userId),
+                page,
+                size,
+                "/member/friends/requests/sent",
+                "friends/result",
+                model,
+                Map.of("userId", userId));
     }
 
     @GetMapping("/check")
