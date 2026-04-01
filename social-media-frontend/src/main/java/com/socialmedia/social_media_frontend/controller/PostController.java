@@ -3,9 +3,11 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.Post;
 import com.socialmedia.social_media_frontend.service.PostClientService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/member/posts")
@@ -30,7 +32,11 @@ public class PostController {
 
     @GetMapping("/by-id")
     public String getPostById(@RequestParam("postId") int postId, Model model) {
-        model.addAttribute("post", service.getPostById(postId));
+        Post post = service.getPostById(postId);
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found with ID: " + postId);
+        }
+        model.addAttribute("post", post);
         return "posts/post";
     }
 
@@ -91,4 +97,5 @@ public class PostController {
 
         return "posts/result";
     }
+
 }

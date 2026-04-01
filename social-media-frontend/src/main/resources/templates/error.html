@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+            --danger: #b91c1c;
+            --danger-soft: #fee2e2;
+            --border: #e2e8f0;
+            --accent: #2563eb;
+            --shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #dbeafe 0%, rgba(219, 234, 254, 0) 45%), var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: min(760px, 100%);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .card-top {
+            height: 8px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 100%);
+        }
+
+        .content {
+            padding: 28px;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--danger-soft);
+            color: var(--danger);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: clamp(24px, 4vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            color: var(--muted);
+            font-size: 17px;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+
+        .meta-label {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            color: #1e293b;
+            font-size: 14px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: transform 0.18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #0f172a;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 640px) {
+            .content {
+                padding: 22px;
+            }
+
+            .meta {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-top"></div>
+        <div class="content">
+            <div class="label">Request Failed</div>
+            <h1>Something went wrong</h1>
+            <p class="message" th:text="${errorMessage}">Resource not found</p>
+
+            <div class="meta">
+                <div class="meta-label">Status</div>
+                <div class="meta-value" th:text="${status}">404</div>
+
+                <div class="meta-label">Path</div>
+                <div class="meta-value" th:text="${path}">/users/by-id</div>
+            </div>
+
+            <div class="actions">
+                <a class="btn btn-primary" th:href="@{/}">Back to Home</a>
+                <a class="btn btn-secondary" href="javascript:history.back()">Go Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 package com.socialmedia.social_media_backend.service;
 
 import com.socialmedia.social_media_backend.model.User;
+import com.socialmedia.social_media_backend.exception.ResourceNotFoundException;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
@@ -16,52 +17,47 @@ public class UserService {
         this.repo = repo;
     }
 
-    
     public List<User> getAllUsers() {
         return repo.findAll();
     }
 
-    
     public User getUserById(int id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-
 
     public User createUser(User user) {
         return repo.save(user);
     }
 
-    
     public User updateUser(User updatedUser) {
         User existingUser = repo.findById(updatedUser.getUserID())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         existingUser.setUsername(updatedUser.getUsername());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPassword(updatedUser.getPassword());
         existingUser.setProfilePicture(updatedUser.getProfilePicture());
 
-        return repo.save(existingUser); 
+        return repo.save(existingUser);
     }
-
 
     public void deleteUser(int id) {
         repo.deleteById(id);
     }
 
-    public List<User> getUserByUsername(String username){
+    public List<User> getUserByUsername(String username) {
         return repo.findByUsername(username);
     }
 
-    public User getUserByEmail(String email){
+    public User getUserByEmail(String email) {
         return repo.findByEmail(email);
     }
 
-    public User getUserByPostId(int id){
+    public User getUserByPostId(int id) {
         return repo.findByPostsPostID(id);
     }
 
-    public User getUserByComment(Integer id){
+    public User getUserByComment(Integer id) {
         return repo.findByCommentsCommentID(id);
     }
 }

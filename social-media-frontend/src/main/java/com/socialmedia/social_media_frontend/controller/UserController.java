@@ -3,9 +3,13 @@ package com.socialmedia.social_media_frontend.controller;
 import com.socialmedia.social_media_frontend.model.User;
 import com.socialmedia.social_media_frontend.service.UserClientService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/member/users")
@@ -30,7 +34,11 @@ public class UserController {
 
     @GetMapping("/by-id")
     public String getUserById(@RequestParam int id, Model model) {
-        model.addAttribute("user", service.getUserById(id));
+        User user = service.getUserById(id);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with ID: " + id);
+        }
+        model.addAttribute("user", user);
         return "users/user-by-id";
     }
 
@@ -51,63 +59,79 @@ public class UserController {
         service.deleteUser(id);
         return "redirect:/member/users";
     }
-    
+
     @GetMapping("/username")
-    public String getUserByUsername(@RequestParam String username, Model model){
-        model.addAttribute("data", service.getUserByUsername(username));
+    public String getUserByUsername(@RequestParam String username, Model model) {
+        List<User> users = service.getUserByUsername(username);
+        if (users == null || users.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with username: " + username);
+        }
+        model.addAttribute("data", users);
         return "users/get-by-username";
     }
 
     @GetMapping("/email")
-    public String getUserByEmail(@RequestParam String email, Model model){
-        model.addAttribute("user", service.getUserByEmail(email));
+    public String getUserByEmail(@RequestParam String email, Model model) {
+        User user = service.getUserByEmail(email);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with email: " + email);
+        }
+        model.addAttribute("user", user);
         return "/users/get-by";
     }
 
     @GetMapping("/posts")
-    public String getUserByPost(@RequestParam int id, Model model){
-        model.addAttribute("user", service.getUserByPost(id));
+    public String getUserByPost(@RequestParam int id, Model model) {
+        User user = service.getUserByPost(id);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for post ID: " + id);
+        }
+        model.addAttribute("user", user);
         return "/users/get-by";
     }
 
     @GetMapping("/comment")
-    public String getUserByComment(@RequestParam Integer id, Model model){
-        model.addAttribute("user", service.getUserByComment(id));
+    public String getUserByComment(@RequestParam Integer id, Model model) {
+        User user = service.getUserByComment(id);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for comment ID: " + id);
+        }
+        model.addAttribute("user", user);
         return "/users/get-by";
     }
 
     @GetMapping("/by-id-form")
-        public String getByIdForm() {
+    public String getByIdForm() {
         return "users/get-by-id";
     }
 
     @GetMapping("/username-form")
-        public String getByUsernameForm() {
+    public String getByUsernameForm() {
         return "users/get-by-user_name";
     }
 
     @GetMapping("/email-form")
-        public String getByEmailForm() {
+    public String getByEmailForm() {
         return "users/get-by-email";
     }
 
     @GetMapping("/posts-form")
-        public String getPostsForm() {
+    public String getPostsForm() {
         return "users/get-by-post";
     }
 
     @GetMapping("/comments-form")
-        public String getCommentsForm() {
+    public String getCommentsForm() {
         return "users/get-by-comment";
     }
 
     @GetMapping("/create-form")
-        public String createForm() {
+    public String createForm() {
         return "users/create-user";
     }
 
     @GetMapping("/update-form")
-        public String updateForm() {
+    public String updateForm() {
         return "users/update-user";
     }
 }
