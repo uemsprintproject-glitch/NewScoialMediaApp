@@ -2,6 +2,7 @@ package com.socialmedia.social_media_backend.controller;
 import com.socialmedia.social_media_backend.model.User;
 import com.socialmedia.social_media_backend.service.UserService;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,19 +29,19 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
+    public User createUser(@Valid @RequestBody User user) {
         return service.createUser(user);
     }
 
     @PostMapping("/update")
-    public User updateUser(@RequestBody User user) {
+    public User updateUser(@Valid @RequestBody User user) {
         return service.updateUser(user);
     }
 
-    @PostMapping("/delete")
-    public void deleteUser(@RequestParam int id) {
-        service.deleteUser(id);
-    }
+    // @PostMapping("/delete")
+    // public void deleteUser(@RequestParam int id) {
+    //     service.deleteUser(id);
+    // }
     
     @GetMapping("/username")
     public List<User> getUserByUsername(@RequestParam String username){

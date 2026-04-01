@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,10 @@ public class User {
     private Integer userID;
 
     private String username;
+
+    @Email(message = "Invalid email format")
     private String email;
+
     private String password;
 
     @Column(nullable = true)

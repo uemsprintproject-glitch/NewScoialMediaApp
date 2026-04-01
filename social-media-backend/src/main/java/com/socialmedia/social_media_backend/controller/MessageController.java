@@ -39,7 +39,6 @@ public class MessageController {
         return messageService.getMessageByIdSafe(id);
     }
 
-    // ✅ correct endpoint
     @PostMapping("/create")
     public Message sendMessage(@RequestBody Message message) {
 
@@ -50,13 +49,11 @@ public class MessageController {
         return messageService.sendMessage(message);
     }
 
-    // ✅ PUT instead of POST
     @PutMapping("/update")
     public Message updateMessage(@RequestBody Message message) {
         return messageService.updateMessage(message);
     }
 
-    // ✅ DELETE instead of POST
     @DeleteMapping("/delete")
     public String deleteMessage(@RequestParam Integer id) {
         messageService.deleteMessageSafe(id);

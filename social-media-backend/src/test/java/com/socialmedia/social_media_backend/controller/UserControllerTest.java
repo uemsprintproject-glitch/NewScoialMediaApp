@@ -1,17 +1,20 @@
 package com.socialmedia.social_media_backend.controller;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.socialmedia.social_media_backend.model.Comment;
 import com.socialmedia.social_media_backend.model.Post;
 import com.socialmedia.social_media_backend.model.User;
+import com.socialmedia.social_media_backend.exception.GlobalExceptionHandler;
 import com.socialmedia.social_media_backend.service.UserService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -29,7 +32,9 @@ public class UserControllerTest {
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new GlobalExceptionHandler())
+                .build();
     }
 
     @Test
@@ -72,5 +77,20 @@ public class UserControllerTest {
         user.setComments(List.of(comment));
         when(service.getUserByComment(100001)).thenReturn(user);
         mockMvc.perform(get("/member/users/comment?id=100001")).andExpect(status().isOk());
+    }
+
+    @Test
+    public void testCreateUserInvalidEmail() throws Exception {
+        mockMvc.perform(post("/member/users/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "username": "Anishka",
+                                  "email": "invalid-email",
+                                  "password": "123"
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Invalid email format"));
     }
 }

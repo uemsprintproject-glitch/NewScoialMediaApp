@@ -77,7 +77,6 @@ The current backend does not implement explicit authentication or role-based acc
 - MySQL database
 - Swagger/OpenAPI UI dependency present
 - Maven build system
-- H2 database available for tests
 
 ### 2.5 Design and Implementation Constraints
 
