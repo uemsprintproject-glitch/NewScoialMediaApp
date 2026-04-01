@@ -40,12 +40,10 @@ public class MessageService {
 
             Message existingMessage = optionalMessage.get();
 
-            // ✅ update message text safely
             if (updatedMessage.getMessage_text() != null) {
                 existingMessage.setMessage_text(updatedMessage.getMessage_text());
             }
 
-            // ✅ ONLY update sender if valid ID exists
             if (updatedMessage.getSender() != null &&
                     updatedMessage.getSender().getUserID() != null) {
 
@@ -56,8 +54,6 @@ public class MessageService {
                     existingMessage.setSender(sender);
                 }
             }
-
-            // ✅ ONLY update receiver if valid ID exists
             if (updatedMessage.getReceiver() != null &&
                     updatedMessage.getReceiver().getUserID() != null) {
 
