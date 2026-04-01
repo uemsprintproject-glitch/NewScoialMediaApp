@@ -42,6 +42,7 @@ public class CommentController {
 
     @PostMapping("/update")
     public Comment updateComment(@RequestBody Comment comment) {
+
         return service.updateComment(comment);
     }
 

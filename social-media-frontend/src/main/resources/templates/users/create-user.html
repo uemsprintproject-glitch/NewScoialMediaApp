@@ -299,17 +299,18 @@
             <span class="breadcrumb-current">Create User</span>
         </div>
 
-        <div class="page-label">POST Endpoint</div>
+        <div class="page-label">PUT Endpoint</div>
         <div class="page-title">Create User</div>
         <div class="page-subtitle">Create a new user account</div>
 
         <div class="card">
             <div class="card-head">
-                <span class="method-badge">POST</span>
+                <span class="method-badge">PUT</span>
                 <div class="card-title">/member/users/create</div>
             </div>
 
             <form th:action="@{/member/users/create}" method="post">
+                <input type="hidden" name="_method" value="put">
                 <div class="form-grid">
                     <label>
                         Username
