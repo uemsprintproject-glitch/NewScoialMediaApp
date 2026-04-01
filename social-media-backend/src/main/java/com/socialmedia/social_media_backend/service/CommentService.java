@@ -2,6 +2,7 @@ package com.socialmedia.social_media_backend.service;
 
 import org.springframework.data.domain.Sort;
 
+
 import com.socialmedia.social_media_backend.exception.ResourceNotFoundException;
 import com.socialmedia.social_media_backend.model.Comment;
 import com.socialmedia.social_media_backend.model.Post;
@@ -78,6 +79,7 @@ public class CommentService {
     public Comment updateComment(Comment updatedComment) {
         Comment existingComment = commentRepository.findById(updatedComment.getCommentID())
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
+
 
         existingComment.setComment_text(updatedComment.getComment_text());
 
