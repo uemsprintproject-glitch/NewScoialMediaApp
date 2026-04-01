@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -71,6 +72,13 @@ public class UserController {
     }
 
     @GetMapping("/username")
+    public String getUserByUsername(@RequestParam String username, Model model) {
+        List<User> users = service.getUserByUsername(username);
+        if (users == null || users.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with username: " + username);
+        }
+        model.addAttribute("data", users);
+        return "users/get-by-username";
     public String getUserByUsername(
             @RequestParam String username,
             @RequestParam(defaultValue = "0") int page,

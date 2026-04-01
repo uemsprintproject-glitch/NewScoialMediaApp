@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Get User By Username</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -15,12 +19,11 @@
         :root {
             --bg: #f4f6fa;
             --surface: #ffffff;
-            --surface-alt: #f8f9fc;
+            --surface-input: #f4f6fa;
             --border: #e4e8f0;
             --border-input: #d8dde8;
             --accent: #2563eb;
             --accent-soft: rgba(37, 99, 235, 0.08);
-            --accent-mid: rgba(37, 99, 235, 0.18);
             --success: #059669;
             --success-soft: rgba(5, 150, 105, 0.08);
             --success-mid: rgba(5, 150, 105, 0.18);
@@ -28,30 +31,25 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --gradient-hero: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-            --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text-primary);
             min-height: 100vh;
         }
 
-        /* ── Top nav ── */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            padding: 0 40px;
             height: 60px;
+            padding: 0 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .topbar-logo {
@@ -59,18 +57,18 @@
             font-weight: 800;
             color: var(--text-primary);
             letter-spacing: -0.02em;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 9px;
-            text-decoration: none;
         }
 
         .topbar-logo-mark {
-            display: inline-flex;
             width: 30px;
             height: 30px;
-            background: var(--gradient-hero);
             border-radius: 8px;
+            background: var(--gradient-hero);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
         }
@@ -91,71 +89,57 @@
             font-weight: 500;
         }
 
-        /* ── Page ── */
         .page {
-            max-width: 520px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 48px 24px 80px;
+            padding: 48px 32px 80px;
         }
 
-        /* ── Breadcrumb ── */
         .breadcrumb {
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-bottom: 32px;
-            font-size: 13px;
+            margin-bottom: 28px;
             color: var(--text-muted);
+            font-size: 13px;
             font-weight: 500;
         }
 
         .breadcrumb a {
             color: var(--text-muted);
             text-decoration: none;
-            transition: color 0.2s;
         }
 
-        .breadcrumb a:hover { color: var(--accent); }
-        .breadcrumb-sep { color: var(--border); }
-        .breadcrumb-current { color: var(--text-secondary); }
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
 
-        /* ── Page title ── */
-        .page-title-wrap { margin-bottom: 28px; }
+        .breadcrumb-sep {
+            color: var(--border);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-secondary);
+        }
 
         .page-label {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: var(--success-soft);
-            color: var(--success);
-            border: 1px solid var(--success-mid);
             border-radius: 6px;
             padding: 3px 10px;
+            margin-bottom: 12px;
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .page-label::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.35; }
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid var(--success-mid);
         }
 
         .page-title {
             font-size: 24px;
             font-weight: 800;
-            color: var(--text-primary);
             letter-spacing: -0.03em;
             margin-bottom: 4px;
         }
@@ -163,97 +147,63 @@
         .page-subtitle {
             font-size: 14px;
             color: var(--text-muted);
-            font-weight: 400;
+            margin-bottom: 26px;
         }
 
-        /* ── Form card ── */
-        .form-card {
+        .card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            animation: fadeUp 0.4s ease both;
+            box-shadow: var(--shadow-sm);
+            padding: 26px;
         }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(14px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .card-bar {
-            height: 3px;
-            background: linear-gradient(90deg, #059669, #34d399);
-        }
-
-        .card-header {
+        .card-head {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 18px 24px 14px;
-            border-bottom: 1px solid var(--border);
-            background: var(--surface-alt);
+            margin-bottom: 18px;
         }
 
         .method-badge {
             font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.1em;
-            padding: 3px 9px;
-            border-radius: 5px;
             text-transform: uppercase;
+            border-radius: 5px;
+            padding: 3px 9px;
             background: var(--success-soft);
             color: var(--success);
             border: 1px solid var(--success-mid);
         }
 
         .card-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
-            color: var(--text-primary);
         }
 
-        .card-path {
-            margin-left: auto;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            font-family: 'Courier New', monospace;
-        }
-
-        /* ── Form body ── */
-        .card-body {
-            padding: 24px;
-        }
-
-        .field {
-            margin-bottom: 20px;
+        .form-grid {
+            display: grid;
+            gap: 12px;
         }
 
         label {
-            display: block;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-secondary);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
         }
 
         input {
             width: 100%;
-            background: var(--bg);
+            margin-top: 6px;
             border: 1px solid var(--border-input);
             border-radius: 8px;
-            padding: 11px 14px;
+            background: var(--surface-input);
+            padding: 11px 13px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
-            color: var(--text-primary);
+            font-size: 13px;
             outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
-
-        input::placeholder { color: var(--text-muted); }
 
         input:focus {
             border-color: var(--accent);
@@ -261,126 +211,107 @@
             background: var(--surface);
         }
 
-        .field-hint {
-            margin-top: 6px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ── Submit button ── */
-        .btn-submit {
-            width: 100%;
-            padding: 12px 18px;
-            background: var(--success-soft);
-            color: var(--success);
-            border: 1px solid var(--success-mid);
-            border-radius: 8px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
-            letter-spacing: 0.01em;
-        }
-
-        .btn-submit:hover {
-            background: rgba(5,150,105,0.14);
-            box-shadow: 0 2px 10px rgba(5,150,105,0.15);
-            transform: translateY(-1px);
-        }
-
-        .btn-submit:active { transform: translateY(0); }
-
-        /* ── Footer row ── */
-        .page-footer {
-            margin-top: 24px;
+        .actions {
+            margin-top: 16px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        button,
+        .btn-secondary {
+            border-radius: 8px;
+            padding: 10px 14px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--accent);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             text-decoration: none;
-            background: var(--accent-soft);
-            border: 1px solid var(--accent-mid);
-            border-radius: 8px;
-            padding: 7px 14px;
-            transition: background 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
 
-        .back-btn:hover {
-            background: rgba(37,99,235,0.14);
-            box-shadow: 0 2px 8px rgba(37,99,235,0.12);
+        button {
+            background: var(--success-soft);
+            color: var(--success);
+            border-color: var(--success-mid);
         }
 
-        .back-btn::before { content: '←'; }
+        .btn-secondary {
+            color: var(--text-secondary);
+            border-color: var(--border);
+            background: transparent;
+            display: inline-flex;
+            align-items: center;
+        }
 
-        @media (max-width: 560px) {
-            .page { padding: 32px 16px 60px; }
-            .topbar { padding: 0 20px; }
-            .card-path { display: none; }
+        @media (max-width: 600px) {
+            .page {
+                padding: 32px 16px 60px;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            button,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
+
 <body>
+    <nav class="topbar">
+        <a th:href="@{/}" class="topbar-logo">
+            <div class="topbar-logo-mark">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+            </div>
+            SocialPlatform
+        </a>
+        <div class="topbar-right">Users Module</div>
+    </nav>
 
-<!-- Top nav -->
-<nav class="topbar">
-    <a th:href="@{/}" class="topbar-logo">
-        <div class="topbar-logo-mark">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <div class="page">
+        <div class="breadcrumb">
+            <a th:href="@{/}">Home</a>
+            <span class="breadcrumb-sep">&rsaquo;</span>
+            <a th:href="@{/member/users}">Users</a>
+            <span class="breadcrumb-sep">&rsaquo;</span>
+            <span class="breadcrumb-current">Get By Post</span>
         </div>
-        SocialPlatform
-    </a>
-    <div class="topbar-right">Users Module</div>
-</nav>
 
-<div class="page">
-
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a th:href="@{/}">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <a th:href="@{/member/users}">Users</a>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Get By Username</span>
-    </div>
-
-    <!-- Title -->
-    <div class="page-title-wrap">
-        <div class="page-label">GET</div>
+        <div class="page-label">GET Endpoint</div>
         <div class="page-title">Get User By Username</div>
-        <div class="page-subtitle">Fetch a single user record by their Username</div>
-    </div>
+        <div class="page-subtitle">Find the user associated with an Username</div>
 
-    <!-- Form card -->
-    <div class="form-card">
-        <div class="card-bar"></div>
-        <div class="card-header">
-            <span class="method-badge">GET</span>
-            <span class="card-title">Fetch User</span>
-            <span class="card-path">/member/users/username</span>
-        </div>
-        <div class="card-body">
+        <div class="card">
+            <div class="card-head">
+                <span class="method-badge">GET</span>
+                <div class="card-title">/member/users/username</div>
+            </div>
+
             <form th:action="@{/member/users/username}" method="get">
-                <div class="field">
-                    <label for="username">Comment ID</label>
-                    <input id="username" name="username" placeholder="e.g. Adam" required>
-                    <div class="field-hint">Enter the Username of the user to retrieve.</div>
+                <div class="form-grid">
+                    <label>
+                        Username
+                        <input type="text" name="username" placeholder="Enter Username" required>
+                    </label>
                 </div>
-                <button type="submit" class="btn-submit">Fetch User →</button>
+                <div class="actions">
+                    <button type="submit">Fetch User</button>
+                    <a th:href="@{/member/users}" class="btn-secondary">Back to Endpoints</a>
+                </div>
             </form>
         </div>
     </div>
-</div>
-
 </body>
+
 </html>

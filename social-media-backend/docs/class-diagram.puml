@@ -1,0 +1,177 @@
+@startuml
+title Social Media Backend - Class Diagram
+
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+left to right direction
+
+package "controller" {
+  class UserController
+  class PostController
+  class CommentController
+  class LikeController
+  class FriendController
+  class MessageController
+  class NotificationController
+  class GroupController
+}
+
+package "service" {
+  class UserService
+  class PostService
+  class CommentService
+  class LikeService
+  class FriendService
+  class MessageService
+  class NotificationService
+  class GroupService
+}
+
+package "repository" {
+  interface UserRepository
+  interface PostRepository
+  interface CommentRepository
+  interface LikeRepository
+  interface FriendRepository
+  interface MessageRepository
+  interface NotificationRepository
+  interface GroupRepository
+}
+
+package "model" {
+  class User {
+    - userID: Integer
+    - username: String
+    - email: String
+    - password: String
+    - profilePicture: String
+    - posts: List<Post>
+    - comments: List<Comment>
+  }
+
+  class Post {
+    - postID: Integer
+    - content: String
+    - timestamp: Timestamp
+    - user: User
+    - comments: List<Comment>
+    - likes: List<Like>
+  }
+
+  class Comment {
+    - commentID: Integer
+    - comment_text: String
+    - timestamp: Timestamp
+    - post: Post
+    - user: User
+  }
+
+  class Like {
+    - likeID: Integer
+    - timestamp: Timestamp
+    - post: Post
+    - user: User
+  }
+
+  class Friend {
+    - friendshipID: Integer
+    - user1: User
+    - user2: User
+    - status: Status
+  }
+
+  enum Status {
+    pending
+    accepted
+  }
+
+  class Message {
+    - messageID: Integer
+    - message_text: String
+    - timestamp: Timestamp
+    - sender: User
+    - receiver: User
+  }
+
+  class Notification {
+    - notificationID: Integer
+    - content: String
+    - timestamp: Timestamp
+    - user: User
+  }
+
+  class Group {
+    - groupID: Integer
+    - groupName: String
+    - admin: User
+  }
+}
+
+package "exception" {
+  class GlobalExceptionHandler
+  class ResourceNotFoundException
+}
+
+class SocialMediaBackendApplication
+
+UserController --> UserService
+PostController --> PostService
+CommentController --> CommentService
+LikeController --> LikeService
+FriendController --> FriendService
+MessageController --> MessageService
+MessageController --> UserService
+NotificationController --> NotificationService
+GroupController --> GroupService
+GroupController --> GroupRepository
+GroupController --> UserService
+
+UserService --> UserRepository
+PostService --> PostRepository
+PostService --> UserRepository
+CommentService --> CommentRepository
+CommentService --> UserRepository
+CommentService --> PostRepository
+LikeService --> LikeRepository
+FriendService --> FriendRepository
+FriendService --> UserRepository
+MessageService --> MessageRepository
+MessageService --> UserService
+NotificationService --> NotificationRepository
+GroupService --> GroupRepository
+GroupService --> UserRepository
+
+UserRepository ..> User
+PostRepository ..> Post
+CommentRepository ..> Comment
+LikeRepository ..> Like
+FriendRepository ..> Friend
+MessageRepository ..> Message
+NotificationRepository ..> Notification
+GroupRepository ..> Group
+
+User "1" <-- "0..*" Post : author
+User "1" <-- "0..*" Comment : writes
+Post "1" <-- "0..*" Comment : has
+User "1" <-- "0..*" Like : gives
+Post "1" <-- "0..*" Like : receives
+User "1" <-- "0..*" Notification : receives
+User "1" <-- "0..*" Group : admin
+User "1" <-- "0..*" Message : sender
+User "1" <-- "0..*" Message : receiver
+User "1" <-- "0..*" Friend : user1
+User "1" <-- "0..*" Friend : user2
+
+Friend --> Status
+GlobalExceptionHandler ..> ResourceNotFoundException : handles
+ResourceNotFoundException --|> RuntimeException
+SocialMediaBackendApplication ..> UserController
+SocialMediaBackendApplication ..> PostController
+SocialMediaBackendApplication ..> CommentController
+SocialMediaBackendApplication ..> LikeController
+SocialMediaBackendApplication ..> FriendController
+SocialMediaBackendApplication ..> MessageController
+SocialMediaBackendApplication ..> NotificationController
+SocialMediaBackendApplication ..> GroupController
+
+@enduml
