@@ -22,7 +22,6 @@ import com.socialmedia.social_media_backend.model.User;
 
 @RestController
 @RequestMapping("/member/groups")
-@CrossOrigin(origins = "http://localhost:8080")
 public class GroupController {
 
     @Autowired
