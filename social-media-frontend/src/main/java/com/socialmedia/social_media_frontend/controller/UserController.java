@@ -79,19 +79,6 @@ public class UserController {
         }
         model.addAttribute("data", users);
         return "users/get-by-username";
-    public String getUserByUsername(
-            @RequestParam String username,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            Model model) {
-        return PaginationUtils.renderPaginatedResult(
-                service.getUserByUsername(username),
-                page,
-                size,
-                "/member/users/username",
-                "users/get-by-username",
-                model,
-                Map.of("username", username));
     }
 
     @GetMapping("/email")
