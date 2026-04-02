@@ -23,8 +23,7 @@ public class PostClientService {
     public List<Post> getPostsByUser(int userId) {
         Post[] posts = restTemplate.getForObject(
                 BASE_URL + "/by-user?userId=" + userId,
-                Post[].class
-        );
+                Post[].class);
         return Arrays.asList(posts);
     }
 
@@ -34,20 +33,18 @@ public class PostClientService {
                 null,
                 Post.class,
                 userId,
-                content
-        );
+                content);
     }
 
     public void deletePost(int postId) {
         restTemplate.postForObject(
                 BASE_URL + "/delete?postId=" + postId,
                 null,
-                Void.class
-        );
+                Void.class);
     }
 
     public void updatePost(Post post) {
-        restTemplate.postForObject(BASE_URL + "/update",post, Post.class);
+        restTemplate.put(BASE_URL + "/update", post);
     }
 
     public Post getPostById(int id) {
@@ -57,8 +54,7 @@ public class PostClientService {
     public List<Post> getSortedPosts(String dir) {
         Post[] posts = restTemplate.getForObject(
                 BASE_URL + "/sorted?dir=" + dir,
-                Post[].class
-        );
+                Post[].class);
         return Arrays.asList(posts);
     }
 }

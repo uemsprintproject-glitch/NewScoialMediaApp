@@ -39,7 +39,7 @@ public class LikeClientService {
     }
 
     public void updateLike(Like like) {
-        restTemplate.postForObject(BASE_URL + "/update", like, Like.class);
+        restTemplate.put(BASE_URL + "/update", like);
     }
 
     public void deleteLike(Integer id) {

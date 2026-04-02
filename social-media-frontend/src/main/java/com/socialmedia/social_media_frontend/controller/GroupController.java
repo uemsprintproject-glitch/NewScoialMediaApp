@@ -109,7 +109,7 @@ public class GroupController {
         return "groups/update-group";
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public String createGroup(@RequestParam String groupName, @RequestParam int adminID) {
         Group group = new Group();
         group.setGroupName(groupName);

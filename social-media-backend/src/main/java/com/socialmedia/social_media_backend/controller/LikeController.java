@@ -41,7 +41,7 @@ public class LikeController {
         return service.createLike(like);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Like update(@RequestBody Like like) {
         return service.updateLike(like);
     }

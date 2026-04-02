@@ -31,7 +31,7 @@ public class UserClientService {
     }
 
     public void updateUser(User user) {
-        restTemplate.postForObject(BASE_URL + "/update", user, User.class);
+        restTemplate.put(BASE_URL + "/update", user);
     }
 
     public void deleteUser(int id) {

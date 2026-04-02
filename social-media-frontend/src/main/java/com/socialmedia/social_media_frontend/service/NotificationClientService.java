@@ -35,7 +35,7 @@ public class NotificationClientService {
     }
 
     public void updateNotification(Notification notification) {
-        restTemplate.postForObject(BASE_URL + "/update", notification, Notification.class);
+        restTemplate.put(BASE_URL + "/update", notification);
     }
 
     public void deleteNotification(Integer id) {

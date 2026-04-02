@@ -306,18 +306,17 @@
             <span class="breadcrumb-current">Create Comment</span>
         </div>
 
-        <div class="page-label">PUT Endpoint</div>
+        <div class="page-label">POST Endpoint</div>
         <div class="page-title">Create Comment</div>
         <div class="page-subtitle">Create a new comment with user and post references</div>
 
         <div class="card">
             <div class="card-head">
-                <span class="method-badge">PUT</span>
+                <span class="method-badge">POST</span>
                 <div class="card-title">/member/comments/create</div>
             </div>
 
             <form th:action="@{/member/comments/create}" method="post">
-                <input type="hidden" name="_method" value="put">
                 <div class="form-grid">
                     <label>
                         User ID

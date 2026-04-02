@@ -29,7 +29,7 @@ public class CommentClientService {
     }
 
     public void updateComment(Comment comment) {
-        restTemplate.postForObject(BASE_URL + "/update", comment, Comment.class);
+        restTemplate.put(BASE_URL + "/update", comment);
     }
 
     public void deleteComment(int id) {
@@ -39,26 +39,22 @@ public class CommentClientService {
     public List<Comment> getCommentsByPost(int postId) {
         Comment[] comments = restTemplate.getForObject(
                 BASE_URL + "/by-post?postId=" + postId,
-                Comment[].class
-        );
+                Comment[].class);
         return Arrays.asList(comments);
     }
 
     public List<Comment> getCommentsByUser(int userId) {
         Comment[] comments = restTemplate.getForObject(
                 BASE_URL + "/by-user?userId=" + userId,
-                Comment[].class
-        );
+                Comment[].class);
         return Arrays.asList(comments);
     }
+
     public List<Comment> getSortedComments(String dir) {
         Comment[] comments = restTemplate.getForObject(
                 BASE_URL + "/sorted?dir=" + dir,
-                Comment[].class
-        );
+                Comment[].class);
         return Arrays.asList(comments);
     }
-
-
 
 }

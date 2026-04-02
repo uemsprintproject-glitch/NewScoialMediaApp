@@ -131,7 +131,7 @@ public class LikeController {
         return "likes/delete-like";
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public String createLike(@RequestParam Integer userID,
             @RequestParam Integer postID) {
         service.createLike(buildCreateLike(userID, postID));

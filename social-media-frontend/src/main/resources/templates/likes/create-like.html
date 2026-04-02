@@ -301,19 +301,18 @@
         </div>
 
         <div class="page-title-wrap">
-            <div class="page-label">PUT Endpoint</div>
+            <div class="page-label">POST Endpoint</div>
             <div class="page-title">Create Like</div>
             <div class="page-subtitle">Create a like relation between a user and a post</div>
         </div>
 
         <div class="card">
             <div class="card-head">
-                <span class="method-badge">PUT</span>
+                <span class="method-badge">POST</span>
                 <div class="card-title">/member/likes/create</div>
             </div>
 
             <form th:action="@{/member/likes/create}" method="post">
-                <input type="hidden" name="_method" value="put">
                 <div class="form-grid">
                     <label>
                         User ID

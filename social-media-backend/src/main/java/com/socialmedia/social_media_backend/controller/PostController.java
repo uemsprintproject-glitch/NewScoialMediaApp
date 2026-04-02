@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/member/posts")
-@CrossOrigin(origins = "http://localhost:8080")
 public class PostController {
     private final PostService service;
 
@@ -23,7 +22,7 @@ public class PostController {
     }
 
     @GetMapping("/by-id")
-    public Post getPostById(@RequestParam("postId") int postId){
+    public Post getPostById(@RequestParam("postId") int postId) {
         return service.getPostById(postId);
     }
 
@@ -34,12 +33,12 @@ public class PostController {
 
     @PostMapping("/create")
     public Post createPost(@RequestParam Integer userId,
-                           @RequestParam String content) {
+            @RequestParam String content) {
         return service.createPost(userId, content);
     }
 
-    @PostMapping("/update")
-    public Post updatePost(@RequestBody Post post){
+    @PutMapping("/update")
+    public Post updatePost(@RequestBody Post post) {
         return service.updatePost(post);
     }
 
