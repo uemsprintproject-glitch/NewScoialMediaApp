@@ -10,6 +10,8 @@ import com.socialmedia.social_media_backend.repository.CommentRepository;
 import com.socialmedia.social_media_backend.repository.PostRepository;
 import com.socialmedia.social_media_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

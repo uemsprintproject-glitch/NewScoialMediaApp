@@ -45,7 +45,7 @@ public class CommentController {
                 Map.of());
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     public String createComment(
             @RequestParam int userId,
             @RequestParam int postId,

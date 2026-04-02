@@ -53,7 +53,7 @@ public class UserController {
         return "users/user-by-id";
     }
 
-    @PostMapping("/create")
+    @PutMapping("/create")
     public String createUser(@ModelAttribute User user) {
         service.createUser(user);
         return "redirect:/member/users";
