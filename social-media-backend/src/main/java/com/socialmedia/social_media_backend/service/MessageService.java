@@ -54,7 +54,6 @@ public class MessageService {
                     existingMessage.setSender(sender);
                 }
             }
-
             if (updatedMessage.getReceiver() != null &&
                     updatedMessage.getReceiver().getUserID() != null) {
 
