@@ -42,7 +42,7 @@ class PostControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setControllerAdvice(new GlobalExceptionHandler()) // ← wired in
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
         objectMapper = new ObjectMapper();
 
@@ -84,13 +84,13 @@ class PostControllerTest {
 
     @Test
     void testGetPostById_notFound() throws Exception {
-        // ← ResourceNotFoundException instead of RuntimeException
+
         when(service.getPostById(999))
                 .thenThrow(new ResourceNotFoundException("Post not found with id: 999"));
 
         mockMvc.perform(get("/member/posts/by-id").param("postId", "999"))
-                .andExpect(status().isNotFound())                          // ← clean 404, not 500
-                .andExpect(jsonPath("$.status").value(404))                // ← asserts response body
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.message").value("Post not found with id: 999"));
     }
 
@@ -106,7 +106,7 @@ class PostControllerTest {
 
     @Test
     void testGetPostsByUser_notFound() throws Exception {
-        // ← new negative test for user not found
+
         when(service.getPostsByUser(999))
                 .thenThrow(new ResourceNotFoundException("User not found with id: 999"));
 
@@ -130,7 +130,7 @@ class PostControllerTest {
 
     @Test
     void testCreatePost_userNotFound() throws Exception {
-        // ← new negative test for create when user doesn't exist
+
         when(service.createPost(eq(999), any()))
                 .thenThrow(new ResourceNotFoundException("User not found with id: 999"));
 
@@ -161,7 +161,7 @@ class PostControllerTest {
 
     @Test
     void testUpdatePost_notFound() throws Exception {
-        // ← new negative test for update when post doesn't exist
+
         Post missingPost = Post.builder()
                 .postID(999)
                 .content("Doesn't matter")

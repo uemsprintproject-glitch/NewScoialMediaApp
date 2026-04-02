@@ -72,7 +72,9 @@ public class CommentService {
     }
 
     public List<Comment> getCommentByUser(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
         return commentRepository.findByUser(user);
     }
 

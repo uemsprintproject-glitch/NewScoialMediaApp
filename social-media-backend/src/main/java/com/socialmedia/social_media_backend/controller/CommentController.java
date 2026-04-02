@@ -18,16 +18,19 @@ public class CommentController {
 
     @GetMapping("/all")
     public List<Comment> getAllComments() {
+
         return service.getAllComments();
     }
 
     @GetMapping("/by-id")
     public Comment getCommentById(@RequestParam int id) {
+
         return service.getCommentById(id);
     }
 
     @GetMapping("/by-user")
     public List<Comment> getCommentsByUser(@RequestParam Integer userId) {
+
         return service.getCommentByUser(userId);
     }
 
