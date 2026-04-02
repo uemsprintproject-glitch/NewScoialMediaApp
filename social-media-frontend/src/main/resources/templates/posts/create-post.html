@@ -356,7 +356,7 @@
         </div>
 
         <div class="page-title-wrap">
-            <div class="page-label">PUT</div>
+            <div class="page-label">POST</div>
             <div class="page-title">Create Post</div>
             <div class="page-subtitle">Create a new post for a specific user</div>
         </div>
@@ -364,13 +364,12 @@
         <div class="form-card">
             <div class="card-bar"></div>
             <div class="card-header">
-                <span class="method-badge">PUT</span>
+                <span class="method-badge">POST</span>
                 <span class="card-title">Create Record</span>
                 <span class="card-path">/member/posts/create</span>
             </div>
             <div class="card-body">
                 <form th:action="@{/member/posts/create}" method="post">
-                    <input type="hidden" name="_method" value="put">
                     <div class="field">
                         <label for="userId">User ID</label>
                         <input id="userId" name="userId" placeholder="e.g. 1042" required>

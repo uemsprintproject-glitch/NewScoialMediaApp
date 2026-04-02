@@ -36,7 +36,7 @@ public class NotificationController {
         return service.createNotification(notification);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Notification update(@RequestBody Notification notification) {
         return service.updateNotification(notification);
     }

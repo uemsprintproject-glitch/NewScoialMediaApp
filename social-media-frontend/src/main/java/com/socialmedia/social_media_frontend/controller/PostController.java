@@ -93,7 +93,7 @@ public class PostController {
         return "posts/delete-post";
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public String createPost(@RequestParam int userId,
             @RequestParam String content) {
         service.createPost(userId, content);

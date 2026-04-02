@@ -355,13 +355,12 @@
             <div class="panel-top"></div>
             <div class="panel-body">
                 <div class="panel-title">
-                    <span class="method-badge">PUT</span>
+                    <span class="method-badge">POST</span>
                     <h2>Create Group Endpoint</h2>
                 </div>
                 <div class="panel-sep"></div>
 
                 <form th:action="@{/member/groups/create}" method="post">
-                    <input type="hidden" name="_method" value="put">
                     <input name="groupName" placeholder="Group Name" required>
                     <input name="admin.userID" placeholder="Admin User ID" required>
                     <button type="submit" class="btn-post">Create Group</button>

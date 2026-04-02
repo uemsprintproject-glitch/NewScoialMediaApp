@@ -40,7 +40,7 @@ public class CommentController {
                 comment.getComment_text());
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Comment updateComment(@RequestBody Comment comment) {
 
         return service.updateComment(comment);
@@ -55,6 +55,5 @@ public class CommentController {
     public List<Comment> getCommentsByPost(@RequestParam int postId) {
         return service.getCommentsByPost(postId);
     }
-
 
 }

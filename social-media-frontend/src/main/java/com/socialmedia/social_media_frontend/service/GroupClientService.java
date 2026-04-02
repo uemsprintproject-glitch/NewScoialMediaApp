@@ -2,7 +2,6 @@ package com.socialmedia.social_media_frontend.service;
 
 import java.util.*;
 
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,7 +32,7 @@ public class GroupClientService {
     }
 
     public void updateGroup(Group group) {
-        restTemplate.postForObject(BASE_URL + "/update", group, Group.class);
+        restTemplate.put(BASE_URL + "/update", group);
     }
 
     public List<Group> getGroupsByAdmin(int adminId) {

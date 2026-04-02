@@ -301,19 +301,18 @@
         </div>
 
         <div class="page-title-wrap">
-            <div class="page-label">PUT Endpoint</div>
+            <div class="page-label">POST Endpoint</div>
             <div class="page-title">Create Group</div>
             <div class="page-subtitle">Create a new group and assign an admin</div>
         </div>
 
         <div class="card">
             <div class="card-head">
-                <span class="method-badge">PUT</span>
+                <span class="method-badge">POST</span>
                 <div class="card-title">/member/groups/create</div>
             </div>
 
             <form th:action="@{/member/groups/create}" method="post">
-                <input type="hidden" name="_method" value="put">
                 <div class="form-grid">
                     <label>
                         Group Name

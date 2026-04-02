@@ -24,18 +24,16 @@ import com.socialmedia.social_media_backend.model.User;
 @RequestMapping("/member/groups")
 @CrossOrigin(origins = "http://localhost:8080")
 public class GroupController {
-	
-	@Autowired
+
+    @Autowired
     GroupService service;
-	
-	@Autowired
+
+    @Autowired
     GroupRepository groupRepo;
-	
-	@Autowired
-	UserService userService;
-    
-	
-	
+
+    @Autowired
+    UserService userService;
+
     @GetMapping("/all")
     public List<Group> getAllGroups() {
         return service.getAllGroups();
@@ -61,27 +59,23 @@ public class GroupController {
         service.createGroup(group);
         return "Created";
     }
-    
-    @PostMapping("/update")
+
+    @PutMapping("/update")
     public Group updateGroup(@RequestBody Group group) {
-    	User user = userService.getUserById(group.getAdmin().getUserID());
-    	System.out.println(group);
-    	group.setAdmin(user);
-    	System.out.println(group.getGroupID());
+        User user = userService.getUserById(group.getAdmin().getUserID());
+        System.out.println(group);
+        group.setAdmin(user);
+        System.out.println(group.getGroupID());
         return service.updateGroup(group);
     }
 
-//    @DeleteMapping("/delete/{id}")
-//    public String deleteGroup(@PathVariable int id) {
-//    	if (!groupRepo.existsById(id)) {
-//			return "Group not found";
-//		}
-//        service.deleteGroup(id);
-//        return "Group deleted successfully";
-//    }
+    // @DeleteMapping("/delete/{id}")
+    // public String deleteGroup(@PathVariable int id) {
+    // if (!groupRepo.existsById(id)) {
+    // return "Group not found";
+    // }
+    // service.deleteGroup(id);
+    // return "Group deleted successfully";
+    // }
 
-   
-
-    
-   
 }
